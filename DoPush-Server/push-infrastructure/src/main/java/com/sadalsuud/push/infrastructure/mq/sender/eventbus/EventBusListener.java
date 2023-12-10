@@ -1,4 +1,4 @@
-package com.sadalsuud.push.infrastructure.mq.eventbus;
+package com.sadalsuud.push.infrastructure.mq.sender.eventbus;
 
 import com.sadalsuud.push.common.domain.RecallTaskInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;

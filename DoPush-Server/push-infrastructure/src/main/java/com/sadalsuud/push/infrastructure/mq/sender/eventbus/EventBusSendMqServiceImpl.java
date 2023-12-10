@@ -1,4 +1,4 @@
-package com.sadalsuud.push.infrastructure.mq.eventbus;
+package com.sadalsuud.push.infrastructure.mq.sender.eventbus;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.eventbus.EventBus;
