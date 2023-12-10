@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.pipeline.action.send;
+package com.sadalsuud.push.domain.pipeline.api.action.send;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.text.CharSequenceUtil;

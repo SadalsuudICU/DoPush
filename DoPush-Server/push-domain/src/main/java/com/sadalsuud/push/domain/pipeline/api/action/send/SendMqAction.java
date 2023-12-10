@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.pipeline.action.send;
+package com.sadalsuud.push.domain.pipeline.api.action.send;
 
 import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSON;
@@ -36,13 +36,13 @@ public class SendMqAction implements BusinessProcess<SendTaskModel> {
     @Autowired
     private SendMqService sendMqService;
 
-    @Value("${austin.business.topic.name}")
+    @Value("${dopush.business.topic.name}")
     private String sendMessageTopic;
 
-    @Value("${austin.business.tagId.value}")
+    @Value("${dopush.business.tagId.value}")
     private String tagId;
 
-    @Value("${austin.mq.pipeline}")
+    @Value("${dopush.mq.pipeline}")
     private String mqPipeline;
 
     @Override
