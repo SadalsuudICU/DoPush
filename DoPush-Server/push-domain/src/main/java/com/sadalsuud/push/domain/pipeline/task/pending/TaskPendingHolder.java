@@ -27,18 +27,17 @@ public class TaskPendingHolder {
     /**
      * 获取得到所有的groupId
      */
-    private static List<String> groupIds = GroupIdMappingUtils.getAllGroupIds();
+    private static final List<String> groupIds = GroupIdMappingUtils.getAllGroupIds();
     private final TreadPoolService treadPoolService;
-    private Map<String, ExecutorService> holder = new HashMap<>(32);
+    private static final Map<String, ExecutorService> holder = new HashMap<>(32);
 
     /**
      * 给每个渠道，每种消息类型初始化一个线程池
      */
     @PostConstruct
     public void init() {
-        /**
+        /*
          * example ThreadPoolName:austin.im.notice
-         *
          * 可以通过apollo配置：dynamic-tp-apollo-dtp.yml  动态修改线程池的信息
          */
         for (String groupId : groupIds) {
