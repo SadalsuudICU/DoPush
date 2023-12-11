@@ -1,5 +1,6 @@
 package com.sadalsuud.push;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Package com.sadalsuud.push.starter
  */
 @SpringBootApplication
-//@Slf4j
+@Slf4j
 public class PushHttpApplication {
 
     @Value("${server.port}")

@@ -1,10 +1,8 @@
 package com.sadalsuud.push.infrastructure.config;
 
-import cn.hutool.core.text.StrPool;
 import cn.hutool.setting.dialect.Props;
 import com.sadalsuud.push.domain.gateway.ConfigService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +37,7 @@ public class ConfigServiceImpl implements ConfigService {
     /**
      * nacos配置
      */
-    @Value("${austin.nacos.enabled}")
+    @Value("${dopush.nacos.enabled}")
     private Boolean enableNacos;
 
     //private final NacosUtils nacosUtils;

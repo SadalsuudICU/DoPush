@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class HandlerThreadPoolConfig {
 
-    private static final String PRE_FIX = "austin.";
+    private static final String PRE_FIX = "dopush.";
 
     private HandlerThreadPoolConfig() {
 

@@ -5,7 +5,6 @@ import com.sadalsuud.push.domain.gateway.TreadPoolService;
 import com.sadalsuud.push.domain.pipeline.task.GroupIdMappingUtils;
 import com.sadalsuud.push.domain.pipeline.task.config.HandlerThreadPoolConfig;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -37,7 +36,7 @@ public class TaskPendingHolder {
     @PostConstruct
     public void init() {
         /*
-         * example ThreadPoolName:austin.im.notice
+         * example ThreadPoolName:dopush.im.notice
          * 可以通过apollo配置：dynamic-tp-apollo-dtp.yml  动态修改线程池的信息
          */
         for (String groupId : groupIds) {

@@ -28,12 +28,12 @@ import org.springframework.stereotype.Service;
 public class RecallMqAction implements BusinessProcess<RecallTaskModel> {
     private final SendMqService sendMqService;
 
-    @Value("${austin.business.recall.topic.name}")
-    private String austinRecall;
-    @Value("${austin.business.tagId.value}")
+    @Value("${dopush.business.recall.topic.name}")
+    private String dopushRecall;
+    @Value("${dopush.business.tagId.value}")
     private String tagId;
 
-    @Value("${austin.mq.pipeline}")
+    @Value("${dopush.mq.pipeline}")
     private String mqPipeline;
 
     @Override
@@ -41,7 +41,7 @@ public class RecallMqAction implements BusinessProcess<RecallTaskModel> {
         RecallTaskInfo recallTaskInfo = context.getProcessModel().getRecallTaskInfo();
         try {
             String message = JSON.toJSONString(recallTaskInfo, SerializerFeature.WriteClassName);
-            sendMqService.send(austinRecall, message, tagId);
+            sendMqService.send(dopushRecall, message, tagId);
         } catch (Exception e) {
             context.setNeedBreak(true).setResponse(BasicResultVO.fail(RespStatusEnum.SERVICE_ERROR));
             log.error("send {} fail! e:{},params:{}", mqPipeline, Throwables.getStackTraceAsString(e)

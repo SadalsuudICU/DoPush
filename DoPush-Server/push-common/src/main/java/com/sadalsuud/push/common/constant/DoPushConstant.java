@@ -10,7 +10,7 @@ public class DoPushConstant {
 
     /**
      * businessId默认的长度
-     * 生成的逻辑：com.java3y.austin.support.utils.TaskInfoUtils#generateBusinessId(java.lang.Long, java.lang.Integer)
+     * 生成的逻辑：com.java3y.dopush.support.utils.TaskInfoUtils#generateBusinessId(java.lang.Long, java.lang.Integer)
      */
     public static final Integer BUSINESS_ID_LENGTH = 16;
     /**
@@ -27,7 +27,7 @@ public class DoPushConstant {
     /**
      * 链路追踪缓存的key标识
      */
-    public static final String CACHE_KEY_PREFIX = "Austin";
+    public static final String CACHE_KEY_PREFIX = "dopush";
     public static final String MESSAGE_ID = "MessageId";
     /**
      * 消息模板常量；
@@ -40,7 +40,7 @@ public class DoPushConstant {
     /**
      * 项目打印常量
      */
-    public static final String PROJECT_NAME = " :: Austin :: ";
+    public static final String PROJECT_NAME = " :: DoPush :: ";
     public static final String PROJECT_BANNER = "\n" +
             " .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .-----------------.\n" +
             "| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |\n" +

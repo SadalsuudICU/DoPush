@@ -13,7 +13,6 @@ import com.sadalsuud.push.domain.pipeline.task.pending.Task;
 import com.sadalsuud.push.domain.pipeline.task.pending.TaskPendingHolder;
 import com.sadalsuud.push.domain.pipeline.task.service.ConsumeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +30,7 @@ import java.util.List;
 public class ConsumeServiceImpl implements ConsumeService {
     private static final String LOG_BIZ_TYPE = "Receiver#consumer";
     private static final String LOG_BIZ_RECALL_TYPE = "Receiver#recall";
+
     private final ApplicationContext context;
 
     private final TaskPendingHolder taskPendingHolder;

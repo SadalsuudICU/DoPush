@@ -6,11 +6,9 @@ import com.sadalsuud.push.common.enums.AnchorState;
 import com.sadalsuud.push.domain.pipeline.task.LogUtils;
 import com.sadalsuud.push.domain.pipeline.task.flowcontrol.FlowControlFactory;
 import com.sadalsuud.push.domain.pipeline.task.flowcontrol.FlowControlParam;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.Objects;
 
 /**
@@ -20,8 +18,7 @@ import java.util.Objects;
  * @Date 11/12/2023
  * @Package com.sadalsuud.push.domain.pipeline.task.handler
  */
-@RequiredArgsConstructor
-@NoArgsConstructor(force = true)
+
 public abstract class BaseHandler implements Handler {
     /**
      * 标识渠道的Code
@@ -34,9 +31,12 @@ public abstract class BaseHandler implements Handler {
      */
     protected FlowControlParam flowControlParam;
 
-    private final HandlerHolder handlerHolder;
-    private final LogUtils logUtils;
-    private final FlowControlFactory flowControlFactory;
+    @Resource
+    private HandlerHolder handlerHolder;
+    @Resource
+    private LogUtils logUtils;
+    @Resource
+    private FlowControlFactory flowControlFactory;
 
     /**
      * 初始化渠道与Handler的映射关系

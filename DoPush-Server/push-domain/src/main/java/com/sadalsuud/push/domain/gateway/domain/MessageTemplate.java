@@ -1,23 +1,23 @@
-package com.sadalsuud.push.domain.pipeline.api;
+package com.sadalsuud.push.domain.gateway.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import java.io.Serializable;
 
 /**
- * @Description 消息模板Do
+ * @Description 消息模板
  * @Author sadalsuud
  * @Blog www.sadalsuud.cn
- * @Date 10/12/2023
- * @Package com.sadalsuud.push.domain.pipeline
+ * @Date 11/12/2023
+ * @Package com.sadalsuud.push.infrastructure.po
  */
 @Data
 @Builder

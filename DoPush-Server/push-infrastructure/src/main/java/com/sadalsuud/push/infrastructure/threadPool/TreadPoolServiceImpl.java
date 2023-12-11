@@ -4,7 +4,6 @@ import com.dtp.core.DtpRegistry;
 import com.dtp.core.thread.DtpExecutor;
 import com.sadalsuud.push.domain.gateway.TreadPoolService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class TreadPoolServiceImpl implements TreadPoolService {
-    private static final String SOURCE_NAME = "austin";
+    private static final String SOURCE_NAME = "dopush";
     private final ThreadPoolExecutorShutdownDefinition shutdownDefinition;
 
     /**

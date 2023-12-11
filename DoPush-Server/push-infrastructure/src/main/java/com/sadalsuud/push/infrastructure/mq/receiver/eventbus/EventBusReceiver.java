@@ -3,11 +3,9 @@ package com.sadalsuud.push.infrastructure.mq.receiver.eventbus;
 import com.google.common.eventbus.Subscribe;
 import com.sadalsuud.push.common.domain.RecallTaskInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
-import com.sadalsuud.push.domain.gateway.ConsumeService;
+import com.sadalsuud.push.domain.pipeline.task.service.ConsumeService;
 import com.sadalsuud.push.infrastructure.mq.sender.eventbus.EventBusListener;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

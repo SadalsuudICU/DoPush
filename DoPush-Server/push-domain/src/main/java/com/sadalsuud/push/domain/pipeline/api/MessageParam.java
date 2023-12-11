@@ -23,7 +23,7 @@ import java.util.Map;
 public class MessageParam {
 
     /**
-     * 业务消息发送Id, 用于链路追踪, 若不存在, austin 则生成一个消息Id
+     * 业务消息发送Id, 用于链路追踪, 若不存在, dopush 则生成一个消息Id
      */
     private String bizId;
 

@@ -42,7 +42,7 @@ public class FileServiceImpl implements FileService {
             }
             return file;
         } catch (Exception e) {
-            log.error("AustinFileUtils#getRemoteUrl2File fail:{},remoteUrl:{}", Throwables.getStackTraceAsString(e), remoteUrl);
+            log.error("FileService#getRemoteUrl2File fail:{},remoteUrl:{}", Throwables.getStackTraceAsString(e), remoteUrl);
         } finally {
             if (Objects.nonNull(inputStream)) {
                 try {

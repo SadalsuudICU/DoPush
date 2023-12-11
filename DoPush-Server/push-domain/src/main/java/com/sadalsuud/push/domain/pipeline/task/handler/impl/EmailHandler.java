@@ -49,7 +49,7 @@ public class EmailHandler extends BaseHandler implements Handler {
         channelCode = ChannelType.EMAIL.getCode();
 
         // 按照请求限流，默认单机 3 qps （具体数值配置在apollo动态调整)
-        Double rateInitValue = Double.valueOf(3);
+        double rateInitValue = 3.0;
         flowControlParam = FlowControlParam.builder().rateInitValue(rateInitValue)
                 .rateLimitStrategy(RateLimitStrategy.REQUEST_RATE_LIMIT)
                 .rateLimiter(RateLimiter.create(rateInitValue)).build();
