@@ -74,13 +74,6 @@
                 <version>${hutool.version}</version>
             </dependency>
 
-            <!--邮件发送-->
-            <dependency>
-                <groupId>com.sun.mail</groupId>
-                <artifactId>javax.mail</artifactId>
-                <version>${javax.mail.version}</version>
-            </dependency>
-
             <!--swagger-->
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -98,6 +91,27 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <!--日志-->
+            <dependency>
+                <groupId>cn.monitor4all</groupId>
+                <artifactId>log-record-starter</artifactId>
+                <version>${log-record.version}</version>
+            </dependency>
+
+            <!--动态线程池引入-->
+            <dependency>
+                <groupId>io.github.lyh200</groupId>
+                <artifactId>dynamic-tp-spring-boot-starter-apollo</artifactId>
+                <version>1.0.2</version>
+            </dependency>
+
+            <!--邮件发送-->
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>${javax.mail.version}</version>
             </dependency>
 
         </dependencies>

@@ -9,7 +9,7 @@ import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.gateway.SendMqService;
-import com.sadalsuud.push.domain.pipeline.RecallTaskModel;
+import com.sadalsuud.push.domain.pipeline.api.RecallTaskModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

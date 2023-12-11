@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.pipeline;
+package com.sadalsuud.push.domain.pipeline.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

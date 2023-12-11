@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.pipeline;
+package com.sadalsuud.push.domain.pipeline.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +25,7 @@ public class SendRequest {
     /**
      * 执行业务类型
      *
-     * @see com.sadalsuud.push.domain.pipeline.BusinessCode
+     * @see BusinessCode
      * send:发送消息
      * recall:撤回消息
      */

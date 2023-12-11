@@ -9,7 +9,7 @@ import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.vo.BasicResultVO;
-import com.sadalsuud.push.domain.pipeline.SendTaskModel;
+import com.sadalsuud.push.domain.pipeline.api.SendTaskModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

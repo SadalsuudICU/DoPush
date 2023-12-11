@@ -48,7 +48,24 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
-    </dependencies>
+        <!--log-record日志组件-->
+        <dependency>
+            <groupId>cn.monitor4all</groupId>
+            <artifactId>log-record-starter</artifactId>
+        </dependency>
 
+        <!--动态线程池-->
+        <dependency>
+            <groupId>io.github.lyh200</groupId>
+            <artifactId>dynamic-tp-spring-boot-starter-apollo</artifactId>
+        </dependency>
+
+        <!--邮件发送-->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>

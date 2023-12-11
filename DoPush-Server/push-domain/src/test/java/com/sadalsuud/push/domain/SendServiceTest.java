@@ -1,14 +1,13 @@
 package com.sadalsuud.push.domain;
 
-import com.sadalsuud.push.common.domain.SimpleTaskInfo;
-import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
-import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.pipeline.ProcessController;
 import com.sadalsuud.push.common.pipeline.ProcessTemplate;
-import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.facade.SendServiceImpl;
-import com.sadalsuud.push.domain.pipeline.*;
+import com.sadalsuud.push.domain.pipeline.api.BusinessCode;
+import com.sadalsuud.push.domain.pipeline.api.MessageParam;
+import com.sadalsuud.push.domain.pipeline.api.SendRequest;
+import com.sadalsuud.push.domain.pipeline.api.SendResponse;
 import com.sadalsuud.push.domain.pipeline.api.action.send.SendAfterCheckAction;
 import com.sadalsuud.push.domain.pipeline.api.action.send.SendAssembleAction;
 import com.sadalsuud.push.domain.pipeline.api.action.send.SendMqAction;
@@ -20,10 +19,8 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

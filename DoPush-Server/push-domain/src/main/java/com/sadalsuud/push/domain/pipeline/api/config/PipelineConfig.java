@@ -2,7 +2,7 @@ package com.sadalsuud.push.domain.pipeline.api.config;
 
 import com.sadalsuud.push.common.pipeline.ProcessController;
 import com.sadalsuud.push.common.pipeline.ProcessTemplate;
-import com.sadalsuud.push.domain.pipeline.BusinessCode;
+import com.sadalsuud.push.domain.pipeline.api.BusinessCode;
 import com.sadalsuud.push.domain.pipeline.api.action.recall.RecallAssembleAction;
 import com.sadalsuud.push.domain.pipeline.api.action.recall.RecallMqAction;
 import com.sadalsuud.push.domain.pipeline.api.action.send.SendAfterCheckAction;

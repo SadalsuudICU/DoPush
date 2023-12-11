@@ -1,7 +1,7 @@
 package com.sadalsuud.push.domain.facade;
 
-import com.sadalsuud.push.domain.pipeline.SendRequest;
-import com.sadalsuud.push.domain.pipeline.SendResponse;
+import com.sadalsuud.push.domain.pipeline.api.SendRequest;
+import com.sadalsuud.push.domain.pipeline.api.SendResponse;
 
 /**
  * @Description
