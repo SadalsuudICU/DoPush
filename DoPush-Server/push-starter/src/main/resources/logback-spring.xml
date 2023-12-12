@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="10 seconds">
+
+    <contextName>dopush</contextName>
+
+    <!-- 设置日志输出路径  可以使“${}”来使用变量。-->
+    <property name="log.path" value="logs"/>
+
+    <springProperty scope="context" name="grayLogIp" source="dopush.graylog.ip"/>
+
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <!-- 设置字符集 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!-- 时间滚动输出 level为 INFO 日志 -->
+    <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${log.path}/dopush-info.log</file>
+        <!--日志文件输出格式-->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
+
+        <!-- SizeAndTimeBasedRollingPolicy，它根据时间和大小来制定滚动策略，既负责滚动也负责出发滚动 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 活动文件的名字会根据fileNamePattern的值，每隔一段时间改变一次 -->
+            <!-- 文件名：log/sys.2017-12-05.0.log -->
+            <fileNamePattern>${log.path}/logs/dopush-info-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!-- 每产生一个日志文件，该日志文件的保存期限为30天 -->
+            <maxHistory>30</maxHistory>
+            <!-- 日志总大小 -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!--启动项目后清理历史日志-->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+            <!-- maxFileSize:这是活动文件的大小，默认值是10MB,本篇设置为1KB，只是为了演示 -->
+            <maxFileSize>1000MB</maxFileSize>
+        </rollingPolicy>
+
+        <!--  SizeAndTimeBasedFNATP被弃用  -->
+        <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+        <!--            &lt;!&ndash; 每天日志归档路径以及格式 &ndash;&gt;-->
+        <!--            <fileNamePattern>${log.path}/logs/dopush-info-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>-->
+        <!--            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+        <!--                <maxFileSize>1000MB</maxFileSize>-->
+        <!--            </timeBasedFileNamingAndTriggeringPolicy>-->
+        <!--            &lt;!&ndash;日志文件保留天数&ndash;&gt;-->
+        <!--            <maxHistory>3</maxHistory>-->
+        <!--        </rollingPolicy>-->
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 时间滚动输出 level为 ERROR 日志 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${log.path}/dopush-error.log</file>
+        <!--日志文件输出格式-->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
+        </encoder>
+        <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/logs/dopush-error-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1000MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!--日志文件保留天数-->
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+        <!-- 此日志文件只记录ERROR级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
+        <!-- Graylog服务的地址 -->
+        <graylogHost>${grayLogIp}</graylogHost>
+        <!-- UDP Input端口 -->
+        <graylogPort>12201</graylogPort>
+        <!-- 最大GELF数据块大小（单位：字节），508为建议最小值，最大值为65467 -->
+        <maxChunkSize>508</maxChunkSize>
+        <!-- 是否使用压缩 -->
+        <useCompression>true</useCompression>
+        <encoder class="de.siegmar.logbackgelf.GelfEncoder">
+            <!-- 是否发送原生的日志信息 -->
+            <includeRawMessage>false</includeRawMessage>
+            <includeMarker>true</includeMarker>
+            <includeMdcData>true</includeMdcData>
+            <includeCallerData>false</includeCallerData>
+            <includeRootCauseData>false</includeRootCauseData>
+            <!-- 是否发送日志级别的名称，否则默认以数字代表日志级别 -->
+            <includeLevelName>true</includeLevelName>
+            <shortPatternLayout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%m%nopex</pattern>
+            </shortPatternLayout>
+            <fullPatternLayout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%d - [%thread] %-5level %logger{35} - %msg%n</pattern>
+            </fullPatternLayout>
+
+            <!-- 配置应用名称（服务名称），通过staticField标签可以自定义一些固定的日志字段 -->
+            <staticField>app_name:dopush</staticField>
+        </encoder>
+    </appender>
+
+    <!--test环境会写到graylog，dev默认不写graylog-->
+    <springProfile name="dev">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+            <!--dev也写入 现在只用dev环境-->
+            <appender-ref ref="GELF"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="test">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+            <appender-ref ref="GELF"/>
+        </root>
+    </springProfile>
+
+
+</configuration>

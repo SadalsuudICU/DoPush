@@ -129,6 +129,13 @@
                 <version>${weixin-java}</version>
             </dependency>
 
+            <!--graylog-->
+            <dependency>
+                <groupId>de.siegmar</groupId>
+                <artifactId>logback-gelf</artifactId>
+                <version>${graylog.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
