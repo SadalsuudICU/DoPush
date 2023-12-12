@@ -75,7 +75,6 @@ public class PipelineConfig {
      */
     @Bean("apiProcessController")
     public ProcessController apiProcessController() {
-        System.out.println("generate apiProcessController");
         ProcessController processController = new ProcessController();
         Map<String, ProcessTemplate> templateConfig = new HashMap<>(4);
         templateConfig.put(BusinessCode.COMMON_SEND.getCode(), commonSendTemplate());

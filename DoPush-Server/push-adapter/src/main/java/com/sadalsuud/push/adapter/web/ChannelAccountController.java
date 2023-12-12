@@ -2,6 +2,8 @@ package com.sadalsuud.push.adapter.web;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.text.StrPool;
+import com.sadalsuud.push.adapter.facade.annotation.DoPushAspect;
+import com.sadalsuud.push.adapter.facade.annotation.DoPushResult;
 import com.sadalsuud.push.client.api.ChannelAccountService;
 import com.sadalsuud.push.common.constant.DoPushConstant;
 import com.sadalsuud.push.common.enums.RespStatusEnum;
@@ -25,8 +27,8 @@ import java.util.stream.Collectors;
  * @Package com.sadalsuud.push.adapter.web
  */
 @Slf4j
-//@AustinAspect
-//@AustinResult
+@DoPushAspect
+@DoPushResult
 @RestController
 @RequestMapping("/account")
 @Api("渠道账号管理接口")
