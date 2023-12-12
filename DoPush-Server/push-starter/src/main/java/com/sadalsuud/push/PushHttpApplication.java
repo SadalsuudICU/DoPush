@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date 10/12/2023
  * @Package com.sadalsuud.push.starter
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.sadalsuud.push"})
 @Slf4j
 public class PushHttpApplication {
 
