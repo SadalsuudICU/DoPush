@@ -104,9 +104,14 @@
             <!--动态线程池引入-->
             <dependency>
                 <groupId>io.github.lyh200</groupId>
-                <artifactId>dynamic-tp-spring-boot-starter-apollo</artifactId>
+                <artifactId>dynamic-tp-spring-boot-starter-common</artifactId>
                 <version>1.0.2</version>
             </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.github.lyh200</groupId>-->
+<!--                <artifactId>dynamic-tp-spring-boot-starter-apollo</artifactId>-->
+<!--                <version>1.0.2</version>-->
+<!--            </dependency>-->
 
             <!--邮件发送-->
             <dependency>
