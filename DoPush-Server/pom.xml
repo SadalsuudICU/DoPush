@@ -18,6 +18,7 @@
         <module>push-common</module>
         <module>push-rpc</module>
         <module>push-starter</module>
+        <module>push-client</module>
     </modules>
 
     <parent>
@@ -112,6 +113,20 @@
                 <groupId>com.sun.mail</groupId>
                 <artifactId>javax.mail</artifactId>
                 <version>${javax.mail.version}</version>
+            </dependency>
+
+            <!--微信服务号第三方SDK-->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-mp</artifactId>
+                <version>${weixin-java}</version>
+            </dependency>
+
+            <!--微信小程序第三方SDK-->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-miniapp</artifactId>
+                <version>${weixin-java}</version>
             </dependency>
 
         </dependencies>

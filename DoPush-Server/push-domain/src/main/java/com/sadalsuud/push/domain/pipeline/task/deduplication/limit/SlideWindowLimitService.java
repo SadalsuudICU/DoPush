@@ -2,7 +2,7 @@ package com.sadalsuud.push.domain.pipeline.task.deduplication.limit;
 
 import cn.hutool.core.util.IdUtil;
 import com.sadalsuud.push.common.domain.TaskInfo;
-import com.sadalsuud.push.domain.gateway.RedisService;
+import com.sadalsuud.push.domain.gateway.CacheService;
 import com.sadalsuud.push.domain.pipeline.task.deduplication.DeduplicationParam;
 import com.sadalsuud.push.domain.pipeline.task.deduplication.service.AbstractDeduplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class SlideWindowLimitService extends AbstractLimitService {
     private static final String LIMIT_TAG = "SW_";
 
     @Autowired
-    private RedisService redisService;
+    private CacheService cacheService;
 
 
     private DefaultRedisScript<Long> redisScript;
@@ -58,7 +58,7 @@ public class SlideWindowLimitService extends AbstractLimitService {
             String scoreValue = String.valueOf(IdUtil.getSnowflake().nextId());
             String score = String.valueOf(nowTime);
 
-            final Boolean result = redisService.execLimitLua(redisScript, Collections.singletonList(key),
+            final Boolean result = cacheService.execLimitLua(redisScript, Collections.singletonList(key),
                     String.valueOf(param.getDeduplicationTime() * 1000), score, String.valueOf(param.getCountNum()), scoreValue);
             if (Boolean.TRUE.equals(result)) {
                 filterReceiver.add(receiver);

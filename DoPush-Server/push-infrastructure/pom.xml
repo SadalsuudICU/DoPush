@@ -70,6 +70,17 @@
             <scope>test</scope>
         </dependency>
 
+        <!--微信服务号和小程序-->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-mp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

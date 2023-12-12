@@ -12,7 +12,7 @@ import java.util.Map;
  * @Date 11/12/2023
  * @Package com.sadalsuud.push.domain.gateway
  */
-public interface RedisService {
+public interface CacheService {
     /**
      * mGet将结果封装为Map
      *
