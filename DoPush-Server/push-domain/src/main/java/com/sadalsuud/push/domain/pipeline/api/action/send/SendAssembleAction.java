@@ -113,12 +113,10 @@ public class SendAssembleAction implements BusinessProcess<SendTaskModel> {
         for (MessageParam messageParam : messageParamList) {
 
             TaskInfo taskInfo = TaskInfo.builder()
-                    // TODO
-                    //.messageId(TaskInfoUtils.generateMessageId())
+                    .messageId(TaskInfoUtils.generateMessageId())
                     .bizId(messageParam.getBizId())
                     .messageTemplateId(messageTemplate.getId())
-                    // TODO
-                    //.businessId(TaskInfoUtils.generateBusinessId(messageTemplate.getId(), messageTemplate.getTemplateType()))
+                    .businessId(TaskInfoUtils.generateBusinessId(messageTemplate.getId(), messageTemplate.getTemplateType()))
                     .receiver(new HashSet<>(Arrays.asList(messageParam.getReceiver().split(String.valueOf(StrPool.C_COMMA)))))
                     .idType(messageTemplate.getIdType())
                     .sendChannel(messageTemplate.getSendChannel())
