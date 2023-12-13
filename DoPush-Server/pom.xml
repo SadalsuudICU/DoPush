@@ -141,6 +141,13 @@
                 <version>${graylog.version}</version>
             </dependency>
 
+            <!--kafkaFlink连接器-->
+<!--            <dependency>-->
+<!--                <groupId>org.apache.flink</groupId>-->
+<!--                <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>-->
+<!--                <version>${flink.version}</version>-->
+<!--            </dependency>-->
+
         </dependencies>
     </dependencyManagement>
 

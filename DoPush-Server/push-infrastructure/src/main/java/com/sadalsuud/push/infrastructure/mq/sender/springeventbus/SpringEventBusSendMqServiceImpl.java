@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 @ConditionalOnProperty(name = "dopush.mq.pipeline", havingValue = MessageQueuePipeline.SPRING_EVENT_BUS)
 @RequiredArgsConstructor
-public class SpringEventBusSendServiceImpl implements SendMqService {
+public class SpringEventBusSendMqServiceImpl implements SendMqService {
 
     private final ApplicationContext applicationContext;
 

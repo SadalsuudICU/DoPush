@@ -39,7 +39,8 @@ public class LogUtils extends CustomLogListener {
      */
     @Override
     public void createLog(LogDTO logDTO) throws Exception {
-        log.info(JSON.toJSONString(logDTO));
+        log.info("LogUtils#createLog :" + JSON.toJSONString(logDTO));
+        //log.info(JSON.toJSONString(logDTO));
     }
 
     /**
@@ -47,7 +48,8 @@ public class LogUtils extends CustomLogListener {
      */
     public void print(LogParam logParam) {
         logParam.setTimestamp(System.currentTimeMillis());
-        log.info(JSON.toJSONString(logParam));
+        log.info("LogUtils#createLog#logParam :" + JSON.toJSONString(logParam));
+        //log.info(JSON.toJSONString(logParam));
     }
 
     /**
@@ -56,7 +58,8 @@ public class LogUtils extends CustomLogListener {
     public void print(AnchorInfo anchorInfo) {
         anchorInfo.setLogTimestamp(System.currentTimeMillis());
         String message = JSON.toJSONString(anchorInfo);
-        log.info(message);
+        log.info("LogUtils#print#anchorInfo :" + message);
+        //log.info(message);
 
         try {
             sendMqService.send(topicName, message);
