@@ -17,6 +17,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 /**
  * @Description
@@ -45,7 +46,8 @@ public class ConsumeServiceImpl implements ConsumeService {
         for (TaskInfo taskInfo : taskInfoLists) {
             logUtils.print(LogParam.builder().bizType(LOG_BIZ_TYPE).object(taskInfo).build(), AnchorInfo.builder().bizId(taskInfo.getBizId()).messageId(taskInfo.getMessageId()).ids(taskInfo.getReceiver()).businessId(taskInfo.getBusinessId()).state(AnchorState.RECEIVE.getCode()).build());
             Task task = context.getBean(Task.class).setTaskInfo(taskInfo);
-            taskPendingHolder.route(topicGroupId).execute(task);
+            ExecutorService route = taskPendingHolder.route(topicGroupId);
+            route.execute(task);
         }
     }
 

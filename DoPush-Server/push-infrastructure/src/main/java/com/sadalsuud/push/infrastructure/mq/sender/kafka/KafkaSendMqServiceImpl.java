@@ -44,7 +44,8 @@ public class KafkaSendMqServiceImpl implements SendMqService {
     @SuppressWarnings("unchecked")
     public void send(String topic, String jsonValue, String tagId) {
         // 是否需要过滤
-        System.out.println("tagId = " + tagId);
+        // TODO 本方法本调用3次 ???!!!
+        //System.out.println("tagId = " + tagId);
         if (CharSequenceUtil.isNotBlank(tagId)) {
             List<Header> headers = Collections.singletonList(
                     new RecordHeader(tagIdKey, tagId.getBytes(StandardCharsets.UTF_8)));

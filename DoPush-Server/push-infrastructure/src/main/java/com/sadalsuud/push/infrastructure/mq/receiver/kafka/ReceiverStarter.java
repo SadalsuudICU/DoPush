@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListenerAnnotationBeanPostProcessor;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
@@ -30,7 +30,7 @@ import java.util.Optional;
  * @Package com.sadalsuud.push.infrastructure.mq.receiver.kafka
  */
 @Slf4j
-@Component
+@Service
 @ConditionalOnProperty(name = "dopush.mq.pipeline", havingValue = MessageQueuePipeline.KAFKA)
 @RequiredArgsConstructor
 public class ReceiverStarter {

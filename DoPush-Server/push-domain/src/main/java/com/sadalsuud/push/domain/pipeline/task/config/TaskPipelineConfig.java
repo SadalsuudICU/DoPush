@@ -44,7 +44,9 @@ public class TaskPipelineConfig {
     @Bean("taskTemplate")
     public ProcessTemplate taskTemplate() {
         ProcessTemplate processTemplate = new ProcessTemplate();
-        processTemplate.setProcessList(Arrays.asList(discardAction, shieldAction, deduplicationAction, sendMessageAction));
+        processTemplate.setProcessList(Arrays.asList(discardAction, shieldAction,
+                //deduplicationAction,
+                sendMessageAction));
         return processTemplate;
     }
 
