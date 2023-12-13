@@ -13,10 +13,10 @@ import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.gateway.SendMqService;
 import com.sadalsuud.push.domain.pipeline.api.SendTaskModel;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 public class SendMqAction implements BusinessProcess<SendTaskModel> {
 
 
-    @Autowired
+    @Resource
     private SendMqService sendMqService;
 
     @Value("${dopush.business.topic.name}")
@@ -50,7 +50,8 @@ public class SendMqAction implements BusinessProcess<SendTaskModel> {
         SendTaskModel sendTaskModel = context.getProcessModel();
         List<TaskInfo> taskInfo = sendTaskModel.getTaskInfo();
         try {
-            String message = JSON.toJSONString(sendTaskModel.getTaskInfo(), new SerializerFeature[]{SerializerFeature.WriteClassName});
+            //String message = JSON.toJSONString(sendTaskModel.getTaskInfo(), new SerializerFeature[]{SerializerFeature.WriteClassName});
+            String message = JSON.toJSONString(sendTaskModel.getTaskInfo(), SerializerFeature.WriteClassName);
             sendMqService.send(sendMessageTopic, message, tagId);
 
             context.setResponse(BasicResultVO.success(taskInfo.stream().map(v -> SimpleTaskInfo.builder().businessId(v.getBusinessId()).messageId(v.getMessageId()).bizId(v.getBizId()).build()).collect(Collectors.toList())));

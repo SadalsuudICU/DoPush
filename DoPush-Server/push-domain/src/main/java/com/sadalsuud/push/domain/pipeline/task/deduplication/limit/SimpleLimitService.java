@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 采用普通的计数去重方法，限制的是每天发送的条数。
+ * 采用普通地计数去重方法，限制的是每天发送的条数。
  *
  * @author cao
  * @date 2022-04-20 13:41

@@ -15,9 +15,12 @@ import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.vo.BasicResultVO;
+import com.sadalsuud.push.domain.gateway.IRepository.IMessageTemplateRepository;
 import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.domain.pipeline.api.ContentHolderUtil;
 import com.sadalsuud.push.domain.pipeline.api.MessageParam;
 import com.sadalsuud.push.domain.pipeline.api.SendTaskModel;
+import com.sadalsuud.push.domain.pipeline.api.TaskInfoUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,7 +42,7 @@ public class SendAssembleAction implements BusinessProcess<SendTaskModel> {
 
     private static final String LINK_NAME = "url";
 
-    //private final MessageTemplateDao messageTemplateDao;
+    private final IMessageTemplateRepository messageTemplateRepository;
 
     /**
      * 获取 contentModel，替换模板msgContent中占位符信息
@@ -62,9 +65,7 @@ public class SendAssembleAction implements BusinessProcess<SendTaskModel> {
             String originValue = jsonObject.getString(field.getName());
 
             if (CharSequenceUtil.isNotBlank(originValue)) {
-                // TODO
-                String resultValue = null;
-                        //= ContentHolderUtil.replacePlaceHolder(originValue, variables);
+                String resultValue = ContentHolderUtil.replacePlaceHolder(originValue, variables);
                 Object resultObj = JSONUtil.isJsonObj(resultValue) ? JSONUtil.toBean(resultValue, field.getType()) : resultValue;
                 ReflectUtil.setFieldValue(contentModel, field, resultObj);
             }
@@ -73,9 +74,7 @@ public class SendAssembleAction implements BusinessProcess<SendTaskModel> {
         // 如果 url 字段存在，则在url拼接对应的埋点参数
         String url = (String) ReflectUtil.getFieldValue(contentModel, LINK_NAME);
         if (CharSequenceUtil.isNotBlank(url)) {
-            // TODO
-            String resultUrl = null;
-            //= TaskInfoUtils.generateUrl(url, messageTemplate.getId(), messageTemplate.getTemplateType());
+            String resultUrl = TaskInfoUtils.generateUrl(url, messageTemplate.getId(), messageTemplate.getTemplateType());
             ReflectUtil.setFieldValue(contentModel, LINK_NAME, resultUrl);
         }
         return contentModel;
@@ -87,8 +86,7 @@ public class SendAssembleAction implements BusinessProcess<SendTaskModel> {
         Long messageTemplateId = sendTaskModel.getMessageTemplateId();
 
         try {
-            Optional<MessageTemplate> messageTemplate = null;
-            //= messageTemplateDao.findById(messageTemplateId);
+            Optional<MessageTemplate> messageTemplate = messageTemplateRepository.findById(messageTemplateId);
             if (!messageTemplate.isPresent() || messageTemplate.get().getIsDeleted().equals(CommonConstant.TRUE)) {
                 context.setNeedBreak(true).setResponse(BasicResultVO.fail(RespStatusEnum.TEMPLATE_NOT_FOUND));
                 return;

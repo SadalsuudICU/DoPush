@@ -11,7 +11,6 @@ import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.domain.gateway.ConfigService;
 import com.sadalsuud.push.domain.pipeline.task.LogUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

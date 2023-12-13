@@ -5,6 +5,9 @@ import com.google.common.eventbus.EventBus;
 import com.sadalsuud.push.common.domain.RecallTaskInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
 import com.sadalsuud.push.domain.gateway.SendMqService;
+import com.sadalsuud.push.domain.pipeline.MessageQueuePipeline;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -19,18 +22,18 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-//@ConditionalOnProperty(name = "dopush.mq.pipeline", havingValue = MessageQueuePipeline.EVENT_BUS)
+@ConditionalOnProperty(name = "dopush.mq.pipeline", havingValue = MessageQueuePipeline.EVENT_BUS)
+@RequiredArgsConstructor
 public class EventBusSendMqServiceImpl implements SendMqService {
-    private final EventBus eventBus = new EventBus();
+    private static final EventBus eventBus = new EventBus();
 
+    @Getter
     @Value("${dopush.business.topic.name}")
     private String sendTopic;
     @Value("${dopush.business.recall.topic.name}")
     private String recallTopic;
-    //private final EventBusListener eventBusListener;
-    //public EventBusSendMqServiceImpl(EventBusListener eventBusListener) {
-    //    this.eventBusListener = eventBusListener;
-    //}
+
+    private final EventBusListener eventBusListener;
 
     /**
      * 单机 队列默认不支持 tagId过滤（单机无必要）
@@ -41,7 +44,7 @@ public class EventBusSendMqServiceImpl implements SendMqService {
      */
     @Override
     public void send(String topic, String jsonValue, String tagId) {
-        //eventBus.register(eventBusListener);
+        eventBus.register(eventBusListener);
         if (topic.equals(sendTopic)) {
             eventBus.post(JSON.parseArray(jsonValue, TaskInfo.class));
         } else if (topic.equals(recallTopic)) {
@@ -54,7 +57,4 @@ public class EventBusSendMqServiceImpl implements SendMqService {
         send(topic, jsonValue, null);
     }
 
-    public String getSendTopic() {
-        return this.sendTopic;
-    }
 }

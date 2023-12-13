@@ -7,7 +7,7 @@ import com.sadalsuud.push.common.enums.ChannelType;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.domain.pipeline.task.handler.HandlerHolder;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,9 +18,10 @@ import org.springframework.stereotype.Service;
  * @Package com.sadalsuud.push.domain.pipeline.task.action
  */
 @Service
+@RequiredArgsConstructor
 public class SendMessageAction implements BusinessProcess<TaskInfo> {
-    @Autowired
-    private HandlerHolder handlerHolder;
+
+    private final HandlerHolder handlerHolder;
 
     @Override
     public void process(ProcessContext<TaskInfo> context) {

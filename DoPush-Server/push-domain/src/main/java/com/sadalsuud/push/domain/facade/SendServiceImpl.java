@@ -1,5 +1,6 @@
 package com.sadalsuud.push.domain.facade;
 
+import cn.monitor4all.logRecord.annotation.OperationLog;
 import com.sadalsuud.push.common.domain.SimpleTaskInfo;
 import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
@@ -29,7 +30,7 @@ public class SendServiceImpl implements SendService {
     private ProcessController processController;
 
     @Override
-    //@OperationLog(bizType = "SendService#send", bizId = "#sendRequest.messageTemplateId", msg = "#sendRequest")
+    @OperationLog(bizType = "SendService#send", bizId = "#sendRequest.messageTemplateId", msg = "#sendRequest")
     public SendResponse send(SendRequest sendRequest) {
         if (ObjectUtils.isEmpty(sendRequest)) {
             System.out.println("sendRequest is empty");

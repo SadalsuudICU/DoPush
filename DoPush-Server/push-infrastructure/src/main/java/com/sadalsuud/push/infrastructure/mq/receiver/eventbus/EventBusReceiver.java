@@ -3,9 +3,11 @@ package com.sadalsuud.push.infrastructure.mq.receiver.eventbus;
 import com.google.common.eventbus.Subscribe;
 import com.sadalsuud.push.common.domain.RecallTaskInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
+import com.sadalsuud.push.domain.pipeline.MessageQueuePipeline;
 import com.sadalsuud.push.domain.pipeline.task.service.ConsumeService;
 import com.sadalsuud.push.infrastructure.mq.sender.eventbus.EventBusListener;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,7 +21,7 @@ import java.util.List;
  */
 @Component
 @RequiredArgsConstructor
-//@ConditionalOnProperty(name = "austin.mq.pipeline", havingValue = MessageQueuePipeline.EVENT_BUS)
+@ConditionalOnProperty(name = "dopush.mq.pipeline", havingValue = MessageQueuePipeline.EVENT_BUS)
 public class EventBusReceiver implements EventBusListener {
 
     private final ConsumeService consumeService;

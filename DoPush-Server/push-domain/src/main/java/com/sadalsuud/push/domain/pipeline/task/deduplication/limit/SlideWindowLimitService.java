@@ -5,7 +5,7 @@ import com.sadalsuud.push.common.domain.TaskInfo;
 import com.sadalsuud.push.domain.gateway.CacheService;
 import com.sadalsuud.push.domain.pipeline.task.deduplication.DeduplicationParam;
 import com.sadalsuud.push.domain.pipeline.task.deduplication.service.AbstractDeduplicationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
@@ -23,12 +23,12 @@ import java.util.Set;
  * @date 2022-04-20 11:34
  */
 @Service(value = "SlideWindowLimitService")
+@RequiredArgsConstructor
 public class SlideWindowLimitService extends AbstractLimitService {
 
     private static final String LIMIT_TAG = "SW_";
 
-    @Autowired
-    private CacheService cacheService;
+    private final CacheService cacheService;
 
 
     private DefaultRedisScript<Long> redisScript;
@@ -36,7 +36,7 @@ public class SlideWindowLimitService extends AbstractLimitService {
 
     @PostConstruct
     public void init() {
-        redisScript = new DefaultRedisScript();
+        redisScript = new DefaultRedisScript<>();
         redisScript.setResultType(Long.class);
         redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("limit.lua")));
     }

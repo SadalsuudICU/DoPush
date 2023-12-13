@@ -5,6 +5,7 @@ import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.pipeline.ProcessController;
 import com.sadalsuud.push.common.pipeline.ProcessModel;
 import com.sadalsuud.push.common.vo.BasicResultVO;
+import com.sadalsuud.push.domain.pipeline.task.config.TaskPipelineConfig;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
@@ -29,15 +30,15 @@ import javax.annotation.Resource;
 public class Task implements Runnable {
     private TaskInfo taskInfo;
 
-    //@Resource(name = "handlerProcessController")
-    //private ProcessController processController;
+    @Resource(name = "handlerProcessController")
+    private ProcessController processController;
 
     @Override
     public void run() {
         ProcessContext<ProcessModel> context = ProcessContext.builder()
-                //.processModel(taskInfo).code(TaskPipelineConfig.PIPELINE_HANDLER_CODE)
+                .processModel(taskInfo).code(TaskPipelineConfig.PIPELINE_HANDLER_CODE)
                 .needBreak(false).response(BasicResultVO.success())
                 .build();
-        //processController.process(context);
+        processController.process(context);
     }
 }
