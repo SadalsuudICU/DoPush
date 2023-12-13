@@ -36,12 +36,14 @@ public class ChannelAccountTest {
                         .isDeleted(0)
                         .build();
         ChannelAccount save = channelAccountDao.save(channelAccount);
-        System.out.println(channelAccountDao.findById(save.getId()).get());
+        Optional<ChannelAccount> saved = channelAccountDao.findById(save.getId());
+        saved.ifPresent(System.out::println);
     }
 
     @Test
     public void saveTestAccounts() {
         // 创建测试邮箱账号配置
+        // QQ邮箱密钥 nivyfpseaanjbhjj
         String emailConfig = "{\"host\":\"smtp.qq.com\",\"port\":465,\"user\":\"2094176918@qq.com\"," +
                 "\"pass\":\"nivyfpseaanjbhjj\",\"from\":\"2094176918@qq.com\",\"starttlsEnable\":\"true\"," +
                 "\"auth\":true,\"sslEnable\":true}";

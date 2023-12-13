@@ -8,10 +8,11 @@ import com.sadalsuud.push.common.domain.AnchorInfo;
 import com.sadalsuud.push.common.domain.LogParam;
 import com.sadalsuud.push.domain.gateway.SendMqService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @Description
@@ -24,8 +25,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogUtils extends CustomLogListener {
 
-    @Autowired
+    // LogUtils SendMqService EventBusListener  ConsumeService 出现了spring无法解决的循环依赖问题
+    // 因为LogUtils只用在SendMqService真正触发调用方法时才使用 所以在此使用@Lazy打破循环依赖(并且日志服务没有发送重要)
     @Lazy
+    @Resource
     private SendMqService sendMqService;
 
     @Value("${dopush.business.log.topic.name}")
