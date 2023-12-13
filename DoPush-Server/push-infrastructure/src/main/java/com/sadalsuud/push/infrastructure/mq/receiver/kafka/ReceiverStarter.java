@@ -2,8 +2,8 @@ package com.sadalsuud.push.infrastructure.mq.receiver.kafka;
 
 import cn.hutool.core.text.StrPool;
 import cn.hutool.core.util.StrUtil;
-import com.sadalsuud.push.domain.pipeline.MessageQueuePipeline;
-import com.sadalsuud.push.domain.pipeline.task.GroupIdMappingUtils;
+import com.sadalsuud.push.domain.support.MessageQueuePipeline;
+import com.sadalsuud.push.domain.support.GroupIdMappingUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.header.Header;

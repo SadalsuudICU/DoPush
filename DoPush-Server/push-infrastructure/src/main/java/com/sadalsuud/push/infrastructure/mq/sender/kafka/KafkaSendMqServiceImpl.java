@@ -2,7 +2,7 @@ package com.sadalsuud.push.infrastructure.mq.sender.kafka;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import com.sadalsuud.push.domain.gateway.SendMqService;
-import com.sadalsuud.push.domain.pipeline.MessageQueuePipeline;
+import com.sadalsuud.push.domain.support.MessageQueuePipeline;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.header.Header;

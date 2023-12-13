@@ -5,7 +5,7 @@ import com.google.common.eventbus.EventBus;
 import com.sadalsuud.push.common.domain.RecallTaskInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
 import com.sadalsuud.push.domain.gateway.SendMqService;
-import com.sadalsuud.push.domain.pipeline.MessageQueuePipeline;
+import com.sadalsuud.push.domain.support.MessageQueuePipeline;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

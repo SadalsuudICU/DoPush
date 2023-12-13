@@ -2,8 +2,8 @@ package com.sadalsuud.push.adapter.web;
 
 import com.sadalsuud.push.adapter.facade.annotation.DoPushAspect;
 import com.sadalsuud.push.domain.facade.SendService;
-import com.sadalsuud.push.domain.pipeline.api.SendRequest;
-import com.sadalsuud.push.domain.pipeline.api.SendResponse;
+import com.sadalsuud.push.domain.assign.SendRequest;
+import com.sadalsuud.push.domain.assign.SendResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
