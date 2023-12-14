@@ -87,7 +87,7 @@
             <artifactId>spring-kafka</artifactId>
         </dependency>
 
-        <!--HTTP工具 - 短信等业务的发送和回执-->
+        <!--HTTP工具 - 调用api-->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>

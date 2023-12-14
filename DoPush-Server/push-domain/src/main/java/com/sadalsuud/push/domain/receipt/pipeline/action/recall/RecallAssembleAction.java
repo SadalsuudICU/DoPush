@@ -7,6 +7,7 @@ import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.vo.BasicResultVO;
+import com.sadalsuud.push.domain.gateway.IRepository.IMessageTemplateRepository;
 import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
 import com.sadalsuud.push.domain.receipt.RecallTaskModel;
 import lombok.RequiredArgsConstructor;
@@ -27,15 +28,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RecallAssembleAction implements BusinessProcess<RecallTaskModel> {
 
-    //private final MessageTemplateDao messageTemplateDao;
+    private final IMessageTemplateRepository messageTemplateRepository;
 
     @Override
     public void process(ProcessContext<RecallTaskModel> context) {
         RecallTaskModel recallTaskModel = context.getProcessModel();
         Long messageTemplateId = recallTaskModel.getMessageTemplateId();
         try {
-            Optional<MessageTemplate> messageTemplate = null;
-                    //= messageTemplateDao.findById(messageTemplateId);
+            Optional<MessageTemplate> messageTemplate = messageTemplateRepository.findById(messageTemplateId);
             if (!messageTemplate.isPresent() || messageTemplate.get().getIsDeleted().equals(CommonConstant.TRUE)) {
                 context.setNeedBreak(true).setResponse(BasicResultVO.fail(RespStatusEnum.TEMPLATE_NOT_FOUND));
                 return;
