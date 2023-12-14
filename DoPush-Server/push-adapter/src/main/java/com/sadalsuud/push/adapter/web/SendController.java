@@ -1,6 +1,7 @@
 package com.sadalsuud.push.adapter.web;
 
 import com.sadalsuud.push.adapter.facade.annotation.DoPushAspect;
+import com.sadalsuud.push.domain.facade.RecallService;
 import com.sadalsuud.push.domain.facade.SendService;
 import com.sadalsuud.push.domain.receipt.SendRequest;
 import com.sadalsuud.push.domain.receipt.SendResponse;
@@ -26,7 +27,7 @@ public class SendController {
 
     private final SendService sendService;
 
-    //private final RecallService recallService;
+    private final RecallService recallService;
 
 
     /**
@@ -52,16 +53,16 @@ public class SendController {
     //public SendResponse batchSend(@RequestBody BatchSendRequest batchSendRequest) {
     //    return sendService.batchSend(batchSendRequest);
     //}
-    //
-    ///**
-    // * 优先根据messageId撤回消息，如果messageId不存在则根据模板id撤回
-    // *
-    // * @param sendRequest
-    // * @return
-    // */
-    //@ApiOperation(value = "撤回消息接口", notes = "优先根据messageId撤回消息，如果messageId不存在则根据模板id撤回")
-    //@PostMapping("/recall")
-    //public SendResponse recall(@RequestBody SendRequest sendRequest) {
-    //    return recallService.recall(sendRequest);
-    //}
+
+    /**
+     * 优先根据messageId撤回消息，如果messageId不存在则根据模板id撤回
+     *
+     * @param sendRequest
+     * @return
+     */
+    @ApiOperation(value = "撤回消息接口", notes = "优先根据messageId撤回消息，如果messageId不存在则根据模板id撤回")
+    @PostMapping("/recall")
+    public SendResponse recall(@RequestBody SendRequest sendRequest) {
+        return recallService.recall(sendRequest);
+    }
 }

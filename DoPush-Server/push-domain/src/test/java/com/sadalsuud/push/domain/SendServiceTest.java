@@ -3,7 +3,7 @@ package com.sadalsuud.push.domain;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessController;
 import com.sadalsuud.push.common.pipeline.ProcessTemplate;
-import com.sadalsuud.push.domain.facade.SendServiceImpl;
+import com.sadalsuud.push.domain.facade.impl.SendServiceImpl;
 import com.sadalsuud.push.domain.receipt.BusinessCode;
 import com.sadalsuud.push.domain.receipt.MessageParam;
 import com.sadalsuud.push.domain.receipt.SendRequest;
@@ -22,8 +22,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @Description

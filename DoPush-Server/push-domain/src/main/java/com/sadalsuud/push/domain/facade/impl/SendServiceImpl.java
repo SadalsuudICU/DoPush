@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.facade;
+package com.sadalsuud.push.domain.facade.impl;
 
 import cn.monitor4all.logRecord.annotation.OperationLog;
 import com.sadalsuud.push.common.domain.SimpleTaskInfo;
@@ -6,6 +6,7 @@ import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.pipeline.ProcessController;
 import com.sadalsuud.push.common.vo.BasicResultVO;
+import com.sadalsuud.push.domain.facade.SendService;
 import com.sadalsuud.push.domain.receipt.SendRequest;
 import com.sadalsuud.push.domain.receipt.SendResponse;
 import com.sadalsuud.push.domain.receipt.SendTaskModel;
@@ -31,6 +32,7 @@ public class SendServiceImpl implements SendService {
 
     @Override
     @OperationLog(bizType = "SendService#send", bizId = "#sendRequest.messageTemplateId", msg = "#sendRequest")
+    @SuppressWarnings("unchecked")
     public SendResponse send(SendRequest sendRequest) {
         if (ObjectUtils.isEmpty(sendRequest)) {
             System.out.println("sendRequest is empty");
