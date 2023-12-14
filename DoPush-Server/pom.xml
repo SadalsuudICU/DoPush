@@ -148,6 +148,13 @@
 <!--                <version>${flink.version}</version>-->
 <!--            </dependency>-->
 
+            <!--http库-->
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
