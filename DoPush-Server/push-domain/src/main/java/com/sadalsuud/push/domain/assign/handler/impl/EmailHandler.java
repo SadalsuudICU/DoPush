@@ -68,8 +68,6 @@ public class EmailHandler extends BaseHandler implements Handler {
                 //MailUtil.send(account, taskInfo.getReceiver(), emailContentModel.getTitle(), emailContentModel.getContent(), true, files.toArray(new File[files.size()]));
                 MailUtil.send(account, taskInfo.getReceiver(), emailContentModel.getTitle(), emailContentModel.getContent(), true, files.toArray(new File[0]));
             }
-
-
         } catch (Exception e) {
             log.error("EmailHandler#handler fail!{},params:{}", Throwables.getStackTraceAsString(e), taskInfo);
             return false;
@@ -84,10 +82,25 @@ public class EmailHandler extends BaseHandler implements Handler {
      */
     private MailAccount getAccountConfig(Integer sendAccount) {
         MailAccount account = accountService.getAccountById(sendAccount, MailAccount.class);
+
+        // 这段代码只能从 20s -> 10s , 仍有10s左右的消耗
+        //System.getProperties().setProperty("mail.mime.address.usecanonicalhostname", "false");
+        //Session session = MailUtil.getSession(account, true);
+        //session.getProperties().setProperty("mail.smtp.localhost", "Sadalsuud");
+
+        // 解决: (罪魁祸首是getCanonicalHostName())
+        // ip = InetAddress.getLocalHost().getHostAddress()
+        // hostname = InetAddress.getLocalHost().getHostName()
+        // 在hosts文件中写入: ip localhost hostname
+
+
         try {
             MailSSLSocketFactory sf = new MailSSLSocketFactory();
             sf.setTrustAllHosts(true);
-            account.setAuth(account.isAuth()).setStarttlsEnable(account.isStarttlsEnable()).setSslEnable(account.isSslEnable()).setCustomProperty("mail.smtp.ssl.socketFactory", sf);
+            account.setAuth(account.isAuth())
+                    .setStarttlsEnable(account.isStarttlsEnable())
+                    .setSslEnable(account.isSslEnable())
+                    .setCustomProperty("mail.smtp.ssl.socketFactory", sf);
             account.setTimeout(25000).setConnectionTimeout(25000);
         } catch (Exception e) {
             log.error("EmailHandler#getAccount fail!{}", Throwables.getStackTraceAsString(e));

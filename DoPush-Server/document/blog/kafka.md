@@ -11,3 +11,9 @@
 查看topic
 
 > ./kafka-topics.sh --list --bootstrap-server localhost:9092
+
+
+
+TODO
+
+- [ ]  kafka消费延迟高的问题
