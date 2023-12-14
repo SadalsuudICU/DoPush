@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe;
 import com.sadalsuud.push.common.domain.RecallTaskInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
 import com.sadalsuud.push.domain.support.MessageQueuePipeline;
-import com.sadalsuud.push.domain.receipt.service.ConsumeService;
+import com.sadalsuud.push.domain.assign.service.ConsumeService;
 import com.sadalsuud.push.infrastructure.mq.sender.eventbus.EventBusListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

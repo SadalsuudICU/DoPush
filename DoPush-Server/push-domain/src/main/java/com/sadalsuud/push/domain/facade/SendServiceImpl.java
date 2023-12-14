@@ -6,9 +6,9 @@ import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.pipeline.ProcessController;
 import com.sadalsuud.push.common.vo.BasicResultVO;
-import com.sadalsuud.push.domain.assign.SendRequest;
-import com.sadalsuud.push.domain.assign.SendResponse;
-import com.sadalsuud.push.domain.assign.SendTaskModel;
+import com.sadalsuud.push.domain.receipt.SendRequest;
+import com.sadalsuud.push.domain.receipt.SendResponse;
+import com.sadalsuud.push.domain.receipt.SendTaskModel;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 

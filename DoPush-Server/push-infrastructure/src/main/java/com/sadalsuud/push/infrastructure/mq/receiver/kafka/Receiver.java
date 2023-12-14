@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSON;
 import com.sadalsuud.push.common.domain.RecallTaskInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
-import com.sadalsuud.push.domain.receipt.service.ConsumeService;
+import com.sadalsuud.push.domain.assign.service.ConsumeService;
 import com.sadalsuud.push.domain.support.MessageQueuePipeline;
 import com.sadalsuud.push.domain.support.GroupIdMappingUtils;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,6 @@ public class Receiver {
      * @param topicGroupId 消息主题id
      */
     @KafkaListener(topics = "#{'${dopush.business.topic.name}'}", containerFactory = "filterContainerFactory")
-    //@KafkaListener(topics = "#{'${dopush.business.topic.name}'}")
     public void consumer(ConsumerRecord<?, String> consumerRecord, @Header(KafkaHeaders.GROUP_ID) String topicGroupId) {
         Optional<String> value = Optional.ofNullable(consumerRecord.value());
         if (value.isPresent()) {
@@ -61,7 +60,6 @@ public class Receiver {
      * @param consumerRecord
      */
     @KafkaListener(topics = "#{'${dopush.business.recall.topic.name}'}", groupId = "#{'${dopush.business.recall.group.name}'}", containerFactory = "filterContainerFactory")
-    //@KafkaListener(topics = "#{'${dopush.business.recall.topic.name}'}", groupId = "#{'${dopush.business.recall.group.name}'}")
     public void recall(ConsumerRecord<?, String> consumerRecord) {
         Optional<String> value = Optional.ofNullable(consumerRecord.value());
         if (value.isPresent()) {
