@@ -1,5 +1,6 @@
 package com.sadalsuud.push.domain.facade;
 
+import com.sadalsuud.push.domain.receipt.BatchSendRequest;
 import com.sadalsuud.push.domain.receipt.SendRequest;
 import com.sadalsuud.push.domain.receipt.SendResponse;
 
@@ -28,6 +29,6 @@ public interface SendService {
      * @param batchSendRequest
      * @return
      */
-    //SendResponse batchSend(BatchSendRequest batchSendRequest);
+    SendResponse batchSend(BatchSendRequest batchSendRequest);
 
 }

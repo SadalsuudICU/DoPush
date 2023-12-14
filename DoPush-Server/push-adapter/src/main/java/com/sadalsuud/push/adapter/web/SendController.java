@@ -3,6 +3,7 @@ package com.sadalsuud.push.adapter.web;
 import com.sadalsuud.push.adapter.facade.annotation.DoPushAspect;
 import com.sadalsuud.push.domain.facade.RecallService;
 import com.sadalsuud.push.domain.facade.SendService;
+import com.sadalsuud.push.domain.receipt.BatchSendRequest;
 import com.sadalsuud.push.domain.receipt.SendRequest;
 import com.sadalsuud.push.domain.receipt.SendResponse;
 import io.swagger.annotations.Api;
@@ -42,17 +43,17 @@ public class SendController {
         return sendService.send(sendRequest);
     }
 
-    ///**
-    // * 不同文案下发到不同的人
-    // *
-    // * @param batchSendRequest
-    // * @return
-    // */
-    //@ApiOperation(value = "batch下发接口", notes = "多渠道多类型下发消息，目前支持邮件和短信，类型支持：验证码、通知类、营销类。")
-    //@PostMapping("/batchSend")
-    //public SendResponse batchSend(@RequestBody BatchSendRequest batchSendRequest) {
-    //    return sendService.batchSend(batchSendRequest);
-    //}
+    /**
+     * 不同文案下发到不同的人
+     *
+     * @param batchSendRequest
+     * @return
+     */
+    @ApiOperation(value = "batch下发接口", notes = "多渠道多类型下发消息，目前支持邮件和短信，类型支持：验证码、通知类、营销类。")
+    @PostMapping("/batchSend")
+    public SendResponse batchSend(@RequestBody BatchSendRequest batchSendRequest) {
+        return sendService.batchSend(batchSendRequest);
+    }
 
     /**
      * 优先根据messageId撤回消息，如果messageId不存在则根据模板id撤回
