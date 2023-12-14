@@ -45,7 +45,7 @@ public class TaskPipelineConfig {
     public ProcessTemplate taskTemplate() {
         ProcessTemplate processTemplate = new ProcessTemplate();
         processTemplate.setProcessList(Arrays.asList(discardAction, shieldAction,
-                //deduplicationAction,
+                deduplicationAction,
                 sendMessageAction));
         return processTemplate;
     }
