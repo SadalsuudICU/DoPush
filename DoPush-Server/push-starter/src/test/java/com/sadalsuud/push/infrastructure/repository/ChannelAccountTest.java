@@ -41,7 +41,7 @@ public class ChannelAccountTest {
     }
 
     @Test
-    public void saveTestAccounts() {
+    public void saveQQEmailTestAccounts() {
         // 创建测试邮箱账号配置
         // QQ邮箱密钥 nivyfpseaanjbhjj
         String emailConfig = "{\"host\":\"smtp.qq.com\",\"port\":465,\"user\":\"2094176918@qq.com\"," +
@@ -51,12 +51,42 @@ public class ChannelAccountTest {
         ChannelAccount email =
                 ChannelAccount.builder()
                         .id(123123123L).name("2094176918@qq.com")
-                        .sendChannel(10).accountConfig(emailConfig)
+                        .sendChannel(40).accountConfig(emailConfig)
                         .creator("test").created(intExact)
                         .updated(intExact)
                         .isDeleted(0)
                         .build();
         ChannelAccount save = channelAccountDao.save(email);
+        Optional<ChannelAccount> saved = channelAccountDao.findById(save.getId());
+        saved.ifPresent(System.out::println);
+    }
+
+    @Test
+    public void saveSmsTestAccounts() {
+        //SecretId:AKIDTrBOdr9XzRwU6lWBkJi1CFD2pQvIi1IQ
+        //SecretKey:BMZmpkTzHMDqGRM1Tj1CD2hCUYSCj28D
+        //smsSdkAppId:1400876387
+        String tencentSmsConfig = "{\n" +
+                "    \"url\": \"sms.tencentcloudapi.com\", " +
+                "    \"region\": \"ap-guangzhou\",  " +
+                "    \"secretId\": \"AKIDTrBOdr9XzRwU6lWBkJi1CFD2pQvIi1IQ\", " +
+                "    \"secretKey\": \"BMZmpkTzHMDqGRM1Tj1CD2hCUYSCj28D\", " +
+                "    \"smsSdkAppId\": \"1400876387\", " +
+                "    \"templateId\": \"2019523\",  " +
+                "    \"signName\": \"Sadalsuud公众号\", " +
+                "    \"supplierId\": 10, " +
+                "    \"supplierName\": \"腾讯云\", " +
+                "    \"scriptName\": \"TencentSmsScript\" " +
+                "}";
+        int intExact = Math.toIntExact(DateUtil.currentSeconds());
+        ChannelAccount sms =
+                ChannelAccount.builder()
+                        .id(123213123L).name("Sadalsuud")
+                        .sendChannel(30).accountConfig(tencentSmsConfig)
+                        .creator("test").created(intExact)
+                        .updated(intExact).isDeleted(0)
+                        .build();
+        ChannelAccount save = channelAccountDao.save(sms);
         Optional<ChannelAccount> saved = channelAccountDao.findById(save.getId());
         saved.ifPresent(System.out::println);
     }

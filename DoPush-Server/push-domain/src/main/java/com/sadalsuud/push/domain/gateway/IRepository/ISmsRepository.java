@@ -1,5 +1,9 @@
 package com.sadalsuud.push.domain.gateway.IRepository;
 
+import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
+
+import java.util.List;
+
 /**
  * @Description
  * @Author sadalsuud
@@ -8,4 +12,5 @@ package com.sadalsuud.push.domain.gateway.IRepository;
  * @Package com.sadalsuud.push.domain.gateway.IRepository
  */
 public interface ISmsRepository {
+    List<SmsRecord> saveAll(List<SmsRecord> records);
 }
