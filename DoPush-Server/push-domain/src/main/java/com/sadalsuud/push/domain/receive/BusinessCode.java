@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.receipt;
+package com.sadalsuud.push.domain.receive;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

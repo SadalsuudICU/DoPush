@@ -1,8 +1,8 @@
 package com.sadalsuud.push.domain.facade;
 
-import com.sadalsuud.push.domain.receipt.BatchSendRequest;
-import com.sadalsuud.push.domain.receipt.SendRequest;
-import com.sadalsuud.push.domain.receipt.SendResponse;
+import com.sadalsuud.push.domain.receive.BatchSendRequest;
+import com.sadalsuud.push.domain.receive.SendRequest;
+import com.sadalsuud.push.domain.receive.SendResponse;
 
 /**
  * @Description

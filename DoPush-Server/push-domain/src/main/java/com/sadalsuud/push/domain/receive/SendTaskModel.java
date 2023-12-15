@@ -1,6 +1,6 @@
-package com.sadalsuud.push.domain.receipt;
+package com.sadalsuud.push.domain.receive;
 
-import com.sadalsuud.push.common.domain.RecallTaskInfo;
+import com.sadalsuud.push.common.domain.TaskInfo;
 import com.sadalsuud.push.common.pipeline.ProcessModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,13 +14,13 @@ import java.util.List;
  * @Author sadalsuud
  * @Blog www.sadalsuud.cn
  * @Date 10/12/2023
- * @Package com.sadalsuud.push.domain.pipeline.action
+ * @Package com.sadalsuud.push.domain.pipeline
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RecallTaskModel implements ProcessModel {
+public class SendTaskModel implements ProcessModel {
 
     /**
      * 消息模板Id
@@ -28,12 +28,13 @@ public class RecallTaskModel implements ProcessModel {
     private Long messageTemplateId;
 
     /**
-     * 需要撤回的消息ids
+     * 请求参数
      */
-    private List<String> recallMessageId;
+    private List<MessageParam> messageParamList;
 
     /**
-     * 撤回任务 domain
+     * 发送任务的信息
      */
-    private RecallTaskInfo recallTaskInfo;
+    private List<TaskInfo> taskInfo;
+
 }

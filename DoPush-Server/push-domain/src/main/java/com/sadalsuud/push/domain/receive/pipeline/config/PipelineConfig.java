@@ -1,14 +1,14 @@
-package com.sadalsuud.push.domain.receipt.pipeline.config;
+package com.sadalsuud.push.domain.receive.pipeline.config;
 
 import com.sadalsuud.push.common.pipeline.ProcessController;
 import com.sadalsuud.push.common.pipeline.ProcessTemplate;
-import com.sadalsuud.push.domain.receipt.BusinessCode;
-import com.sadalsuud.push.domain.receipt.pipeline.action.recall.RecallAssembleAction;
-import com.sadalsuud.push.domain.receipt.pipeline.action.recall.RecallMqAction;
-import com.sadalsuud.push.domain.receipt.pipeline.action.send.SendAfterCheckAction;
-import com.sadalsuud.push.domain.receipt.pipeline.action.send.SendAssembleAction;
-import com.sadalsuud.push.domain.receipt.pipeline.action.send.SendMqAction;
-import com.sadalsuud.push.domain.receipt.pipeline.action.send.SendPreCheckAction;
+import com.sadalsuud.push.domain.receive.BusinessCode;
+import com.sadalsuud.push.domain.receive.pipeline.action.recall.RecallAssembleAction;
+import com.sadalsuud.push.domain.receive.pipeline.action.recall.RecallMqAction;
+import com.sadalsuud.push.domain.receive.pipeline.action.send.SendAfterCheckAction;
+import com.sadalsuud.push.domain.receive.pipeline.action.send.SendAssembleAction;
+import com.sadalsuud.push.domain.receive.pipeline.action.send.SendMqAction;
+import com.sadalsuud.push.domain.receive.pipeline.action.send.SendPreCheckAction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

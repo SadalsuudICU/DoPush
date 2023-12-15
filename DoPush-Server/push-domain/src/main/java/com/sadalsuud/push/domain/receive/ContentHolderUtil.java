@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.receipt;
+package com.sadalsuud.push.domain.receive;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;

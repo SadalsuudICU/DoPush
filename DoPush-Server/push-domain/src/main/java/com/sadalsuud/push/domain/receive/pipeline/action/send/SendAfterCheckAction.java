@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.receipt.pipeline.action.send;
+package com.sadalsuud.push.domain.receive.pipeline.action.send;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ReUtil;
@@ -9,7 +9,7 @@ import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.vo.BasicResultVO;
-import com.sadalsuud.push.domain.receipt.SendTaskModel;
+import com.sadalsuud.push.domain.receive.SendTaskModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

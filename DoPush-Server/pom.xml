@@ -155,6 +155,13 @@
                 <version>${okhttp.version}</version>
             </dependency>
 
+            <!--腾讯sdk(目前用在短信上)-->
+            <dependency>
+                <groupId>com.tencentcloudapi</groupId>
+                <artifactId>tencentcloud-sdk-java</artifactId>
+                <version>${tencentcloud-sdk.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

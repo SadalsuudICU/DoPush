@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.receipt;
+package com.sadalsuud.push.domain.receive;
 
 import com.sadalsuud.push.common.domain.SimpleTaskInfo;
 import lombok.AllArgsConstructor;

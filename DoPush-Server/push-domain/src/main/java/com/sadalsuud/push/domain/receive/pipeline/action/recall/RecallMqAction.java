@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.receipt.pipeline.action.recall;
+package com.sadalsuud.push.domain.receive.pipeline.action.recall;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -9,7 +9,7 @@ import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.gateway.SendMqService;
-import com.sadalsuud.push.domain.receipt.RecallTaskModel;
+import com.sadalsuud.push.domain.receive.RecallTaskModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

@@ -5,9 +5,9 @@ import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.pipeline.ProcessController;
 import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.facade.RecallService;
-import com.sadalsuud.push.domain.receipt.RecallTaskModel;
-import com.sadalsuud.push.domain.receipt.SendRequest;
-import com.sadalsuud.push.domain.receipt.SendResponse;
+import com.sadalsuud.push.domain.receive.RecallTaskModel;
+import com.sadalsuud.push.domain.receive.SendRequest;
+import com.sadalsuud.push.domain.receive.SendResponse;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 

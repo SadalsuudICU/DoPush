@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.receipt.pipeline.action.send;
+package com.sadalsuud.push.domain.receive.pipeline.action.send;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.text.StrPool;
@@ -17,10 +17,10 @@ import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.gateway.IRepository.IMessageTemplateRepository;
 import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
-import com.sadalsuud.push.domain.receipt.ContentHolderUtil;
-import com.sadalsuud.push.domain.receipt.MessageParam;
-import com.sadalsuud.push.domain.receipt.SendTaskModel;
-import com.sadalsuud.push.domain.receipt.TaskInfoUtils;
+import com.sadalsuud.push.domain.receive.ContentHolderUtil;
+import com.sadalsuud.push.domain.receive.MessageParam;
+import com.sadalsuud.push.domain.receive.SendTaskModel;
+import com.sadalsuud.push.domain.receive.TaskInfoUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

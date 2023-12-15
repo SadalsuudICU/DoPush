@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.receipt.pipeline.action.recall;
+package com.sadalsuud.push.domain.receive.pipeline.action.recall;
 
 import com.google.common.base.Throwables;
 import com.sadalsuud.push.common.constant.CommonConstant;
@@ -9,7 +9,7 @@ import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.gateway.IRepository.IMessageTemplateRepository;
 import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
-import com.sadalsuud.push.domain.receipt.RecallTaskModel;
+import com.sadalsuud.push.domain.receive.RecallTaskModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

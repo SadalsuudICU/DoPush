@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.receipt;
+package com.sadalsuud.push.domain.receive;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
