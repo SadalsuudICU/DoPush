@@ -1,5 +1,6 @@
 package com.sadalsuud.push.domain.assign.script.impl;
 
+
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
@@ -37,13 +38,6 @@ import java.util.Objects;
 public class AliSmsScript implements SmsScript {
 
     private final AccountService accountService;
-
-    static {
-        // export ALIBABA_CLOUD_ACCESS_KEY_ID=<access_key_id>
-        // export ALIBABA_CLOUD_ACCESS_KEY_SECRET=<access_key_secret>
-        //System.setProperty("ALIBABA_CLOUD_ACCESS_KEY_ID", "LTAI5tGym1AXxRYXJrZdebfY");
-        //System.setProperty("ALIBABA_CLOUD_ACCESS_KEY_SECRET", "8cviYaQcjB8ixTwGJngYUPn2CLgZaL");
-    }
 
     @Override
     public List<SmsRecord> send(SmsParam smsParam) {
@@ -99,7 +93,8 @@ public class AliSmsScript implements SmsScript {
         SendSmsRequest sendSmsRequest = new SendSmsRequest();
         sendSmsRequest.setTemplateCode(account.getTemplateCode());
         sendSmsRequest.setSignName(account.getSignName());
-        sendSmsRequest.setTemplateParam(smsParam.getContent());
+        //sendSmsRequest.setTemplateParam(smsParam.getContent());
+        sendSmsRequest.setTemplateParam("{\"code\":\"1234\"}");
         return sendSmsRequest;
     }
 
@@ -107,7 +102,10 @@ public class AliSmsScript implements SmsScript {
         ArrayList<SmsRecord> smsRecords = new ArrayList<>();
         for (SendSmsRequest sendSmsRequest : sendSmsRequests) {
             try {
-                SendSmsResponse sendSmsResponse = client.sendSms(sendSmsRequest);
+                com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+                SendSmsResponse sendSmsResponse = client.sendSmsWithOptions(sendSmsRequest, runtime);
+                System.out.println("sendSmsResponse.getBody().getBizId() = " + sendSmsResponse.getBody().getBizId());
+                System.out.println("sendSmsResponse.getBody().getRequestId() = " + sendSmsResponse.getBody().getRequestId());
                 SmsRecord smsRecord = SmsRecord.builder()
                         .sendDate(Integer.valueOf(DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN)))
                         .messageTemplateId(smsParam.getMessageTemplateId())
@@ -115,7 +113,7 @@ public class AliSmsScript implements SmsScript {
                         .supplierId(account.getSupplierId())
                         .supplierName(account.getSupplierName())
                         .msgContent(smsParam.getContent())
-                        .seriesId(sendSmsResponse.getBody().getBizId())
+                        .seriesId(sendSmsResponse.getBody().getRequestId())
                         // 每次发送一个
                         .chargingNum(1)
                         .status(SmsStatus.SEND_SUCCESS.getCode())
