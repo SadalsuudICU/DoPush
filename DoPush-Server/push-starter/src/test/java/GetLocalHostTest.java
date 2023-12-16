@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * @Description
@@ -38,6 +39,11 @@ public class GetLocalHostTest {
 
     public static void main(String[] args) throws UnknownHostException {
         new GetLocalHostTest().getLocalHostByInetAddress();
+        getEnv();
     }
 
+
+    public static void getEnv() {
+        System.out.println(System.getenv("ALIBABA_CLOUD_ACCESS_KEY_SECRET"));
+    }
 }

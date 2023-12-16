@@ -90,4 +90,31 @@ public class ChannelAccountTest {
         Optional<ChannelAccount> saved = channelAccountDao.findById(save.getId());
         saved.ifPresent(System.out::println);
     }
+
+    @Test
+    public void saveAliSmsTestAccounts() {
+        // accessKeyId: LTAI5tGym1AXxRYXJrZdebfY
+        // accessKeySecret: 8cviYaQcjB8ixTwGJngYUPn2CLgZaL
+        String aliSmsConfig = "{" +
+                "\"endpoint\": \"dysmsapi.aliyuncs.com\",  " +
+                "\"accessKeyId\": \"LTAI5tGym1AXxRYXJrZdebfY\", " +
+                "\"secretKey\": \"8cviYaQcjB8ixTwGJngYUPn2CLgZaL\", " +
+                "\"templateId\": \"SMS_464385075\",  " +
+                "\"signName\": \"Sadalsuud\", " +
+                "\"supplierId\": 20, " +
+                "\"supplierName\": \"阿里云\", " +
+                "\"scriptName\": \"AliSmsScript\" " +
+                "}";
+        int intExact = Math.toIntExact(DateUtil.currentSeconds());
+        ChannelAccount sms =
+                ChannelAccount.builder()
+                        .id(123213123L).name("Sadalsuud")
+                        .sendChannel(30).accountConfig(aliSmsConfig)
+                        .creator("test").created(intExact)
+                        .updated(intExact).isDeleted(0)
+                        .build();
+        ChannelAccount save = channelAccountDao.save(sms);
+        Optional<ChannelAccount> saved = channelAccountDao.findById(save.getId());
+        saved.ifPresent(System.out::println);
+    }
 }

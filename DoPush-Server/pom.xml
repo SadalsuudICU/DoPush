@@ -51,6 +51,7 @@
         <graylog.version>3.0.0</graylog.version>
         <alipay-java.version>4.33.39.ALL</alipay-java.version>
         <alibaba-dingtalk-service.version>2.0.0</alibaba-dingtalk-service.version>
+        <aliyun-sms.version>2.0.24</aliyun-sms.version>
 
         <!--unmount-->
         <nacos.version>0.2.12</nacos.version>
@@ -107,11 +108,11 @@
                 <artifactId>dynamic-tp-spring-boot-starter-common</artifactId>
                 <version>1.0.2</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>io.github.lyh200</groupId>-->
-<!--                <artifactId>dynamic-tp-spring-boot-starter-apollo</artifactId>-->
-<!--                <version>1.0.2</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>io.github.lyh200</groupId>-->
+            <!--                <artifactId>dynamic-tp-spring-boot-starter-apollo</artifactId>-->
+            <!--                <version>1.0.2</version>-->
+            <!--            </dependency>-->
 
             <!--邮件发送-->
             <dependency>
@@ -142,11 +143,11 @@
             </dependency>
 
             <!--kafkaFlink连接器-->
-<!--            <dependency>-->
-<!--                <groupId>org.apache.flink</groupId>-->
-<!--                <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>-->
-<!--                <version>${flink.version}</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.apache.flink</groupId>-->
+            <!--                <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>-->
+            <!--                <version>${flink.version}</version>-->
+            <!--            </dependency>-->
 
             <!--http库-->
             <dependency>
@@ -160,6 +161,13 @@
                 <groupId>com.tencentcloudapi</groupId>
                 <artifactId>tencentcloud-sdk-java</artifactId>
                 <version>${tencentcloud-sdk.version}</version>
+            </dependency>
+
+            <!--阿里云SDK-->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>dysmsapi20170525</artifactId>
+                <version>${aliyun-sms.version}</version>
             </dependency>
 
         </dependencies>

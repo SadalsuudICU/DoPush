@@ -62,10 +62,10 @@
         </dependency>
 
         <!--动态线程池-->
-<!--        <dependency>-->
-<!--            <groupId>io.github.lyh200</groupId>-->
-<!--            <artifactId>dynamic-tp-spring-boot-starter-apollo</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.github.lyh200</groupId>-->
+        <!--            <artifactId>dynamic-tp-spring-boot-starter-apollo</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>io.github.lyh200</groupId>
             <artifactId>dynamic-tp-spring-boot-starter-common</artifactId>
@@ -87,6 +87,12 @@
         <dependency>
             <groupId>com.tencentcloudapi</groupId>
             <artifactId>tencentcloud-sdk-java</artifactId>
+        </dependency>
+
+        <!--阿里sdk-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>dysmsapi20170525</artifactId>
         </dependency>
 
     </dependencies>
