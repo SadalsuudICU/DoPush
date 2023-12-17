@@ -10,12 +10,14 @@ package com.sadalsuud.push.stream.constants;
 public class FlinkConstant {
     /**
      * Kafka 配置信息
+     * 192.168.249.128 www.dopush.com
      */
     public static final String GROUP_ID = "dopushLogGroup";
     public static final String TOPIC_NAME = "dopushTraceLog";
     public static final String BROKER = "www.dopush.com:9092";
     /**
      * redis 配置
+     * 192.168.249.128 www.dopush.com
      */
     public static final String REDIS_IP = "www.dopush.com";
     public static final String REDIS_PORT = "6379";
