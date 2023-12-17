@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface ISmsRepository {
     List<SmsRecord> saveAll(List<SmsRecord> records);
+
+    List<SmsRecord> findByPhoneAndSendDate(Long aLong, Integer sendDate);
 }

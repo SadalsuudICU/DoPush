@@ -25,4 +25,9 @@ public class SmsRepositoryImpl implements ISmsRepository {
     public List<SmsRecord> saveAll(List<SmsRecord> records) {
         return Lists.newArrayList(smsRecordDao.saveAll(records));
     }
+
+    @Override
+    public List<SmsRecord> findByPhoneAndSendDate(Long aLong, Integer sendDate) {
+        return smsRecordDao.findByPhoneAndSendDate(aLong, sendDate);
+    }
 }
