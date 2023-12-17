@@ -1,6 +1,10 @@
 package com.sadalsuud.push.infrastructure.repository;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.file.FileReader;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.sadalsuud.push.PushHttpApplication;
 import com.sadalsuud.push.domain.gateway.domain.ChannelAccount;
 import org.junit.Test;
@@ -9,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -42,11 +47,7 @@ public class ChannelAccountTest {
 
     @Test
     public void saveQQEmailTestAccounts() {
-        // 创建测试邮箱账号配置
-        // QQ邮箱密钥 nivyfpseaanjbhjj
-        String emailConfig = "{\"host\":\"smtp.qq.com\",\"port\":465,\"user\":\"2094176918@qq.com\"," +
-                "\"pass\":\"nivyfpseaanjbhjj\",\"from\":\"2094176918@qq.com\",\"starttlsEnable\":\"true\"," +
-                "\"auth\":true,\"sslEnable\":true}";
+        String emailConfig = getConfig("email", "qq");
         int intExact = Math.toIntExact(DateUtil.currentSeconds());
         ChannelAccount email =
                 ChannelAccount.builder()
@@ -63,21 +64,7 @@ public class ChannelAccountTest {
 
     @Test
     public void saveSmsTestAccounts() {
-        //SecretId:AKIDTrBOdr9XzRwU6lWBkJi1CFD2pQvIi1IQ
-        //SecretKey:BMZmpkTzHMDqGRM1Tj1CD2hCUYSCj28D
-        //smsSdkAppId:1400876387
-        String tencentSmsConfig = "{\n" +
-                "    \"url\": \"sms.tencentcloudapi.com\", " +
-                "    \"region\": \"ap-guangzhou\",  " +
-                "    \"secretId\": \"AKIDTrBOdr9XzRwU6lWBkJi1CFD2pQvIi1IQ\", " +
-                "    \"secretKey\": \"BMZmpkTzHMDqGRM1Tj1CD2hCUYSCj28D\", " +
-                "    \"smsSdkAppId\": \"1400876387\", " +
-                "    \"templateId\": \"2019523\",  " +
-                "    \"signName\": \"Sadalsuud公众号\", " +
-                "    \"supplierId\": 10, " +
-                "    \"supplierName\": \"腾讯云\", " +
-                "    \"scriptName\": \"TencentSmsScript\" " +
-                "}";
+        String tencentSmsConfig = getConfig("sms", "tencent");
         int intExact = Math.toIntExact(DateUtil.currentSeconds());
         ChannelAccount sms =
                 ChannelAccount.builder()
@@ -93,18 +80,7 @@ public class ChannelAccountTest {
 
     @Test
     public void saveAliSmsTestAccounts() {
-        // accessKeyId: LTAI5tGym1AXxRYXJrZdebfY
-        // accessKeySecret: 8cviYaQcjB8ixTwGJngYUPn2CLgZaL
-        String aliSmsConfig = "{" +
-                "\"endpoint\": \"dysmsapi.aliyuncs.com\",  " +
-                "\"accessKeyId\": \"LTAI5tGym1AXxRYXJrZdebfY\", " +
-                "\"secretKey\": \"8cviYaQcjB8ixTwGJngYUPn2CLgZaL\", " +
-                "\"templateId\": \"SMS_464385075\",  " +
-                "\"signName\": \"Sadalsuud\", " +
-                "\"supplierId\": 20, " +
-                "\"supplierName\": \"阿里云\", " +
-                "\"scriptName\": \"AliSmsScript\" " +
-                "}";
+        String aliSmsConfig = getConfig("sms", "ali");
         int intExact = Math.toIntExact(DateUtil.currentSeconds());
         ChannelAccount sms =
                 ChannelAccount.builder()
@@ -116,5 +92,29 @@ public class ChannelAccountTest {
         ChannelAccount save = channelAccountDao.save(sms);
         Optional<ChannelAccount> saved = channelAccountDao.findById(save.getId());
         saved.ifPresent(System.out::println);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getConfig("email", "qq"));
+    }
+
+    private static String getConfig(String type, String account) {
+        String path = "C:\\Sadalsuud\\Projects\\Graduation-Project\\DoPush\\DoPush-Server\\accountConfig.json";
+        FileReader fileReader = new FileReader(path);
+        String s = fileReader.readString();
+        JSONObject jsonObject = JSONUtil.parseObj(s);
+        Object typeConfig = jsonObject.get(type);
+        JSONArray objects = JSONUtil.parseArray(typeConfig);
+        for (Object object : objects) {
+            JSONObject jsonObject1 = JSONUtil.parseObj(object);
+            if (account.equals(jsonObject1.get("name"))) {
+                Object o = jsonObject1.get("config");
+                if (Objects.nonNull(o)) {
+                    return o.toString();
+                }
+                break;
+            }
+        }
+        return null;
     }
 }
