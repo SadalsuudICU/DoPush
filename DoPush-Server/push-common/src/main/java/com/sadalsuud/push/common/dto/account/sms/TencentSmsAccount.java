@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
  * {
  * "url": "sms.tencentcloudapi.com",
  * "region": "ap-guangzhou",
- * "secretId": "AKIDhDxxxxxxxx1WljQq",
- * "secretKey": "B4hwww39yxxxrrrrgxyi",
- * "smsSdkAppId": "1423123125",
+ * "secretId": "your secretId",
+ * "secretKey": "your secretKey",
+ * "smsSdkAppId": "your SDK AppId",
  * "templateId": "1182097",
- * "signName": "Java3y公众号",
+ * "signName": "your signName",
  * "supplierId": 10,
  * "supplierName": "腾讯云",
  * "scriptName": "TencentSmsScript"
