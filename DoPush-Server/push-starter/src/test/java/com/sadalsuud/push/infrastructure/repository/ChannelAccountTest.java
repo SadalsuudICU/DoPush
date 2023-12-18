@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
+import java.nio.charset.Charset;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -99,8 +101,8 @@ public class ChannelAccountTest {
     }
 
     private static String getConfig(String type, String account) {
-        String path = "C:\\Sadalsuud\\Projects\\Graduation-Project\\DoPush\\DoPush-Server\\accountConfig.json";
-        FileReader fileReader = new FileReader(path);
+        String configPath = "C:\\Sadalsuud\\Projects\\Graduation-Project\\DoPush\\DoPush-Server";
+        FileReader fileReader = new FileReader(new File(configPath, "accountConfig.json"), Charset.defaultCharset());
         String s = fileReader.readString();
         JSONObject jsonObject = JSONUtil.parseObj(s);
         Object typeConfig = jsonObject.get(type);
