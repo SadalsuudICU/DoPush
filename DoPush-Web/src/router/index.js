@@ -17,12 +17,12 @@ import Layout from '@/layout'
  * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
  * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles)
-    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
-    icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
-    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
-  }
+ roles: ['admin','editor']    control the page roles (you can set multiple roles)
+ title: 'title'               the name show in sidebar and breadcrumb (recommend set)
+ icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
+ breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
+ activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
+ }
  */
 
 /**
@@ -73,6 +73,27 @@ export const constantRoutes = [
         name: 'Tree',
         component: () => import('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
+      }
+    ]
+  },
+
+  {
+    path: '/template',
+    component: Layout,
+    name: '消息模板管理',
+    meta: { title: '消息模板管理', icon: 'template' },
+    children: [
+      {
+        path: 'create',
+        name: 'Create',
+        component: () => import('@/views/template/create.vue'),
+        meta: { title: '新增模板', icon: 'create' }
+      },
+      {
+        path: 'list',
+        name: 'List',
+        component: () => import('@/views/template/list.vue'),
+        meta: { title: '模板列表', icon: 'nested' }
       }
     ]
   },
