@@ -6,7 +6,7 @@ import cn.hutool.core.text.CharSequenceUtil;
 import com.sadalsuud.push.common.constant.CommonConstant;
 import com.sadalsuud.push.common.constant.DoPushConstant;
 import com.sadalsuud.push.domain.gateway.domain.ChannelAccount;
-import com.sadalsuud.push.infrastructure.repository.ChannelAccountDao;
+import com.sadalsuud.push.infrastructure.gatewayImpl.repository.ChannelAccountDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

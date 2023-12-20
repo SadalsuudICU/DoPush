@@ -3,6 +3,7 @@ package com.sadalsuud.push.infrastructure.repository;
 import cn.hutool.core.date.DateUtil;
 import com.sadalsuud.push.PushHttpApplication;
 import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.infrastructure.gatewayImpl.repository.MessageTemplateDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

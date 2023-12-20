@@ -7,6 +7,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.sadalsuud.push.PushHttpApplication;
 import com.sadalsuud.push.domain.gateway.domain.ChannelAccount;
+import com.sadalsuud.push.infrastructure.gatewayImpl.repository.ChannelAccountDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
