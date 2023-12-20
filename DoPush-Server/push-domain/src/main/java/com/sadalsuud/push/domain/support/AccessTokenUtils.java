@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class AccessTokenUtils {
 
-    @Resource
+    @Resource(name = "stringRedisTemplate")
     private StringRedisTemplate redisTemplate;
 
     /**
