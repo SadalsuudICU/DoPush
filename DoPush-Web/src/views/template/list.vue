@@ -21,7 +21,7 @@
     <p />
     <el-select placeholder="请选择" value="">
       <el-option
-        v-for="item in options"
+        v-for="item in columns"
         :key="item.value"
         :label="item.label"
         :value="item.value"
@@ -50,11 +50,14 @@
 </template>
 
 <script>
+import { templateList } from '@/api/template'
+
 export default {
   data() {
     return {
       keyword: '',
       placeholder: '通过关键字搜索',
+      tableData: [],
       columns: [
         {
           'name': 'id',
@@ -130,10 +133,30 @@ export default {
       this.$router.back()
     },
     search() {
-      console.log(this.keyword)
+      const data = {
+        page: 1,
+        perPage: 5,
+        creator: 'Sadalsuud'
+      }
+      templateList(data).then(res => {
+        this.tableData = this.dataConvert(res.data.rows)
+      }).catch(err => {
+        console.log(err)
+      })
+      // console.log(this.keyword)
     },
     batchDelete() {
       console.log()
+    },
+    dataConvert(datas) {
+      for (let i = 0; i < datas.length; i++) {
+        const data = datas[i]
+        data.sendChannel = this.columns[2].map[data.sendChannel]
+        data.templateType = this.columns[3].map[data.templateType]
+        data.msgType = this.columns[4].map[data.msgType]
+        data.idType = this.columns[6].map[data.idType]
+      }
+      return datas
     }
   }
 }
