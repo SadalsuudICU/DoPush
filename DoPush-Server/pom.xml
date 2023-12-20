@@ -53,6 +53,7 @@
         <alipay-java.version>4.33.39.ALL</alipay-java.version>
         <alibaba-dingtalk-service.version>2.0.0</alibaba-dingtalk-service.version>
         <aliyun-sms.version>2.0.24</aliyun-sms.version>
+        <ding-talk.version>1.2.2</ding-talk.version>
 
         <!--unmount-->
         <nacos.version>0.2.12</nacos.version>
@@ -169,6 +170,20 @@
                 <groupId>com.aliyun</groupId>
                 <artifactId>dysmsapi20170525</artifactId>
                 <version>${aliyun-sms.version}</version>
+            </dependency>
+
+            <!--dingTalk stream-->
+<!--            <dependency>-->
+<!--                <groupId>com.dingtalk.open</groupId>-->
+<!--                <artifactId>app-stream-client</artifactId>-->
+<!--                <version>${ding-talk.version}</version>-->
+<!--            </dependency>-->
+
+            <!--阿里云 钉钉 SDK-->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>alibaba-dingtalk-service-sdk</artifactId>
+                <version>${alibaba-dingtalk-service.version}</version>
             </dependency>
 
         </dependencies>

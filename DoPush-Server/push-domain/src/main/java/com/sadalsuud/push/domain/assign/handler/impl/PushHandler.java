@@ -67,7 +67,7 @@ public class PushHandler extends BaseHandler implements Handler {
             if (sendPushResult.getCode().equals(0)) {
                 return true;
             }
-            // 常见的错误 应当 关联至 AnchorState,由austin后台统一透出失败原因
+            // 常见的错误 应当 关联至 AnchorState,由后台统一透出失败原因
             log.error("PushHandler#handler fail!result:{},params:{}", JSON.toJSONString(sendPushResult), JSON.toJSONString(taskInfo));
         } catch (Exception e) {
             log.error("PushHandler#handler fail!e:{},params:{}", Throwables.getStackTraceAsString(e), JSON.toJSONString(taskInfo));
