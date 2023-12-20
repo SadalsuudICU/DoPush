@@ -12,10 +12,10 @@ import com.sadalsuud.push.common.dto.account.GeTuiAccount;
 import com.sadalsuud.push.common.enums.ChannelType;
 import com.sadalsuud.push.common.enums.EnumUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class AccessTokenUtils {
 
-    @Autowired
+    @Resource
     private StringRedisTemplate redisTemplate;
 
     /**
