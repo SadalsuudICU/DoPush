@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.model.sms;
+package com.sadalsuud.push.domain.assign.model.sms;
 
 import lombok.Builder;
 import lombok.Data;

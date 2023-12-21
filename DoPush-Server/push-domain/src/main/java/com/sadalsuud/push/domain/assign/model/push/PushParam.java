@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.model.push;
+package com.sadalsuud.push.domain.assign.model.push;
 
 
 import com.sadalsuud.push.common.domain.TaskInfo;

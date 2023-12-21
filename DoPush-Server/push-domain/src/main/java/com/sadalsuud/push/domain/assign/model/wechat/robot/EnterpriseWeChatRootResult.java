@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.model.wechat.robot;
+package com.sadalsuud.push.domain.assign.model.wechat.robot;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;

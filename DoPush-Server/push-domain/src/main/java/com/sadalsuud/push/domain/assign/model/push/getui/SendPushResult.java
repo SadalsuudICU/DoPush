@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.model.push.getui;
+package com.sadalsuud.push.domain.assign.model.push.getui;
 
 
 import com.alibaba.fastjson.JSONObject;

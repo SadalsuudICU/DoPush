@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.model.sms;
+package com.sadalsuud.push.domain.assign.model.sms;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.List;
  * @Blog www.sadalsuud.cn
  * @Date 10/12/2023
  * @Package com.sadalsuud.push.domain.model
- * @see com.sadalsuud.push.domain.model.sms
+ * @see com.sadalsuud.push.domain.assign.model.sms
  */
 @Data
 @AllArgsConstructor
@@ -29,7 +29,7 @@ public class LinTongSendResult {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class DataDTO {
+    public static class DataDTO {
         Integer code;
         String message;
         Long msgId;

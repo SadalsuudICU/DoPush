@@ -14,7 +14,7 @@ import com.sadalsuud.push.common.enums.SmsStatus;
 import com.sadalsuud.push.domain.assign.script.SmsScript;
 import com.sadalsuud.push.domain.gateway.AccountService;
 import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
-import com.sadalsuud.push.domain.model.sms.SmsParam;
+import com.sadalsuud.push.domain.assign.model.sms.SmsParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

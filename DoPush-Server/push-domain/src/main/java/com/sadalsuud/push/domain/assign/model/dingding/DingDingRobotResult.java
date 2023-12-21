@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.model.dingding;
+package com.sadalsuud.push.domain.assign.model.dingding;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;

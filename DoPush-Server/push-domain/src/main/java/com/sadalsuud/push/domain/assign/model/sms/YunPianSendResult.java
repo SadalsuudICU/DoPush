@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.model.sms;
+package com.sadalsuud.push.domain.assign.model.sms;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;

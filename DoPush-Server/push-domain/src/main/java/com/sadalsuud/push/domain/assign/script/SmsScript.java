@@ -1,7 +1,7 @@
 package com.sadalsuud.push.domain.assign.script;
 
 import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
-import com.sadalsuud.push.domain.model.sms.SmsParam;
+import com.sadalsuud.push.domain.assign.model.sms.SmsParam;
 
 import java.util.List;
 

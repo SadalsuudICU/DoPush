@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.model.dingding;
+package com.sadalsuud.push.domain.assign.model.dingding;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;

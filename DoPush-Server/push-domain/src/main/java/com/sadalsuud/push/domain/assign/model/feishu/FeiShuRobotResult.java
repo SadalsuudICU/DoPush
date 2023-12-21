@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.model.feishu;
+package com.sadalsuud.push.domain.assign.model.feishu;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;

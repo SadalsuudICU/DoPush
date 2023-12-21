@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.model.alipay;
+package com.sadalsuud.push.domain.assign.model.alipay;
 
 import lombok.Builder;
 import lombok.Data;

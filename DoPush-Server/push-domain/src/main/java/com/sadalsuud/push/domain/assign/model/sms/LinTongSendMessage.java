@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.model.sms;
+package com.sadalsuud.push.domain.assign.model.sms;
 
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.Data;
  * @Blog www.sadalsuud.cn
  * @Date 10/12/2023
  * @Package com.sadalsuud.push.domain.model
- * @see com.sadalsuud.push.domain.model.sms
+ * @see com.sadalsuud.push.domain.assign.model.sms
  */
 @Data
 @Builder
