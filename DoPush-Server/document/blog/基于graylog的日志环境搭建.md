@@ -1,0 +1,1 @@
+> [Graylog之最小化部署安装（Ubuntu 22.04）_graylog部署-CSDN博客](https://blog.csdn.net/u012153104/article/details/127669999)
