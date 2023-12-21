@@ -1,8 +1,8 @@
 package com.sadalsuud.push.adapter.web;
 
 import com.sadalsuud.push.adapter.facade.annotation.DoPushAspect;
-import com.sadalsuud.push.domain.facade.RecallService;
-import com.sadalsuud.push.domain.facade.SendService;
+import com.sadalsuud.push.client.api.RecallService;
+import com.sadalsuud.push.client.api.SendService;
 import com.sadalsuud.push.domain.receive.BatchSendRequest;
 import com.sadalsuud.push.domain.receive.SendRequest;
 import com.sadalsuud.push.domain.receive.SendResponse;

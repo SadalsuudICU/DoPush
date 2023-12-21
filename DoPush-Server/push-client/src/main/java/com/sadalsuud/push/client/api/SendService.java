@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.facade;
+package com.sadalsuud.push.client.api;
 
 import com.sadalsuud.push.domain.receive.BatchSendRequest;
 import com.sadalsuud.push.domain.receive.SendRequest;

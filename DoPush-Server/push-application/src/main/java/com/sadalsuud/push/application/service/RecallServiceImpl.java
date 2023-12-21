@@ -1,10 +1,10 @@
-package com.sadalsuud.push.domain.facade.impl;
+package com.sadalsuud.push.application.service;
 
 import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.pipeline.ProcessController;
 import com.sadalsuud.push.common.vo.BasicResultVO;
-import com.sadalsuud.push.domain.facade.RecallService;
+import com.sadalsuud.push.client.api.RecallService;
 import com.sadalsuud.push.domain.receive.RecallTaskModel;
 import com.sadalsuud.push.domain.receive.SendRequest;
 import com.sadalsuud.push.domain.receive.SendResponse;
