@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@Api("健康检测")
+@Api(tags = {"健康检测"})
 public class HealthController {
     @GetMapping("/")
     @ApiOperation("/健康检测")

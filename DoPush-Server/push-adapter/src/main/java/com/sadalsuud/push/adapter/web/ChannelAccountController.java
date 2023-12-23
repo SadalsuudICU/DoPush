@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @DoPushResult
 @RestController
 @RequestMapping("/account")
-@Api("渠道账号管理接口")
+@Api(tags = {"渠道账号管理接口"})
 @RequiredArgsConstructor
 public class ChannelAccountController {
 

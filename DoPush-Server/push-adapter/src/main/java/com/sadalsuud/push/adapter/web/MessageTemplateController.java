@@ -51,7 +51,7 @@ import java.util.stream.Collectors;
 @DoPushResult
 @RestController
 @RequestMapping("/messageTemplate")
-@Api("发送消息")
+@Api(tags = {"消息模板管理"})
 @RequiredArgsConstructor
 public class MessageTemplateController {
 

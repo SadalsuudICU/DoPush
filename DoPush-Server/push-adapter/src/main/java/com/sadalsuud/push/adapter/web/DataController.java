@@ -33,7 +33,7 @@ import java.util.Objects;
 @DoPushResult
 @RestController
 @RequestMapping("/trace")
-@Api("获取数据接口（全链路追踪)")
+@Api(tags = {"获取数据接口（全链路追踪)"})
 @RequiredArgsConstructor
 public class DataController {
     private final DataService dataService;
