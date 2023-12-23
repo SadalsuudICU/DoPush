@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.assign.script.impl;
+package com.sadalsuud.push.infrastructure.gatewayImpl.handler.script.impl;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.base.Throwables;
 import com.sadalsuud.push.common.dto.account.sms.TencentSmsAccount;
 import com.sadalsuud.push.common.enums.SmsStatus;
-import com.sadalsuud.push.domain.assign.script.SmsScript;
+import com.sadalsuud.push.infrastructure.gatewayImpl.handler.script.SmsScript;
 import com.sadalsuud.push.domain.gateway.AccountService;
 import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
 import com.sadalsuud.push.domain.assign.model.sms.SmsParam;

@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.assign.handler.impl;
+package com.sadalsuud.push.infrastructure.gatewayImpl.handler;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.text.CharSequenceUtil;

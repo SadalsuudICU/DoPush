@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.assign.handler.impl;
+package com.sadalsuud.push.infrastructure.gatewayImpl.handler;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.text.CharSequenceUtil;
@@ -13,7 +13,7 @@ import com.sadalsuud.push.common.dto.model.SmsContentModel;
 import com.sadalsuud.push.common.enums.ChannelType;
 import com.sadalsuud.push.domain.assign.handler.BaseHandler;
 import com.sadalsuud.push.domain.assign.handler.Handler;
-import com.sadalsuud.push.domain.assign.script.SmsScript;
+import com.sadalsuud.push.infrastructure.gatewayImpl.handler.script.SmsScript;
 import com.sadalsuud.push.domain.gateway.AccountService;
 import com.sadalsuud.push.domain.gateway.ConfigService;
 import com.sadalsuud.push.domain.gateway.IRepository.ISmsRepository;
