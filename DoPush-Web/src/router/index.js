@@ -62,16 +62,37 @@ export const constantRoutes = [
     meta: { title: '消息模板管理', icon: 'template' },
     children: [
       {
-        path: 'create',
-        name: 'Create',
+        path: 'create-template',
+        name: 'CreateTemplate',
         component: () => import('@/views/template/create.vue'),
         meta: { title: '新增模板', icon: 'create' }
       },
       {
-        path: 'list',
-        name: 'List',
+        path: 'list-template',
+        name: 'ListTemplate',
         component: () => import('@/views/template/list.vue'),
         meta: { title: '模板列表', icon: 'nested' }
+      }
+    ]
+  },
+
+  {
+    path: '/channel',
+    component: Layout,
+    name: '渠道账号管理',
+    meta: { title: '渠道账号管理', icon: 'channel' },
+    children: [
+      {
+        path: 'create-channel',
+        name: 'CreateChannel',
+        component: () => import('@/views/channel/create.vue'),
+        meta: { title: '新增渠道账号', icon: 'create' }
+      },
+      {
+        path: 'list-template',
+        name: 'ListTemplate',
+        component: () => import('@/views/channel/list.vue'),
+        meta: { title: '渠道账号列表', icon: 'nested' }
       }
     ]
   },

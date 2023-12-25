@@ -58,6 +58,7 @@ export default {
       keyword: '',
       placeholder: '通过关键字搜索',
       tableData: [],
+      channelType: '',
       columns: [
         {
           'name': 'id',
