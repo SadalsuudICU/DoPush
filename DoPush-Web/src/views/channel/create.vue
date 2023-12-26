@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <el-page-header content="新增模板" @back="goBack" />
+    <el-page-header content="新增渠道账号" @back="goBack" />
     <el-divider />
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
       <el-tag>基本配置</el-tag>
-      <el-form-item label="模板名称" prop="name">
+      <el-form-item label="渠道账号名称" prop="name">
         <el-input v-model="form.name" />
       </el-form-item>
       <el-form-item label="发送渠道" prop="sendChannel">
@@ -21,6 +21,8 @@
         <div v-if="form.sendChannel === item.visibleOn" style="font-family: '微软雅黑',serif;font-size: 14px" v-html="item.label" />
       </div>
     </el-form>
+    <el-divider />
+    <el-button type="success" style="float: right" @click="save">保存</el-button>
   </div>
 </template>
 
@@ -194,7 +196,8 @@ export default {
     goBack() {
       this.$router.back()
     },
-    onSubmit() {
+    save() {
+      console.log(JSON.stringify(this.form))
       this.$message('submit!')
     },
     onCancel() {

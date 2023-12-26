@@ -20,3 +20,11 @@ export const query = (data) => {
   })
 }
 
+export const save = (data) => {
+  return request({
+    url: '/account/save',
+    method: 'post',
+    data
+  })
+}
+
