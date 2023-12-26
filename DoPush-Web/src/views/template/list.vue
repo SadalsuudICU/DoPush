@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
-    <el-page-header content="新增模板" @back="goBack" />
+    <el-page-header content="消息模板列表" @back="goBack" />
     <el-divider />
     <el-input
-      v-model="keyword"
+      v-model="keywords"
       :placeholder="placeholder"
       prefix-icon="el-icon-search"
       style="width: 350px;"
@@ -18,48 +18,106 @@
     >
       搜索
     </el-button>
-    <p />
-    <el-select placeholder="请选择" value="">
-      <el-option
-        v-for="item in columns"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
-      />
-    </el-select>
     <el-button
-      type="primary"
+      type="danger"
       style="float: right"
       @click="batchDelete"
     >
       批量删除
     </el-button>
     <p />
+    <el-button
+      type="primary"
+      @click="clearFilter"
+    >
+      清除所有过滤器
+    </el-button>
     <el-table
+      ref="table"
       :data="tableData"
       style="width: 100%"
+      tooltip-effect="dark"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column
         v-for="item in columns"
         :key="item.name"
         :prop="item.name"
         :label="item.label"
+        :type="item.typeLine"
+        :filters="item.filters"
+        :filter-method="item.filters ? filterTag : undefined"
       />
     </el-table>
+    <el-pagination
+      :current-page="currentPage"
+      :page-sizes="pageSizes"
+      :page-size="currentPerPage"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="count"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
   </div>
 </template>
 
 <script>
-import { templateList } from '@/api/template'
+import { templateList, batchDelete } from '@/api/template'
+import { transTimestampToDate } from '@/utils/date'
 
 export default {
   data() {
     return {
-      keyword: '',
+      keywords: '',
       placeholder: '通过关键字搜索',
       tableData: [],
       channelType: '',
+      pageSizes: [5, 10, 20],
+      currentPage: 1,
+      currentPerPage: 5,
+      count: 0,
+      selectedRows: [],
+      sendChannelMap: {
+        '20': 'PUSH通知栏',
+        '30': '短信',
+        '40': '邮箱',
+        '50': '微信服务号（模板消息）',
+        '60': '微信小程序（订阅消息）',
+        '70': '企业微信（应用消息）',
+        '80': '钉钉群机器人',
+        '90': '钉钉工作消息',
+        '100': '企业微信（机器人）',
+        '110': '飞书机器人'
+      },
+      templateTypeMap: {
+        '10': '定时任务发送',
+        '20': '实时调用接口'
+      },
+      msgTypeMap: {
+        '10': '通知类',
+        '20': '营销类',
+        '30': '验证码'
+      },
+      idTypeMap: {
+        '10': '用户ID',
+        '20': '设备号',
+        '30': '手机号',
+        '40': 'openId',
+        '50': '邮箱地址',
+        '60': '企业微信userId',
+        '70': '钉钉userId',
+        '80': '推送通知栏cid',
+        '90': '飞书userId'
+      },
+      auditStatusMap: {
+        '10': '待审核',
+        '20': '审核成功',
+        '30': '被拒绝'
+      },
       columns: [
+        {
+          typeLine: 'selection'
+        },
         {
           'name': 'id',
           'label': 'ID',
@@ -73,38 +131,34 @@ export default {
         {
           'name': 'sendChannel',
           'label': '发送渠道',
-          'type': 'mapping',
-          'map': {
-            '20': 'PUSH通知栏',
-            '30': '短信',
-            '40': '邮箱',
-            '50': '微信服务号（模板消息）',
-            '60': '微信小程序（订阅消息）',
-            '70': '企业微信（应用消息）',
-            '80': '钉钉群机器人',
-            '90': '钉钉工作消息',
-            '100': '企业微信（机器人）',
-            '110': '飞书机器人'
-          }
+          filters: [
+            { text: 'PUSH通知栏', value: 'PUSH通知栏' },
+            { text: '短信', value: '短信' },
+            { text: '邮箱', value: '邮箱' },
+            { text: '微信服务号（模板消息）', value: '微信服务号（模板消息）' },
+            { text: '微信小程序（订阅消息）', value: '微信小程序（订阅消息）' },
+            { text: '钉钉群机器人', value: '钉钉群机器人' },
+            { text: '钉钉工作消息', value: '钉钉工作消息' },
+            { text: '企业微信（机器人）', value: '企业微信（机器人）' },
+            { text: '飞书机器人', value: '飞书机器人' }
+          ]
         },
         {
           'name': 'templateType',
           'label': '模板类型',
-          'type': 'mapping',
-          'map': {
-            '10': '定时任务发送',
-            '20': '实时调用接口'
-          }
+          filters: [
+            { text: '定时任务发送', value: '定时任务发送' },
+            { text: '实时调用接口', value: '实时调用接口' }
+          ]
         },
         {
           'name': 'msgType',
           'label': '消息类型',
-          'type': 'mapping',
-          'map': {
-            '10': '通知类',
-            '20': '营销类',
-            '30': '验证码'
-          }
+          filters: [
+            { text: '通知类', value: '通知类' },
+            { text: '营销类', value: '营销类' },
+            { text: '验证码', value: '验证码' }
+          ]
         },
         {
           'name': 'creator',
@@ -112,52 +166,93 @@ export default {
         },
         {
           'name': 'idType',
-          'label': '接收者ID类型',
-          'type': 'mapping',
-          'map': {
-            '10': '用户ID',
-            '20': '设备号',
-            '30': '手机号',
-            '40': 'openId',
-            '50': '邮箱地址',
-            '60': '企业微信userId',
-            '70': '钉钉userId',
-            '80': '推送通知栏cid',
-            '90': '飞书userId'
-          }
+          'label': '接收者ID类型'
+        },
+        {
+          'name': 'created',
+          'label': '创建时间'
+        },
+        {
+          'name': 'updated',
+          'label': '修改时间'
+        },
+        {
+          'name': 'auditStatus',
+          'label': '审核状态',
+          filters: [
+            { text: '待审核', value: '待审核' },
+            { text: '审核成功', value: '审核成功' },
+            { text: '被拒绝', value: '被拒绝' }
+          ]
         }
       ]
     }
+  },
+  mounted() {
+    this.search()
   },
   methods: {
     goBack() {
       this.$router.back()
     },
     search() {
-      const data = {
-        page: 1,
-        perPage: 5,
-        creator: 'Sadalsuud'
-      }
+      const data = {}
+      data.keywords = this.keywords
+      data.creator = 'Sadalsuud'
+      data.page = this.currentPage
+      data.perPage = this.currentPerPage
       templateList(data).then(res => {
         this.tableData = this.dataConvert(res.data.rows)
+        this.count = res.data.count
       }).catch(err => {
         console.log(err)
       })
       // console.log(this.keyword)
     },
     batchDelete() {
-      console.log()
+      const rows = this.selectedRows
+      const ids = []
+      rows.map(item => {
+        ids.push(item.id)
+      })
+      const deleteIds = ids.join(',')
+      batchDelete(deleteIds).then(res => {
+        console.log(res)
+        this.search()
+      })
+    },
+    filterTag(value, row) {
+      return row.sendChannel === value ||
+          row.templateType === value ||
+          row.msgType === value ||
+          row.auditStatus === value
+    },
+    clearFilter() {
+      this.$refs.table.clearFilter()
+    },
+    handleSelectionChange(val) {
+      this.selectedRows = val
     },
     dataConvert(datas) {
       for (let i = 0; i < datas.length; i++) {
         const data = datas[i]
-        data.sendChannel = this.columns[2].map[data.sendChannel]
-        data.templateType = this.columns[3].map[data.templateType]
-        data.msgType = this.columns[4].map[data.msgType]
-        data.idType = this.columns[6].map[data.idType]
+        data.sendChannel = this.sendChannelMap[data.sendChannel]
+        data.templateType = this.templateTypeMap[data.templateType]
+        data.msgType = this.msgTypeMap[data.msgType]
+        data.idType = this.idTypeMap[data.idType]
+        data.auditStatus = this.auditStatusMap[data.auditStatus]
+        data.created = transTimestampToDate(data.created)
+        data.updated = transTimestampToDate(data.updated)
       }
       return datas
+    },
+    handleSizeChange(val) {
+      this.currentPerPage = val
+      this.search()
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val
+      this.search()
     }
   }
 }

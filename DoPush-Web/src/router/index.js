@@ -65,13 +65,13 @@ export const constantRoutes = [
         path: 'create-template',
         name: 'CreateTemplate',
         component: () => import('@/views/template/create.vue'),
-        meta: { title: '新增模板', icon: 'create' }
+        meta: { title: '新增消息模板', icon: 'create' }
       },
       {
         path: 'list-template',
         name: 'ListTemplate',
         component: () => import('@/views/template/list.vue'),
-        meta: { title: '模板列表', icon: 'nested' }
+        meta: { title: '消息模板列表', icon: 'nested' }
       }
     ]
   },

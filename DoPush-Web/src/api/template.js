@@ -9,3 +9,10 @@ export const templateList = (data) => {
     }
   })
 }
+
+export const batchDelete = (ids) => {
+  return request({
+    url: '/messageTemplate/delete/' + ids,
+    method: 'delete'
+  })
+}
