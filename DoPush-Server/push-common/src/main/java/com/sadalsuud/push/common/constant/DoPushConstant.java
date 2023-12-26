@@ -33,10 +33,10 @@ public class DoPushConstant {
      * 消息模板常量；
      * 如果新建模板/账号时，没传入则用该常量
      */
-    public static final String DEFAULT_CREATOR = "Java3y";
-    public static final String DEFAULT_UPDATOR = "Java3y";
-    public static final String DEFAULT_TEAM = "Java3y公众号";
-    public static final String DEFAULT_AUDITOR = "Java3y";
+    public static final String DEFAULT_CREATOR = "Sadalsuud";
+    public static final String DEFAULT_UPDATOR = "Sadalsuud";
+    public static final String DEFAULT_TEAM = "Sadalsuud";
+    public static final String DEFAULT_AUDITOR = "Sadalsuud";
     /**
      * 项目打印常量
      */
