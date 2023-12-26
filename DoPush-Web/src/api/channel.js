@@ -28,3 +28,10 @@ export const save = (data) => {
   })
 }
 
+export const batchDelete = (ids) => {
+  return request({
+    url: '/account/delete/' + ids,
+    method: 'delete'
+  })
+}
+

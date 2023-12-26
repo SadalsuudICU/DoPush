@@ -26,16 +26,27 @@
     >
       搜索
     </el-button>
+    <el-button
+      icon="el-icon-search"
+      type="danger"
+      @click="batchDelete"
+    >
+      批量删除
+    </el-button>
     <p />
     <el-table
+      ref="table"
       :data="tableData"
       style="width: 100%"
+      tooltip-effect="dark"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column
         v-for="item in columns"
         :key="item.name"
         :prop="item.name"
         :label="item.label"
+        :type="item.typeLine"
       />
       <el-table-column label="操作">
         <template v-slot="scope">
@@ -48,8 +59,8 @@
             v-if="scope.row['isDeleted'] === 0"
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button>
+            @click="handleDeactivate(scope.$index, scope.row)"
+          >Deactivate</el-button>
           <el-button
             v-if="scope.row['isDeleted'] !== 0"
             size="mini"
@@ -86,7 +97,7 @@
 </template>
 
 <script>
-import { list, query, save } from '@/api/channel'
+import { batchDelete, list, query, save } from '@/api/channel'
 
 export default {
   data() {
@@ -95,6 +106,7 @@ export default {
       channelType: '',
       placeholder: '通过creator搜索',
       tableData: [],
+      selectedRows: [],
       channelTypeOption: [
         { value: '', label: '不选择' },
         { value: '20', label: 'PUSH通知栏' },
@@ -110,6 +122,9 @@ export default {
         { label: '支付宝小程序', value: '120' }
       ],
       columns: [
+        {
+          typeLine: 'selection'
+        },
         {
           'name': 'id',
           'label': 'ID',
@@ -309,6 +324,21 @@ export default {
     this.search()
   },
   methods: {
+    handleSelectionChange(val) {
+      this.selectedRows = val
+    },
+    batchDelete() {
+      const rows = this.selectedRows
+      const ids = []
+      rows.map(item => {
+        ids.push(item.id)
+      })
+      const deleteIds = ids.join(',')
+      batchDelete(deleteIds).then(res => {
+        console.log(res)
+        this.search()
+      })
+    },
     goBack() {
       this.$router.back()
     },
@@ -335,7 +365,7 @@ export default {
       for (let i = 0; i < datas.length; i++) {
         const data = datas[i]
         data.channelCode = data.sendChannel
-        data.sendChannel = this.columns[3].map[data.sendChannel]
+        data.sendChannel = this.columns[4].map[data.sendChannel]
       }
       return datas
     },
@@ -354,7 +384,7 @@ export default {
       }
       this.dialogTableVisible = false
     },
-    handleDelete(index, row) {
+    handleDeactivate(index, row) {
       const data = row
       data.sendChannel = data.channelCode
       data.isDeleted = 1
