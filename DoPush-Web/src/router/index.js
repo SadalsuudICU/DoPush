@@ -89,8 +89,8 @@ export const constantRoutes = [
         meta: { title: '新增渠道账号', icon: 'create' }
       },
       {
-        path: 'list-template',
-        name: 'ListTemplate',
+        path: 'list-channel',
+        name: 'ListChannel',
         component: () => import('@/views/channel/list.vue'),
         meta: { title: '渠道账号列表', icon: 'nested' }
       }

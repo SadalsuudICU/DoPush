@@ -22,11 +22,13 @@
       </div>
     </el-form>
     <el-divider />
-    <el-button type="success" style="float: right" @click="save">保存</el-button>
+    <el-button type="success" style="float: right" @click="handleSave">保存</el-button>
   </div>
 </template>
 
 <script>
+import { save } from '@/api/channel'
+
 export default {
   data() {
     return {
@@ -196,9 +198,15 @@ export default {
     goBack() {
       this.$router.back()
     },
-    save() {
-      console.log(JSON.stringify(this.form))
-      this.$message('submit!')
+    handleSave() {
+      this.form.creator = 'Sadalsuud'
+      save(this.form).then(res => {
+        console.log(res)
+        this.$message('create successfully')
+        this.$router.push({ name: 'ListChannel' })
+      }).catch(err => {
+        console.log(err)
+      })
     },
     onCancel() {
       this.$message({
