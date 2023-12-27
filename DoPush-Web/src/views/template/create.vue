@@ -61,11 +61,32 @@
           </el-radio>
         </el-radio-group>
       </el-form-item>
-      <div v-if="form.sendChannel === 40">
-        <el-form-item label="发送账号" prop="sendAccount">
+      <div v-if="form.sendChannel === 20">
+        <el-form-item label="Push账号" prop="sendAccount">
           <el-select v-model="form.sendAccount" placeholder="请选择">
             <el-option
-              v-for="item in emailAccount"
+              v-for="item in accountOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="发送标题" prop="title">
+          <el-input v-model="form.title" placeholder="可用占位符${title}" />
+        </el-form-item>
+        <el-form-item label="发送内容" prop="content">
+          <el-input v-model="form.content" placeholder="可用占位符${content}" />
+        </el-form-item>
+        <el-form-item label="发送链接" prop="url">
+          <el-input v-model="form.url" placeholder="可用占位符${url}, 最好使用短链" />
+        </el-form-item>
+      </div>
+      <div v-if="form.sendChannel === 30">
+        <el-form-item label="短信账号" prop="sendAccount">
+          <el-select v-model="form.sendAccount" placeholder="请选择">
+            <el-option
+              v-for="item in accountOptions"
               :key="item.value"
               :label="item.label"
               :value="item.value"
@@ -77,6 +98,88 @@
         </el-form-item>
         <el-form-item label="短信链接" prop="url">
           <el-input v-model="form.url" placeholder="可用占位符${url}, 最好使用短链" />
+        </el-form-item>
+      </div>
+      <div v-if="form.sendChannel === 40">
+        <el-form-item label="邮件账号" prop="sendAccount">
+          <el-select v-model="form.sendAccount" placeholder="请选择">
+            <el-option
+              v-for="item in accountOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="邮件标题" prop="title">
+          <el-input v-model="form.title" placeholder="可用占位符${title}" />
+        </el-form-item>
+        <el-form-item label="邮件内容" prop="content">
+          <el-input v-model="form.content" placeholder="可用占位符${content}" />
+        </el-form-item>
+        <el-form-item label="邮件链接" prop="url">
+          <el-input v-model="form.url" placeholder="可用占位符${url}, 最好使用短链" />
+        </el-form-item>
+      </div>
+      <div v-if="form.sendChannel === 50">
+        <span style="color: darkred">暂不支持该渠道</span>
+      </div>
+      <div v-if="form.sendChannel === 60">
+        <span style="color: darkred">暂不支持该渠道</span>
+      </div>
+      <div v-if="form.sendChannel === 70">
+        <span style="color: darkred">暂不支持该渠道</span>
+      </div>
+      <div v-if="form.sendChannel === 100">
+        <span style="color: darkred">暂不支持该渠道</span>
+      </div>
+      <div v-if="form.sendChannel === 80">
+        <el-form-item label="钉钉群机器人账号" prop="sendAccount">
+          <el-select v-model="form.sendAccount" placeholder="请选择">
+            <el-option
+              v-for="item in accountOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="发送类型" prop="title">
+          <el-radio-group v-model="form.dingTalkRobotSendType">
+            <el-radio v-for="item in dingTalkRobotSendTypeOptions" :key="item.value" :label="item.label">{{ item.label }}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </div>
+      <div v-if="form.sendChannel === 90">
+        <el-form-item label="钉钉应用" prop="sendAccount">
+          <el-select v-model="form.sendAccount" placeholder="请选择">
+            <el-option
+              v-for="item in accountOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="发送类型" prop="title">
+          <el-radio-group v-model="form.dingTalkWorkSendType">
+            <el-radio v-for="item in dingTalkWorkSendTypeOptions" :key="item.value" :label="item.label">{{ item.label }}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </div>
+      <div v-if="form.sendChannel === 110">
+        <el-form-item label="飞书机器人" prop="sendAccount">
+          <el-select v-model="form.sendAccount" placeholder="请选择">
+            <el-option
+              v-for="item in accountOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="飞书内容" prop="content">
+          <el-input v-model="form.content" placeholder="可用占位符${content}" />
         </el-form-item>
       </div>
     </el-form>
@@ -108,7 +211,9 @@ export default {
         path: '',
         page: '',
         sendType: '',
-        mediaId: ''
+        mediaId: '',
+        dingTalkRobotSendType: '',
+        dingTalkWorkSendType: ''
       },
       rules: {
         name: [
@@ -260,14 +365,61 @@ export default {
           value: 110
         }
       ],
-      emailAccount: [
+      accountOptions: [],
+      dingTalkRobotSendTypeOptions: [
         {
-          label: 'qq',
-          value: '2094176918@qq.com'
+          'label': '文本',
+          'value': '10'
         },
         {
-          label: '163',
-          value: '2094176918@163.com'
+          'label': '图文',
+          'value': '40'
+        },
+        {
+          'label': '文件',
+          'value': '60'
+        },
+        {
+          'label': 'markdown类型',
+          'value': '80'
+        },
+        {
+          'label': '图片',
+          'value': '100'
+        }
+      ],
+      dingTalkWorkSendTypeOptions: [
+        {
+          'label': '文本(text)',
+          'value': '10'
+        },
+        {
+          'label': '语音(voice)',
+          'value': '20'
+        },
+        {
+          'label': '文件(file)',
+          'value': '60'
+        },
+        {
+          'label': 'markdown类型(markdown)',
+          'value': '80'
+        },
+        {
+          'label': '图片(image)',
+          'value': '100'
+        },
+        {
+          'label': '链接消息(link)',
+          'value': '110'
+        },
+        {
+          'label': '卡片消息(action_card)',
+          'value': '120'
+        },
+        {
+          'label': 'OA消息(oa)',
+          'value': '130'
         }
       ]
     }
