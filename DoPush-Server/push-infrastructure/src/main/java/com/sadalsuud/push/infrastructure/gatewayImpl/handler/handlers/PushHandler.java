@@ -1,4 +1,4 @@
-package com.sadalsuud.push.infrastructure.gatewayImpl.handler;
+package com.sadalsuud.push.infrastructure.gatewayImpl.handler.handlers;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
@@ -20,7 +20,7 @@ import com.sadalsuud.push.domain.assign.model.push.PushParam;
 import com.sadalsuud.push.domain.assign.model.push.getui.BatchSendPushParam;
 import com.sadalsuud.push.domain.assign.model.push.getui.SendPushParam;
 import com.sadalsuud.push.domain.assign.model.push.getui.SendPushResult;
-import com.sadalsuud.push.domain.support.AccessTokenUtils;
+import com.sadalsuud.push.infrastructure.gatewayImpl.handler.AccessTokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

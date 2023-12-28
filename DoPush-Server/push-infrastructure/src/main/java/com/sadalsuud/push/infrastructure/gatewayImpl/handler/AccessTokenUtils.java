@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.support;
+package com.sadalsuud.push.infrastructure.gatewayImpl.handler;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.crypto.SecureUtil;

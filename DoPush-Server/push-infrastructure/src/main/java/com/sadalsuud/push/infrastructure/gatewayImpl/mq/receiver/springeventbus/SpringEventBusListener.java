@@ -3,7 +3,7 @@ package com.sadalsuud.push.infrastructure.gatewayImpl.mq.receiver.springeventbus
 import com.alibaba.fastjson.JSON;
 import com.sadalsuud.push.common.domain.RecallTaskInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
-import com.sadalsuud.push.domain.support.MessageQueuePipeline;
+import com.sadalsuud.push.infrastructure.gatewayImpl.mq.MessageQueuePipeline;
 import com.sadalsuud.push.infrastructure.gatewayImpl.mq.sender.springeventbus.DopushSpringEventBusEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

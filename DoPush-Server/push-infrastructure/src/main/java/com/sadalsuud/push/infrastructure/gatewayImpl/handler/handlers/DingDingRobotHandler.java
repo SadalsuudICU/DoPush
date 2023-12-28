@@ -1,4 +1,4 @@
-package com.sadalsuud.push.infrastructure.gatewayImpl.handler;
+package com.sadalsuud.push.infrastructure.gatewayImpl.handler.handlers;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.text.StrPool;

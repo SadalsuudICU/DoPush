@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.support;
+package com.sadalsuud.push.infrastructure.gatewayImpl.handler;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;

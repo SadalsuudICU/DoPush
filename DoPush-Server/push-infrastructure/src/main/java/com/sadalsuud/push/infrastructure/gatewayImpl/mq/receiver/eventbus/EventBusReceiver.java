@@ -3,7 +3,7 @@ package com.sadalsuud.push.infrastructure.gatewayImpl.mq.receiver.eventbus;
 import com.google.common.eventbus.Subscribe;
 import com.sadalsuud.push.common.domain.RecallTaskInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
-import com.sadalsuud.push.domain.support.MessageQueuePipeline;
+import com.sadalsuud.push.infrastructure.gatewayImpl.mq.MessageQueuePipeline;
 import com.sadalsuud.push.domain.assign.service.ConsumeService;
 import com.sadalsuud.push.infrastructure.gatewayImpl.mq.sender.eventbus.EventBusListener;
 import lombok.RequiredArgsConstructor;

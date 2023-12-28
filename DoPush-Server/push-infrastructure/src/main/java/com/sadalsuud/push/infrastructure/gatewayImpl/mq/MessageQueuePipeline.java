@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.support;
+package com.sadalsuud.push.infrastructure.gatewayImpl.mq;
 
 /**
  * @Description 消息队列常量

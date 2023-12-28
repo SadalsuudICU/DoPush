@@ -1,7 +1,7 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.mq.sender.springeventbus;
 
 import com.sadalsuud.push.domain.gateway.SendMqService;
-import com.sadalsuud.push.domain.support.MessageQueuePipeline;
+import com.sadalsuud.push.infrastructure.gatewayImpl.mq.MessageQueuePipeline;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
