@@ -98,25 +98,34 @@ export const constantRoutes = [
   },
 
   {
-    path: '/form',
+    path: '/trace',
     component: Layout,
+    name: '消息全链路追踪',
+    meta: { title: '消息全链路追踪', icon: 'data-view' },
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
+        path: 'user-trace',
+        name: 'UserTrace',
+        // component: () => import('@/views/channel/create.vue'),
+        meta: { title: '用户全链路追踪', icon: 'user' }
+      },
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        path: 'template-trace',
+        name: 'TemplateTrace',
+        // component: () => import('@/views/channel/list.vue'),
+        meta: { title: '消息模板全链路追踪', icon: 'template' }
+      },
+      {
+        path: 'sms-trace',
+        name: 'SmsTrace',
+        // component: () => import('@/views/channel/list.vue'),
+        meta: { title: '短信全链路追踪', icon: 'nested' }
+      },
+      {
+        path: 'offline-trace',
+        name: 'OfflineTrace',
+        // component: () => import('@/views/channel/list.vue'),
+        meta: { title: '离线消息全链路追踪', icon: 'nested' }
       }
     ]
   },
