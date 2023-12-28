@@ -4,11 +4,19 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.text.StrPool;
 import com.alibaba.fastjson.JSON;
 import com.sadalsuud.push.client.api.DataService;
 import com.sadalsuud.push.client.vo.DataParam;
+import com.sadalsuud.push.client.vo.timeline.SmsTimeLineVo;
+import com.sadalsuud.push.client.vo.timeline.UserTimeLineVo;
 import com.sadalsuud.push.common.constant.DoPushConstant;
 import com.sadalsuud.push.common.domain.SimpleAnchorInfo;
+import com.sadalsuud.push.common.enums.AnchorState;
+import com.sadalsuud.push.common.enums.ChannelType;
+import com.sadalsuud.push.common.enums.EnumUtil;
+import com.sadalsuud.push.common.enums.SmsStatus;
 import com.sadalsuud.push.domain.gateway.CacheService;
 import com.sadalsuud.push.domain.gateway.IRepository.IMessageTemplateRepository;
 import com.sadalsuud.push.domain.gateway.IRepository.ISmsRepository;
@@ -17,6 +25,7 @@ import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
 import com.sadalsuud.push.domain.receive.TaskInfoUtils;
 import com.sadalsuud.push.infrastructure.trace.TraceResponse;
 import com.sadalsuud.push.infrastructure.trace.TraceService;
+import com.sadalsuud.push.infrastructure.utils.AnchorStateUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,12 +60,12 @@ public class DataServiceImpl implements DataService {
      * @return
      */
     @Override
-    public Map<String, List<SimpleAnchorInfo>> getTraceMessageInfo(String messageId) {
+    public UserTimeLineVo getTraceMessageInfo(String messageId) {
         TraceResponse traceResponse = traceService.traceByMessageId(messageId);
         if (CollUtil.isEmpty(traceResponse.getData())) {
             return null;
         }
-        return buildTimeLineVo(traceResponse.getData());
+        return buildUserTimeLineVo(traceResponse.getData());
     }
 
     /**
@@ -66,7 +75,7 @@ public class DataServiceImpl implements DataService {
      * @return
      */
     @Override
-    public Map<String, List<SimpleAnchorInfo>> getTraceUserInfo(String receiver) {
+    public UserTimeLineVo getTraceUserInfo(String receiver) {
         List<String> userInfoList = cacheService.lRange(receiver, 0, -1);
         if (CollUtil.isEmpty(userInfoList)) {
             return null;
@@ -78,7 +87,7 @@ public class DataServiceImpl implements DataService {
                         .map(s -> JSON.parseObject(s, SimpleAnchorInfo.class))
                         .sorted(Comparator.comparing(SimpleAnchorInfo::getTimestamp).reversed())
                         .collect(Collectors.toList());
-        return buildTimeLineVo(sortAnchorList);
+        return buildUserTimeLineVo(sortAnchorList);
     }
 
     /**
@@ -111,14 +120,16 @@ public class DataServiceImpl implements DataService {
      * @return
      */
     @Override
-    public Map<String, List<SmsRecord>> getTraceSmsInfo(DataParam dataParam) {
+    public SmsTimeLineVo getTraceSmsInfo(DataParam dataParam) {
         Integer sendDate = Integer.valueOf(DateUtil.format(new Date(dataParam.getDateTime() * 1000L), DatePattern.PURE_DATE_PATTERN));
         List<SmsRecord> smsRecordList = smsRepository.findByPhoneAndSendDate(Long.valueOf(dataParam.getReceiver()), sendDate);
         if (CollUtil.isEmpty(smsRecordList)) {
-            return null;
+            return SmsTimeLineVo.builder().items(Collections.singletonList(SmsTimeLineVo.ItemsVO.builder().build())).build();
         }
 
-        return smsRecordList.stream().collect(Collectors.groupingBy(o -> o.getPhone() + o.getSeriesId()));
+        return buildSmsTimeLineVo(
+                smsRecordList.stream()
+                        .collect(Collectors.groupingBy(o -> o.getPhone() + o.getSeriesId())));
     }
 
 
@@ -139,7 +150,7 @@ public class DataServiceImpl implements DataService {
         return businessId;
     }
 
-    private Map<String, List<SimpleAnchorInfo>> buildTimeLineVo(List<SimpleAnchorInfo> sortAnchorList) {
+    private UserTimeLineVo buildUserTimeLineVo(List<SimpleAnchorInfo> sortAnchorList) {
         // 1. 对相同的businessId进行分类  {"businessId":[{businessId,state,timeStamp},{businessId,state,timeStamp}]}
         Map<String, List<SimpleAnchorInfo>> map = MapUtil.newHashMap();
         for (SimpleAnchorInfo simpleAnchorInfo : sortAnchorList) {
@@ -150,6 +161,66 @@ public class DataServiceImpl implements DataService {
             simpleAnchorInfos.add(simpleAnchorInfo);
             map.put(String.valueOf(simpleAnchorInfo.getBusinessId()), simpleAnchorInfos);
         }
-        return map;
+
+        // 2. 封装vo 给到前端渲染展示
+        List<UserTimeLineVo.ItemsVO> items = new ArrayList<>();
+        for (Map.Entry<String, List<SimpleAnchorInfo>> entry : map.entrySet()) {
+            Long messageTemplateId = TaskInfoUtils.getMessageTemplateIdFromBusinessId(Long.valueOf(entry.getKey()));
+            MessageTemplate messageTemplate = messageTemplateRepository.findById(messageTemplateId).orElse(null);
+            if (Objects.isNull(messageTemplate)) {
+                continue;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            for (SimpleAnchorInfo simpleAnchorInfo : entry.getValue()) {
+                if (AnchorState.RECEIVE.getCode().equals(simpleAnchorInfo.getState())) {
+                    sb.append(StrPool.CRLF);
+                }
+                String startTime = DateUtil.format(new Date(simpleAnchorInfo.getTimestamp()), DatePattern.NORM_DATETIME_PATTERN);
+                String stateDescription = AnchorStateUtils.getDescriptionByState(messageTemplate.getSendChannel(), simpleAnchorInfo.getState());
+
+                sb.append(startTime).append(StrPool.C_COLON).append(stateDescription).append("==>");
+            }
+
+            for (String detail : sb.toString().split(StrPool.CRLF)) {
+                if (CharSequenceUtil.isNotBlank(detail)) {
+                    UserTimeLineVo.ItemsVO itemsVO = UserTimeLineVo.ItemsVO.builder()
+                            .businessId(entry.getKey())
+                            .sendType(EnumUtil.getEnumByCode(messageTemplate.getSendChannel(), ChannelType.class).getDescription())
+                            .creator(messageTemplate.getCreator())
+                            .title(messageTemplate.getName())
+                            .detail(detail)
+                            .build();
+                    items.add(itemsVO);
+                }
+            }
+        }
+        return UserTimeLineVo.builder().items(items).build();
     }
+
+    private SmsTimeLineVo buildSmsTimeLineVo(Map<String, List<SmsRecord>> smsRecords) {
+        ArrayList<SmsTimeLineVo.ItemsVO> itemsVoS = new ArrayList<>();
+        SmsTimeLineVo smsTimeLineVo = SmsTimeLineVo.builder().items(itemsVoS).build();
+
+        for (Map.Entry<String, List<SmsRecord>> entry : smsRecords.entrySet()) {
+            SmsTimeLineVo.ItemsVO itemsVO = SmsTimeLineVo.ItemsVO.builder().build();
+            for (SmsRecord smsRecord : entry.getValue()) {
+                // 发送记录 messageTemplateId >0 ,回执记录 messageTemplateId =0
+                if (smsRecord.getMessageTemplateId() > 0) {
+                    itemsVO.setBusinessId(String.valueOf(smsRecord.getMessageTemplateId()));
+                    itemsVO.setContent(smsRecord.getMsgContent());
+                    itemsVO.setSendType(EnumUtil.getDescriptionByCode(smsRecord.getStatus(), SmsStatus.class));
+                    itemsVO.setSendTime(DateUtil.format(new Date(smsRecord.getCreated() * 1000L), DatePattern.NORM_DATETIME_PATTERN));
+                } else {
+                    itemsVO.setReceiveType(EnumUtil.getDescriptionByCode(smsRecord.getStatus(), SmsStatus.class));
+                    itemsVO.setReceiveContent(smsRecord.getReportContent());
+                    itemsVO.setReceiveTime(DateUtil.format(new Date(smsRecord.getUpdated() * 1000L), DatePattern.NORM_DATETIME_PATTERN));
+                }
+            }
+            itemsVoS.add(itemsVO);
+        }
+
+        return smsTimeLineVo;
+    }
+
 }

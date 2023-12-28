@@ -1,10 +1,9 @@
 package com.sadalsuud.push.client.api;
 
 import com.sadalsuud.push.client.vo.DataParam;
-import com.sadalsuud.push.common.domain.SimpleAnchorInfo;
-import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
+import com.sadalsuud.push.client.vo.timeline.SmsTimeLineVo;
+import com.sadalsuud.push.client.vo.timeline.UserTimeLineVo;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,7 +21,7 @@ public interface DataService {
      * @param messageId 消息
      * @return
      */
-    Map<String, List<SimpleAnchorInfo>> getTraceMessageInfo(String messageId);
+    UserTimeLineVo getTraceMessageInfo(String messageId);
 
     /**
      * 获取全链路追踪 用户维度信息
@@ -30,7 +29,7 @@ public interface DataService {
      * @param receiver 接收者
      * @return
      */
-    Map<String, List<SimpleAnchorInfo>> getTraceUserInfo(String receiver);
+    UserTimeLineVo getTraceUserInfo(String receiver);
 
 
     /**
@@ -48,6 +47,6 @@ public interface DataService {
      * @param dataParam
      * @return
      */
-    Map<String, List<SmsRecord>> getTraceSmsInfo(DataParam dataParam);
+    SmsTimeLineVo getTraceSmsInfo(DataParam dataParam);
 
 }

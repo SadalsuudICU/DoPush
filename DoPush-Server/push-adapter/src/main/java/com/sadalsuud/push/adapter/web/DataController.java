@@ -5,8 +5,8 @@ import com.sadalsuud.push.adapter.facade.annotation.DoPushAspect;
 import com.sadalsuud.push.adapter.facade.annotation.DoPushResult;
 import com.sadalsuud.push.client.api.DataService;
 import com.sadalsuud.push.client.vo.DataParam;
-import com.sadalsuud.push.common.domain.SimpleAnchorInfo;
-import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
+import com.sadalsuud.push.client.vo.timeline.SmsTimeLineVo;
+import com.sadalsuud.push.client.vo.timeline.UserTimeLineVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -40,18 +39,18 @@ public class DataController {
 
     @PostMapping("/message")
     @ApiOperation("/获取【72小时】发送消息的全链路数据")
-    public Map<String, List<SimpleAnchorInfo>> getMessageData(@RequestBody DataParam dataParam) {
+    public UserTimeLineVo getMessageData(@RequestBody DataParam dataParam) {
         if (Objects.isNull(dataParam) || CharSequenceUtil.isBlank(dataParam.getMessageId())) {
-            return new HashMap<>();
+            return UserTimeLineVo.builder().build();
         }
         return dataService.getTraceMessageInfo(dataParam.getMessageId());
     }
 
     @PostMapping("/user")
     @ApiOperation("/获取【当天】用户接收消息的全链路数据")
-    public Map<String, List<SimpleAnchorInfo>> getUserData(@RequestBody DataParam dataParam) {
+    public UserTimeLineVo getUserData(@RequestBody DataParam dataParam) {
         if (Objects.isNull(dataParam) || CharSequenceUtil.isBlank(dataParam.getReceiver())) {
-            return new HashMap<>();
+            return UserTimeLineVo.builder().build();
         }
         return dataService.getTraceUserInfo(dataParam.getReceiver());
     }
@@ -68,9 +67,9 @@ public class DataController {
 
     @PostMapping("/sms")
     @ApiOperation("/获取短信下发数据")
-    public Map<String, List<SmsRecord>> getSmsData(@RequestBody DataParam dataParam) {
+    public SmsTimeLineVo getSmsData(@RequestBody DataParam dataParam) {
         if (Objects.isNull(dataParam) || Objects.isNull(dataParam.getDateTime()) || CharSequenceUtil.isBlank(dataParam.getReceiver())) {
-            return new HashMap<>();
+            return SmsTimeLineVo.builder().build();
         }
         return dataService.getTraceSmsInfo(dataParam);
     }
