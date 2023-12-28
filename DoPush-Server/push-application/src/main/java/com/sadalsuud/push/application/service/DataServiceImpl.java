@@ -73,7 +73,11 @@ public class DataServiceImpl implements DataService {
         }
 
         // 0. 按时间排序
-        List<SimpleAnchorInfo> sortAnchorList = userInfoList.stream().map(s -> JSON.parseObject(s, SimpleAnchorInfo.class)).sorted(Comparator.comparing(SimpleAnchorInfo::getTimestamp).reversed()).collect(Collectors.toList());
+        List<SimpleAnchorInfo> sortAnchorList =
+                userInfoList.stream()
+                        .map(s -> JSON.parseObject(s, SimpleAnchorInfo.class))
+                        .sorted(Comparator.comparing(SimpleAnchorInfo::getTimestamp).reversed())
+                        .collect(Collectors.toList());
         return buildTimeLineVo(sortAnchorList);
     }
 
