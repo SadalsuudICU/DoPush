@@ -48,6 +48,35 @@
         :filters="item.filters"
         :filter-method="item.filters ? filterTag : undefined"
       />
+      <el-table-column label="操作" style="min-width: 30px">
+        <template v-slot="scope">
+          <el-button
+            v-if="scope.row['isDeleted'] === 0"
+            size="mini"
+            @click="handleTest(scope.$index, scope.row)"
+          >Test</el-button>
+          <br>
+          <el-button
+            v-if="scope.row['isDeleted'] === 0"
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)"
+          >Edit</el-button>
+          <br>
+          <el-button
+            v-if="scope.row['isDeleted'] === 0"
+            size="mini"
+            type="danger"
+            @click="handleDeactivate(scope.$index, scope.row)"
+          >Deactivate</el-button>
+          <br>
+          <el-button
+            v-if="scope.row['isDeleted'] !== 0"
+            size="mini"
+            type="success"
+            @click="handleRecovery(scope.$index, scope.row)"
+          >Recovery</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination
       :current-page="currentPage"
@@ -253,6 +282,24 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val
       this.search()
+    },
+    handleTest(index, row) {
+      console.log(row.id)
+    },
+    handleEdit(index, row) {
+      console.log(row.id)
+    },
+    handleDeactivate(index, row) {
+      const data = row
+      data.sendChannel = data.channelCode
+      data.isDeleted = 1
+      this.doSave(data)
+    },
+    handleRecovery(index, row) {
+      const data = row
+      data.sendChannel = data.channelCode
+      data.isDeleted = 0
+      this.doSave(data)
     }
   }
 }
