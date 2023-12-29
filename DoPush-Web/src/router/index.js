@@ -106,25 +106,25 @@ export const constantRoutes = [
       {
         path: 'user-trace',
         name: 'UserTrace',
-        // component: () => import('@/views/channel/create.vue'),
+        component: () => import('@/views/trace/user.vue'),
         meta: { title: '用户全链路追踪', icon: 'user' }
       },
       {
         path: 'template-trace',
         name: 'TemplateTrace',
-        // component: () => import('@/views/channel/list.vue'),
+        component: () => import('@/views/trace/template.vue'),
         meta: { title: '消息模板全链路追踪', icon: 'template' }
       },
       {
         path: 'sms-trace',
         name: 'SmsTrace',
-        // component: () => import('@/views/channel/list.vue'),
-        meta: { title: '短信全链路追踪', icon: 'nested' }
+        component: () => import('@/views/trace/sms.vue'),
+        meta: { title: '短信发送数据查询', icon: 'nested' }
       },
       {
         path: 'offline-trace',
         name: 'OfflineTrace',
-        // component: () => import('@/views/channel/list.vue'),
+        component: () => import('@/views/trace/offline.vue'),
         meta: { title: '离线消息全链路追踪', icon: 'nested' }
       }
     ]
