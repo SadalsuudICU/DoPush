@@ -56,27 +56,6 @@ export const constantRoutes = [
   },
 
   {
-    path: '/template',
-    component: Layout,
-    name: '消息模板管理',
-    meta: { title: '消息模板管理', icon: 'template' },
-    children: [
-      {
-        path: 'create-template',
-        name: 'CreateTemplate',
-        component: () => import('@/views/template/create.vue'),
-        meta: { title: '新增消息模板', icon: 'create' }
-      },
-      {
-        path: 'list-template',
-        name: 'ListTemplate',
-        component: () => import('@/views/template/list.vue'),
-        meta: { title: '消息模板列表', icon: 'nested' }
-      }
-    ]
-  },
-
-  {
     path: '/channel',
     component: Layout,
     name: '渠道账号管理',
@@ -93,6 +72,27 @@ export const constantRoutes = [
         name: 'ListChannel',
         component: () => import('@/views/channel/list.vue'),
         meta: { title: '渠道账号列表', icon: 'nested' }
+      }
+    ]
+  },
+
+  {
+    path: '/template',
+    component: Layout,
+    name: '消息模板管理',
+    meta: { title: '消息模板管理', icon: 'template' },
+    children: [
+      {
+        path: 'create-template',
+        name: 'CreateTemplate',
+        component: () => import('@/views/template/create.vue'),
+        meta: { title: '新增消息模板', icon: 'create' }
+      },
+      {
+        path: 'list-template',
+        name: 'ListTemplate',
+        component: () => import('@/views/template/list.vue'),
+        meta: { title: '消息模板列表', icon: 'nested' }
       }
     ]
   },
