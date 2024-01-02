@@ -1,6 +1,6 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.repository.impl;
 
-import com.sadalsuud.push.domain.gateway.IRepository.IChannelAccountRepository;
+import com.sadalsuud.push.domain.channel.repository.IChannelAccountRepository;
 import com.sadalsuud.push.domain.gateway.domain.ChannelAccount;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.ChannelAccountDao;
 import lombok.RequiredArgsConstructor;

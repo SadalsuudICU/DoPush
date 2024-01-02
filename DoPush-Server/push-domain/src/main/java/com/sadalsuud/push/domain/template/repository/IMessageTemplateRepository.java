@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.gateway.IRepository;
+package com.sadalsuud.push.domain.template.repository;
 
 import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
 import org.springframework.data.domain.Pageable;
@@ -10,8 +10,8 @@ import java.util.Optional;
  * @Description
  * @Author sadalsuud
  * @Blog www.sadalsuud.cn
- * @Date 11/12/2023
- * @Package com.sadalsuud.push.domain.gateway.IRepository
+ * @Date 31/12/2023
+ * @Project DoPush-Server
  */
 public interface IMessageTemplateRepository {
 
@@ -35,3 +35,4 @@ public interface IMessageTemplateRepository {
 
     Optional<MessageTemplate> findById(Long messageTemplateId);
 }
+

@@ -1,7 +1,7 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.repository.impl;
 
 import com.google.common.collect.Lists;
-import com.sadalsuud.push.domain.gateway.IRepository.ISmsRepository;
+import com.sadalsuud.push.domain.data.repository.ISmsRepository;
 import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.SmsRecordDao;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.gateway.IRepository;
+package com.sadalsuud.push.domain.channel.repository;
 
 import com.sadalsuud.push.domain.gateway.domain.ChannelAccount;
 
@@ -8,8 +8,8 @@ import java.util.List;
  * @Description
  * @Author sadalsuud
  * @Blog www.sadalsuud.cn
- * @Date 11/12/2023
- * @Package com.sadalsuud.push.domain.gateway.IRepository
+ * @Date 31/12/2023
+ * @Project DoPush-Server
  */
 public interface IChannelAccountRepository {
     ChannelAccount save(ChannelAccount channelAccount);

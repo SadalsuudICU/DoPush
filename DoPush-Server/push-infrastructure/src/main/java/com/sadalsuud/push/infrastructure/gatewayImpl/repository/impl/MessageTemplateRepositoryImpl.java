@@ -1,7 +1,7 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.repository.impl;
 
-import com.sadalsuud.push.domain.gateway.IRepository.IMessageTemplateRepository;
 import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.domain.template.repository.IMessageTemplateRepository;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.MessageTemplateDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
