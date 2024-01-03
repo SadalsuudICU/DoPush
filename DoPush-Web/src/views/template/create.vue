@@ -63,7 +63,11 @@
       </el-form-item>
       <div v-if="form.sendChannel === 20">
         <el-form-item label="Push账号" prop="sendAccount">
-          <el-select v-model="form.sendAccount" placeholder="请选择">
+          <el-select
+            v-model="form.sendAccount"
+            placeholder="请选择"
+            @focus="getAvailableAccounts"
+          >
             <el-option
               v-for="item in accountOptions"
               :key="item.value"
@@ -187,6 +191,8 @@
 </template>
 
 <script>
+import { query } from '@/api/channel'
+
 export default {
   data() {
     return {
@@ -435,6 +441,24 @@ export default {
       this.$message({
         message: 'cancel!',
         type: 'warning'
+      })
+    },
+    getAvailableAccounts() {
+      const accounts = []
+      const channelType = this.form.sendChannel
+      const params = {
+        'channelType': channelType,
+        'creator': 'Sadalsuud'
+      }
+      query(params).then(res => {
+        res.data.map(item => {
+          accounts.push({
+            'label': item.name,
+            'value': item.id
+          })
+        })
+        console.log(accounts)
+        this.accountOptions = accounts
       })
     }
   }
