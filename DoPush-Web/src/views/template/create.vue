@@ -61,6 +61,7 @@
           </el-radio>
         </el-radio-group>
       </el-form-item>
+      <!--  =================push================= -->
       <div v-if="form.sendChannel === 20">
         <el-form-item label="Push账号" prop="sendAccount">
           <el-select
@@ -86,9 +87,14 @@
           <el-input v-model="form.url" placeholder="可用占位符${url}, 最好使用短链" />
         </el-form-item>
       </div>
+      <!--  =================sms================= -->
       <div v-if="form.sendChannel === 30">
         <el-form-item label="短信账号" prop="sendAccount">
-          <el-select v-model="form.sendAccount" placeholder="请选择">
+          <el-select
+            v-model="form.sendAccount"
+            placeholder="请选择"
+            @focus="getAvailableAccounts"
+          >
             <el-option
               v-for="item in accountOptions"
               :key="item.value"
@@ -104,9 +110,14 @@
           <el-input v-model="form.url" placeholder="可用占位符${url}, 最好使用短链" />
         </el-form-item>
       </div>
+      <!--  =================email================= -->
       <div v-if="form.sendChannel === 40">
         <el-form-item label="邮件账号" prop="sendAccount">
-          <el-select v-model="form.sendAccount" placeholder="请选择">
+          <el-select
+            v-model="form.sendAccount"
+            placeholder="请选择"
+            @focus="getAvailableAccounts"
+          >
             <el-option
               v-for="item in accountOptions"
               :key="item.value"
@@ -137,9 +148,14 @@
       <div v-if="form.sendChannel === 100">
         <span style="color: darkred">暂不支持该渠道</span>
       </div>
+      <!--  =================dingTalkRobot================= -->
       <div v-if="form.sendChannel === 80">
         <el-form-item label="钉钉群机器人账号" prop="sendAccount">
-          <el-select v-model="form.sendAccount" placeholder="请选择">
+          <el-select
+            v-model="form.sendAccount"
+            placeholder="请选择"
+            @focus="getAvailableAccounts"
+          >
             <el-option
               v-for="item in accountOptions"
               :key="item.value"
@@ -154,9 +170,14 @@
           </el-radio-group>
         </el-form-item>
       </div>
+      <!--  =================dingTalkApp================= -->
       <div v-if="form.sendChannel === 90">
         <el-form-item label="钉钉应用" prop="sendAccount">
-          <el-select v-model="form.sendAccount" placeholder="请选择">
+          <el-select
+            v-model="form.sendAccount"
+            placeholder="请选择"
+            @focus="getAvailableAccounts"
+          >
             <el-option
               v-for="item in accountOptions"
               :key="item.value"
@@ -171,9 +192,14 @@
           </el-radio-group>
         </el-form-item>
       </div>
+      <!--  =================fei shu================= -->
       <div v-if="form.sendChannel === 110">
         <el-form-item label="飞书机器人" prop="sendAccount">
-          <el-select v-model="form.sendAccount" placeholder="请选择">
+          <el-select
+            v-model="form.sendAccount"
+            placeholder="请选择"
+            @focus="getAvailableAccounts"
+          >
             <el-option
               v-for="item in accountOptions"
               :key="item.value"
