@@ -87,25 +87,37 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
+    <el-dialog title="渠道账号信息修改" :visible.sync="updateTableVisible">
+      <CreateOrUpdate :data="updateData" />
+    </el-dialog>
+    <el-dialog title="渠道账号信息修改" :visible.sync="testTableVisible" />
   </div>
 </template>
 
 <script>
-import { templateList, batchDelete } from '@/api/template'
+import { batchDelete, templateList } from '@/api/template'
 import { transTimestampToDate } from '@/utils/date'
+import createOrUpdate from '@/views/template/createOrUpdate.vue'
 
 export default {
+  components: {
+    CreateOrUpdate: createOrUpdate
+  },
   data() {
     return {
       keywords: '',
       placeholder: '通过关键字搜索',
       tableData: [],
+      originData: [],
       channelType: '',
       pageSizes: [5, 10, 20],
       currentPage: 1,
       currentPerPage: 5,
       count: 0,
       selectedRows: [],
+      updateTableVisible: false,
+      testTableVisible: false,
+      updateData: '',
       sendChannelMap: {
         '20': 'PUSH通知栏',
         '30': '短信',
@@ -231,7 +243,11 @@ export default {
       data.page = this.currentPage
       data.perPage = this.currentPerPage
       templateList(data).then(res => {
-        this.tableData = this.dataConvert(res.data.rows)
+        const rows = res.data.rows
+        this.originData = rows
+        // this.tableData = this.dataConvert(rows)
+        // 解决原始数据被修改无法使用的问题, 采用序列化方式实现数据的深拷贝
+        this.tableData = this.dataConvert(JSON.parse(JSON.stringify(rows)))
         this.count = res.data.count
       }).catch(err => {
         console.log(err)
@@ -285,9 +301,17 @@ export default {
     },
     handleTest(index, row) {
       console.log(row.id)
+      this.testTableVisible = true
     },
     handleEdit(index, row) {
-      console.log(row.id)
+      console.log(row)
+      this.updateData = this.originData.filter(item => {
+        if (item.id === row.id) {
+          return item
+        }
+      })[0]
+      console.log(this.updateData)
+      this.updateTableVisible = true
     },
     handleDeactivate(index, row) {
       const data = row

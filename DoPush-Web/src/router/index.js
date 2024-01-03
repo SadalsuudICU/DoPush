@@ -85,7 +85,7 @@ export const constantRoutes = [
       {
         path: 'create-template',
         name: 'CreateTemplate',
-        component: () => import('@/views/template/create.vue'),
+        component: () => import('@/views/template/createOrUpdate.vue'),
         meta: { title: '新增消息模板', icon: 'create' }
       },
       {

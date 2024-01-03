@@ -220,9 +220,14 @@
 import { query } from '@/api/channel'
 
 export default {
+  props: {
+    // eslint-disable-next-line vue/require-default-prop
+    data: Object
+  },
   data() {
     return {
       form: {
+        id: '',
         name: '',
         proposer: '',
         idType: '',
@@ -454,6 +459,11 @@ export default {
           'value': '130'
         }
       ]
+    }
+  },
+  mounted() {
+    if (this.data) {
+      this.form = this.data
     }
   },
   methods: {
