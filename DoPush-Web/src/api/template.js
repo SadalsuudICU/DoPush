@@ -16,3 +16,13 @@ export const batchDelete = (ids) => {
     method: 'delete'
   })
 }
+
+export const test = (data) => {
+  return request({
+    url: '/messageTemplate/test',
+    method: 'post',
+    data: {
+      ...data
+    }
+  })
+}

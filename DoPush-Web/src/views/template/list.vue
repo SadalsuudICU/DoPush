@@ -59,6 +59,12 @@
           <el-button
             v-if="scope.row['isDeleted'] === 0"
             size="mini"
+            @click="handleExecute(scope.$index, scope.row)"
+          >Execute</el-button>
+          <br>
+          <el-button
+            v-if="scope.row['isDeleted'] === 0"
+            size="mini"
             @click="handleEdit(scope.$index, scope.row)"
           >Edit</el-button>
           <br>
@@ -87,15 +93,26 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
-    <el-dialog title="渠道账号信息修改" :visible.sync="updateTableVisible">
+    <el-dialog title="消息模板信息修改" :visible.sync="updateTableVisible">
       <CreateOrUpdate :data="updateData" />
     </el-dialog>
-    <el-dialog title="渠道账号信息修改" :visible.sync="testTableVisible" />
+    <el-dialog title="消息模板测试" :visible.sync="testTableVisible">
+      <el-form ref="form" :model="test" label-width="120px">
+        <el-form-item label="接收者" prop="receiver">
+          <el-input v-model="test.receiver" />
+        </el-form-item>
+        <el-form-item label="消息参数" prop="msgContent">
+          <el-input v-model="test.msgContent" />
+        </el-form-item>
+      </el-form>
+      <el-divider />
+      <el-button type="success" @click="handelSend">发送</el-button>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { batchDelete, templateList } from '@/api/template'
+import { batchDelete, templateList, test } from '@/api/template'
 import { transTimestampToDate } from '@/utils/date'
 import createOrUpdate from '@/views/template/createOrUpdate.vue'
 
@@ -118,6 +135,12 @@ export default {
       updateTableVisible: false,
       testTableVisible: false,
       updateData: '',
+      currentOperateRowId: '',
+      test: {
+        receiver: '',
+        msgContent: '',
+        id: ''
+      },
       sendChannelMap: {
         '20': 'PUSH通知栏',
         '30': '短信',
@@ -301,6 +324,7 @@ export default {
     },
     handleTest(index, row) {
       console.log(row.id)
+      this.currentOperateRowId = row.id
       this.testTableVisible = true
     },
     handleEdit(index, row) {
@@ -324,6 +348,29 @@ export default {
       data.sendChannel = data.channelCode
       data.isDeleted = 0
       this.doSave(data)
+    },
+    handleExecute(index, row) {
+      const data = row
+      data.sendChannel = data.channelCode
+    },
+    handelSend() {
+      const receiver = this.test.receiver
+      const msgContent = this.test.msgContent
+      const id = this.currentOperateRowId
+      const data = {
+        receiver: receiver,
+        msgContent: msgContent,
+        id: id
+      }
+      test(data).then(res => {
+        this.$message({
+          showClose: true,
+          message: 'send success',
+          type: 'success'
+        })
+        console.log(res)
+        this.testTableVisible = false
+      })
     }
   }
 }
