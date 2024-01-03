@@ -81,7 +81,7 @@
           <el-input v-model="form.title" placeholder="可用占位符${title}" />
         </el-form-item>
         <el-form-item label="发送内容" prop="content">
-          <el-input v-model="form.content" placeholder="可用占位符${content}" />
+          <el-input v-model="form.msgContent" placeholder="可用占位符${content}" />
         </el-form-item>
         <el-form-item label="发送链接" prop="url">
           <el-input v-model="form.url" placeholder="可用占位符${url}, 最好使用短链" />
@@ -104,7 +104,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="短信内容" prop="content">
-          <el-input v-model="form.content" placeholder="可用占位符${content}" />
+          <el-input v-model="form.msgContent" placeholder="可用占位符${content}" />
         </el-form-item>
         <el-form-item label="短信链接" prop="url">
           <el-input v-model="form.url" placeholder="可用占位符${url}, 最好使用短链" />
@@ -130,7 +130,7 @@
           <el-input v-model="form.title" placeholder="可用占位符${title}" />
         </el-form-item>
         <el-form-item label="邮件内容" prop="content">
-          <el-input v-model="form.content" placeholder="可用占位符${content}" />
+          <el-input v-model="form.msgContent" placeholder="可用占位符${content}" />
         </el-form-item>
         <el-form-item label="邮件链接" prop="url">
           <el-input v-model="form.url" placeholder="可用占位符${url}, 最好使用短链" />
@@ -209,15 +209,19 @@
           </el-select>
         </el-form-item>
         <el-form-item label="飞书内容" prop="content">
-          <el-input v-model="form.content" placeholder="可用占位符${content}" />
+          <el-input v-model="form.msgContent" placeholder="可用占位符${content}" />
         </el-form-item>
       </div>
+      <el-button
+        @click="handelSaveOrUpdate"
+      >Save</el-button>
     </el-form>
   </div>
 </template>
 
 <script>
 import { query } from '@/api/channel'
+import { save } from '@/api/template'
 
 export default {
   props: {
@@ -226,6 +230,7 @@ export default {
   },
   data() {
     return {
+      isEdit: false,
       form: {
         id: '',
         name: '',
@@ -240,6 +245,7 @@ export default {
         sendChannel: '',
         sendAccount: '',
         content: '',
+        msgContent: '',
         url: '',
         title: '',
         templateId: '',
@@ -279,10 +285,11 @@ export default {
         ],
         content: [
           { required: true, message: 'content', trigger: 'blur' }
-        ],
-        url: [
-          { required: true, message: 'url', trigger: 'blur' }
         ]
+        // ,
+        // url: [
+        //   { required: true, message: 'url', trigger: 'blur' }
+        // ]
       },
       idTypeOptions: [
         {
@@ -464,6 +471,7 @@ export default {
   mounted() {
     if (this.data) {
       this.form = this.data
+      this.isEdit = true
     }
   },
   methods: {
@@ -495,6 +503,18 @@ export default {
         })
         console.log(accounts)
         this.accountOptions = accounts
+      })
+    },
+    handelSaveOrUpdate() {
+      save(this.form).then(res => {
+        console.log(res)
+        this.$message({
+          type: 'success',
+          message: 'save successfully'
+        })
+        if (this.isEdit) {
+          this.$bus.$emit('templateUpdate', true)
+        }
       })
     }
   }

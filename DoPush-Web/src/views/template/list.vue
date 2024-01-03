@@ -117,6 +117,7 @@ import { transTimestampToDate } from '@/utils/date'
 import createOrUpdate from '@/views/template/createOrUpdate.vue'
 
 export default {
+  inject: ['reload'],
   components: {
     CreateOrUpdate: createOrUpdate
   },
@@ -254,6 +255,9 @@ export default {
   },
   mounted() {
     this.search()
+    this.$bus.$on('templateUpdate', () => {
+      this.reload()
+    })
   },
   methods: {
     goBack() {

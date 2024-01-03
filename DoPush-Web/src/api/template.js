@@ -26,3 +26,13 @@ export const test = (data) => {
     }
   })
 }
+
+export const save = (data) => {
+  return request({
+    url: '/messageTemplate/save',
+    method: 'post',
+    data: {
+      ...data
+    }
+  })
+}

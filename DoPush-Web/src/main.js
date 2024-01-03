@@ -39,5 +39,8 @@ new Vue({
   el: '#app',
   router,
   store,
+  beforeCreate() {
+    Vue.prototype.$bus = this
+  },
   render: h => h(App)
 })
