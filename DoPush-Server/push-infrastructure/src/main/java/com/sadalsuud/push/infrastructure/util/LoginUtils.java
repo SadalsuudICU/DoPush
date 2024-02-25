@@ -1,4 +1,4 @@
-package com.sadalsuud.push.infrastructure.utils;
+package com.sadalsuud.push.infrastructure.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

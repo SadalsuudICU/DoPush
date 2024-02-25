@@ -1,4 +1,4 @@
-package com.sadalsuud.push.infrastructure.utils;
+package com.sadalsuud.push.infrastructure.util;
 
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Function;

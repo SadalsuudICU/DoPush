@@ -1,4 +1,4 @@
-package com.sadalsuud.push.infrastructure.utils;
+package com.sadalsuud.push.infrastructure.util;
 
 import com.sadalsuud.push.common.enums.AnchorState;
 import com.sadalsuud.push.common.enums.EnumUtil;

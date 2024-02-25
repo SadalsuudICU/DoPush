@@ -25,7 +25,7 @@ import com.sadalsuud.push.domain.receive.TaskInfoUtils;
 import com.sadalsuud.push.domain.template.repository.IMessageTemplateRepository;
 import com.sadalsuud.push.infrastructure.trace.TraceResponse;
 import com.sadalsuud.push.infrastructure.trace.TraceService;
-import com.sadalsuud.push.infrastructure.utils.AnchorStateUtils;
+import com.sadalsuud.push.infrastructure.util.AnchorStateUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
