@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.gateway;
+package com.sadalsuud.push.domain.support.ThreadPool;
 
 import com.dtp.core.thread.DtpExecutor;
 
@@ -9,6 +9,6 @@ import com.dtp.core.thread.DtpExecutor;
  * @Date 11/12/2023
  * @Package com.sadalsuud.push.domain.gateway
  */
-public interface TreadPoolGateway {
+public interface TreadPoolService {
     void register(DtpExecutor dtpExecutor);
 }

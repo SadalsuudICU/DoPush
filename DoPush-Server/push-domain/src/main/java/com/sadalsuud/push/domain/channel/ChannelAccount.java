@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.gateway.domain;
+package com.sadalsuud.push.domain.channel;
 
 import lombok.*;
 

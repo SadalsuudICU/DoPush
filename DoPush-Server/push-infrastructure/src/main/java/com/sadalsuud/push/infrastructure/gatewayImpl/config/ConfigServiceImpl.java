@@ -1,7 +1,7 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.config;
 
 import cn.hutool.setting.dialect.Props;
-import com.sadalsuud.push.domain.gateway.ConfigGateway;
+import com.sadalsuud.push.domain.support.config.ConfigService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
  */
 @Service
 @RequiredArgsConstructor
-public class ConfigGatewayImpl implements ConfigGateway {
+public class ConfigServiceImpl implements ConfigService {
 
     /**
      * 本地配置

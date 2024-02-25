@@ -3,7 +3,7 @@ package com.sadalsuud.push.infrastructure.gatewayImpl.config;
 import cn.hutool.core.collection.CollUtil;
 import com.google.common.base.Throwables;
 import com.sadalsuud.push.common.constant.CommonConstant;
-import com.sadalsuud.push.domain.gateway.CacheGateway;
+import com.sadalsuud.push.domain.support.cache.CacheService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisCallback;
@@ -14,16 +14,15 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
- * @Description redis网关接口服务实现类
+ * @Description 缓存中间件网关接口服务实现类
  * @Author sadalsuud
  * @Blog www.sadalsuud.cn
  * @Date 11/12/2023
- * @Package com.sadalsuud.push.infrastructure.config
  */
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class CacheGatewayImpl implements CacheGateway {
+public class CacheServiceImpl implements CacheService {
 
     private final StringRedisTemplate redisTemplate;
 

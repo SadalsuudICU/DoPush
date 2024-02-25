@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.gateway;
+package com.sadalsuud.push.domain.channel;
 
 /**
  * @Description 账号信息服务
@@ -7,7 +7,7 @@ package com.sadalsuud.push.domain.gateway;
  * @Date 11/12/2023
  * @Package com.sadalsuud.push.domain.gateway
  */
-public interface AccountGateway {
+public interface AccountService {
     <T> T getAccountById(Integer sendAccountId, Class<T> clazz);
 
     /**

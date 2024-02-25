@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.base.Throwables;
 import com.sadalsuud.push.common.domain.AnchorInfo;
 import com.sadalsuud.push.common.domain.LogParam;
-import com.sadalsuud.push.domain.gateway.MqServiceGateway;
+import com.sadalsuud.push.domain.support.mq.MqService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -29,7 +29,7 @@ public class LogUtils extends CustomLogListener {
     // 因为LogUtils只用在SendMqService真正触发调用方法时才使用 所以在此使用@Lazy打破循环依赖(并且日志服务没有发送重要)
     @Lazy
     @Resource
-    private MqServiceGateway mqServiceGateway;
+    private MqService mqService;
 
     @Value("${dopush.business.log.topic.name}")
     private String topicName;
@@ -38,7 +38,7 @@ public class LogUtils extends CustomLogListener {
      * 方法切面的日志 @OperationLog 所产生
      */
     @Override
-    public void createLog(LogDTO logDTO) throws Exception {
+    public void createLog(LogDTO logDTO) {
         log.info("LogUtils#createLog :" + JSON.toJSONString(logDTO));
         //log.info(JSON.toJSONString(logDTO));
     }
@@ -62,7 +62,7 @@ public class LogUtils extends CustomLogListener {
         //log.info(message);
 
         try {
-            mqServiceGateway.send(topicName, message);
+            mqService.send(topicName, message);
         } catch (Exception e) {
             log.error("LogUtils#print send mq fail! e:{},params:{}", Throwables.getStackTraceAsString(e)
                     , JSON.toJSONString(anchorInfo));

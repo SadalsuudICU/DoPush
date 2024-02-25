@@ -15,7 +15,7 @@ import com.sadalsuud.push.common.enums.ChannelType;
 import com.sadalsuud.push.common.enums.SendMessageType;
 import com.sadalsuud.push.domain.assign.handler.BaseHandler;
 import com.sadalsuud.push.domain.assign.handler.Handler;
-import com.sadalsuud.push.domain.gateway.AccountGateway;
+import com.sadalsuud.push.domain.channel.AccountService;
 import com.sadalsuud.push.domain.assign.model.dingding.DingDingRobotParam;
 import com.sadalsuud.push.domain.assign.model.dingding.DingDingRobotResult;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,7 @@ import java.util.List;
 @Service
 public class DingDingRobotHandler extends BaseHandler implements Handler {
     @Resource
-    private AccountGateway accountGateway;
+    private AccountService accountService;
 
     public DingDingRobotHandler() {
         channelCode = ChannelType.DING_DING_ROBOT.getCode();
@@ -50,7 +50,7 @@ public class DingDingRobotHandler extends BaseHandler implements Handler {
     @Override
     public boolean handler(TaskInfo taskInfo) {
         try {
-            DingDingRobotAccount account = accountGateway.getAccountById(taskInfo.getSendAccount(), DingDingRobotAccount.class);
+            DingDingRobotAccount account = accountService.getAccountById(taskInfo.getSendAccount(), DingDingRobotAccount.class);
             DingDingRobotParam dingDingRobotParam = assembleParam(taskInfo);
             String httpResult = HttpUtil.post(assembleParamUrl(account), JSON.toJSONString(dingDingRobotParam));
             DingDingRobotResult dingDingRobotResult = JSON.parseObject(httpResult, DingDingRobotResult.class);

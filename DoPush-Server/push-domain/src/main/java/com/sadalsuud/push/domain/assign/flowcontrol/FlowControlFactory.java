@@ -9,7 +9,7 @@ import com.sadalsuud.push.common.enums.ChannelType;
 import com.sadalsuud.push.common.enums.EnumUtil;
 import com.sadalsuud.push.domain.assign.enums.RateLimitStrategy;
 import com.sadalsuud.push.domain.assign.flowcontrol.annotations.LocalRateLimit;
-import com.sadalsuud.push.domain.gateway.ConfigGateway;
+import com.sadalsuud.push.domain.support.config.ConfigService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.AopUtils;
@@ -37,7 +37,7 @@ public class FlowControlFactory implements ApplicationContextAware {
 
     private final static Map<RateLimitStrategy, FlowControlService> flowControlServiceMap = new ConcurrentHashMap<>();
 
-    private final ConfigGateway config;
+    private final ConfigService config;
 
     private ApplicationContext applicationContext;
 

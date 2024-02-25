@@ -18,9 +18,9 @@ import com.sadalsuud.push.common.enums.ChannelType;
 import com.sadalsuud.push.common.enums.EnumUtil;
 import com.sadalsuud.push.common.enums.SmsStatus;
 import com.sadalsuud.push.domain.data.repository.ISmsRepository;
-import com.sadalsuud.push.domain.gateway.CacheGateway;
-import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
-import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
+import com.sadalsuud.push.domain.support.cache.CacheService;
+import com.sadalsuud.push.domain.template.MessageTemplate;
+import com.sadalsuud.push.domain.data.SmsRecord;
 import com.sadalsuud.push.domain.receive.TaskInfoUtils;
 import com.sadalsuud.push.domain.template.repository.IMessageTemplateRepository;
 import com.sadalsuud.push.infrastructure.trace.TraceResponse;
@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DataServiceImpl implements DataService {
 
-    private final CacheGateway cacheGateway;
+    private final CacheService cacheService;
 
     private final IMessageTemplateRepository messageTemplateRepository;
 
@@ -76,7 +76,7 @@ public class DataServiceImpl implements DataService {
      */
     @Override
     public UserTimeLineVo getTraceUserInfo(String receiver) {
-        List<String> userInfoList = cacheGateway.lRange(receiver, 0, -1);
+        List<String> userInfoList = cacheService.lRange(receiver, 0, -1);
         if (CollUtil.isEmpty(userInfoList)) {
             return null;
         }
@@ -110,7 +110,7 @@ public class DataServiceImpl implements DataService {
           key：state
           value:stateCount
          */
-        return cacheGateway.hGetAll(getRealBusinessId(businessId));
+        return cacheService.hGetAll(getRealBusinessId(businessId));
     }
 
     /**

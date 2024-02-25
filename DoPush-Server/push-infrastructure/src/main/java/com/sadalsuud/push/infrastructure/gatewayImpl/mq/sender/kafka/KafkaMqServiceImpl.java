@@ -1,7 +1,7 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.mq.sender.kafka;
 
 import cn.hutool.core.text.CharSequenceUtil;
-import com.sadalsuud.push.domain.gateway.MqServiceGateway;
+import com.sadalsuud.push.domain.support.mq.MqService;
 import com.sadalsuud.push.infrastructure.gatewayImpl.mq.MessageQueuePipeline;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -26,7 +26,7 @@ import java.util.List;
 @Service
 @ConditionalOnProperty(value = "dopush.mq.pipeline", havingValue = MessageQueuePipeline.KAFKA)
 @RequiredArgsConstructor
-public class KafkaMqServiceGatewayImpl implements MqServiceGateway {
+public class KafkaMqServiceImpl implements MqService {
 
     private final KafkaTemplate kafkaTemplate;
 

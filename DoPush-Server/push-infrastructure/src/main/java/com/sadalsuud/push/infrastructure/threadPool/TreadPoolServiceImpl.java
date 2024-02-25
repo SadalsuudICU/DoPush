@@ -2,7 +2,7 @@ package com.sadalsuud.push.infrastructure.threadPool;
 
 import com.dtp.core.DtpRegistry;
 import com.dtp.core.thread.DtpExecutor;
-import com.sadalsuud.push.domain.gateway.TreadPoolGateway;
+import com.sadalsuud.push.domain.support.ThreadPool.TreadPoolService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RequiredArgsConstructor
-public class TreadPoolGatewayImpl implements TreadPoolGateway {
+public class TreadPoolServiceImpl implements TreadPoolService {
     private static final String SOURCE_NAME = "dopush";
     private final ThreadPoolExecutorShutdownDefinition shutdownDefinition;
 

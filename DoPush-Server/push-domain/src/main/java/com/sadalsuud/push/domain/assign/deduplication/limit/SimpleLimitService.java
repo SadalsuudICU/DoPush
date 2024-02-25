@@ -3,7 +3,7 @@ package com.sadalsuud.push.domain.assign.deduplication.limit;
 import cn.hutool.core.collection.CollUtil;
 import com.sadalsuud.push.common.constant.CommonConstant;
 import com.sadalsuud.push.common.domain.TaskInfo;
-import com.sadalsuud.push.domain.gateway.CacheGateway;
+import com.sadalsuud.push.domain.support.cache.CacheService;
 import com.sadalsuud.push.domain.assign.deduplication.DeduplicationParam;
 import com.sadalsuud.push.domain.assign.deduplication.service.AbstractDeduplicationService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class SimpleLimitService extends AbstractLimitService {
 
     private static final String LIMIT_TAG = "SP_";
 
-    private final CacheGateway cacheGateway;
+    private final CacheService cacheService;
 
     @Override
     public Set<String> limitFilter(AbstractDeduplicationService service, TaskInfo taskInfo, DeduplicationParam param) {
@@ -33,7 +33,7 @@ public class SimpleLimitService extends AbstractLimitService {
         Map<String, String> readyPutRedisReceiver = new HashMap<>(taskInfo.getReceiver().size());
         //redis数据隔离
         List<String> keys = deduplicationAllKey(service, taskInfo).stream().map(key -> LIMIT_TAG + key).collect(Collectors.toList());
-        Map<String, String> inRedisValue = cacheGateway.mGet(keys);
+        Map<String, String> inRedisValue = cacheService.mGet(keys);
 
         for (String receiver : taskInfo.getReceiver()) {
             String key = LIMIT_TAG + deduplicationSingleKey(service, taskInfo, receiver);
@@ -71,7 +71,7 @@ public class SimpleLimitService extends AbstractLimitService {
             }
         }
         if (CollUtil.isNotEmpty(keyValues)) {
-            cacheGateway.pipelineSetEx(keyValues, deduplicationTime);
+            cacheService.pipelineSetEx(keyValues, deduplicationTime);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.sadalsuud.push.domain.data.repository;
 
-import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
+import com.sadalsuud.push.domain.data.SmsRecord;
 
 import java.util.List;
 

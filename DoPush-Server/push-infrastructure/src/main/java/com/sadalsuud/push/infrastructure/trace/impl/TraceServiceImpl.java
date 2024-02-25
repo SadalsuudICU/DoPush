@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.sadalsuud.push.common.constant.DoPushConstant;
 import com.sadalsuud.push.common.domain.SimpleAnchorInfo;
 import com.sadalsuud.push.common.enums.RespStatusEnum;
-import com.sadalsuud.push.domain.gateway.CacheGateway;
+import com.sadalsuud.push.domain.support.cache.CacheService;
 import com.sadalsuud.push.infrastructure.trace.TraceResponse;
 import com.sadalsuud.push.infrastructure.trace.TraceService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TraceServiceImpl implements TraceService {
 
-    private final CacheGateway cacheGateway;
+    private final CacheService cacheService;
 
     @Override
     public TraceResponse traceByMessageId(String messageId) {
@@ -37,7 +37,7 @@ public class TraceServiceImpl implements TraceService {
             return new TraceResponse(RespStatusEnum.CLIENT_BAD_PARAMETERS.getCode(), RespStatusEnum.CLIENT_BAD_PARAMETERS.getMsg(), null);
         }
         String redisMessageKey = CharSequenceUtil.join(StrUtil.COLON, DoPushConstant.CACHE_KEY_PREFIX, DoPushConstant.MESSAGE_ID, messageId);
-        List<String> messageList = cacheGateway.lRange(redisMessageKey, 0, -1);
+        List<String> messageList = cacheService.lRange(redisMessageKey, 0, -1);
         if (CollUtil.isEmpty(messageList)) {
             return new TraceResponse(RespStatusEnum.FAIL.getCode(), RespStatusEnum.FAIL.getMsg(), null);
         }

@@ -8,7 +8,7 @@ import com.sadalsuud.push.common.enums.AnchorState;
 import com.sadalsuud.push.common.enums.ShieldType;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
-import com.sadalsuud.push.domain.gateway.CacheGateway;
+import com.sadalsuud.push.domain.support.cache.CacheService;
 import com.sadalsuud.push.domain.support.LogUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class ShieldAction implements BusinessProcess<TaskInfo> {
      */
     private static final int NIGHT = 8;
 
-    private final CacheGateway cacheGateway;
+    private final CacheService cacheService;
 
     private final LogUtils logUtils;
 
@@ -53,7 +53,7 @@ public class ShieldAction implements BusinessProcess<TaskInfo> {
                         .bizId(taskInfo.getBizId()).messageId(taskInfo.getMessageId()).businessId(taskInfo.getBusinessId()).ids(taskInfo.getReceiver()).build());
             }
             if (ShieldType.NIGHT_SHIELD_BUT_NEXT_DAY_SEND.getCode().equals(taskInfo.getShieldType())) {
-                cacheGateway.lPush(NIGHT_SHIELD_BUT_NEXT_DAY_SEND_KEY, JSON.toJSONString(taskInfo,
+                cacheService.lPush(NIGHT_SHIELD_BUT_NEXT_DAY_SEND_KEY, JSON.toJSONString(taskInfo,
                                 SerializerFeature.WriteClassName),
                         SECONDS_OF_A_DAY);
                 logUtils.print(AnchorInfo.builder().state(AnchorState.NIGHT_SHIELD_NEXT_SEND.getCode()).bizId(taskInfo.getBizId()).messageId(taskInfo.getMessageId()).businessId(taskInfo.getBusinessId()).ids(taskInfo.getReceiver()).build());

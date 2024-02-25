@@ -1,6 +1,6 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.repository.impl;
 
-import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.domain.template.MessageTemplate;
 import com.sadalsuud.push.domain.template.repository.IMessageTemplateRepository;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.MessageTemplateDao;
 import lombok.RequiredArgsConstructor;

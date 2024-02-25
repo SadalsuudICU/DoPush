@@ -15,9 +15,9 @@ import com.sadalsuud.push.domain.assign.handler.BaseHandler;
 import com.sadalsuud.push.domain.assign.handler.Handler;
 import com.sadalsuud.push.domain.data.repository.ISmsRepository;
 import com.sadalsuud.push.infrastructure.gatewayImpl.handler.script.SmsScript;
-import com.sadalsuud.push.domain.gateway.AccountGateway;
-import com.sadalsuud.push.domain.gateway.ConfigGateway;
-import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
+import com.sadalsuud.push.domain.channel.AccountService;
+import com.sadalsuud.push.domain.support.config.ConfigService;
+import com.sadalsuud.push.domain.data.SmsRecord;
 import com.sadalsuud.push.domain.assign.model.sms.MessageTypeSmsConfig;
 import com.sadalsuud.push.domain.assign.model.sms.SmsParam;
 import lombok.extern.slf4j.Slf4j;
@@ -49,18 +49,18 @@ public class SmsHandler extends BaseHandler implements Handler {
 
 
     private final ISmsRepository smsRepository;
-    private final ConfigGateway configGateway;
+    private final ConfigService configService;
     private final ApplicationContext applicationContext;
-    private final AccountGateway accountGateway;
+    private final AccountService accountService;
 
     public SmsHandler(ISmsRepository smsRepository,
-                      ConfigGateway configGateway,
+                      ConfigService configService,
                       ApplicationContext applicationContext,
-                      AccountGateway accountGateway) {
+                      AccountService accountService) {
         this.smsRepository = smsRepository;
-        this.configGateway = configGateway;
+        this.configService = configService;
         this.applicationContext = applicationContext;
-        this.accountGateway = accountGateway;
+        this.accountService = accountService;
 
         channelCode = ChannelType.SMS.getCode();
     }
@@ -132,7 +132,7 @@ public class SmsHandler extends BaseHandler implements Handler {
           如果模板指定了账号，则优先使用具体的账号进行发送
          */
         if (!taskInfo.getSendAccount().equals(AUTO_FLOW_RULE)) {
-            SmsAccount account = accountGateway.getAccountById(taskInfo.getSendAccount(), SmsAccount.class);
+            SmsAccount account = accountService.getAccountById(taskInfo.getSendAccount(), SmsAccount.class);
             return Collections.singletonList(
                     MessageTypeSmsConfig.builder()
                             .sendAccount(taskInfo.getSendAccount())
@@ -144,7 +144,7 @@ public class SmsHandler extends BaseHandler implements Handler {
         /*
           读取流量配置
          */
-        String property = configGateway.getProperty(FLOW_KEY, CommonConstant.EMPTY_VALUE_JSON_ARRAY);
+        String property = configService.getProperty(FLOW_KEY, CommonConstant.EMPTY_VALUE_JSON_ARRAY);
         JSONArray jsonArray = JSON.parseArray(property);
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONArray array =

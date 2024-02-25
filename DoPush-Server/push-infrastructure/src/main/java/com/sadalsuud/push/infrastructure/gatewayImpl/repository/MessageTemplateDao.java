@@ -1,6 +1,6 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.repository;
 
-import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.domain.template.MessageTemplate;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

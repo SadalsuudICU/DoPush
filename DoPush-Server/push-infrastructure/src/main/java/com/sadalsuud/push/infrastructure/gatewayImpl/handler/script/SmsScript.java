@@ -1,6 +1,6 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.handler.script;
 
-import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
+import com.sadalsuud.push.domain.data.SmsRecord;
 import com.sadalsuud.push.domain.assign.model.sms.SmsParam;
 
 import java.util.List;

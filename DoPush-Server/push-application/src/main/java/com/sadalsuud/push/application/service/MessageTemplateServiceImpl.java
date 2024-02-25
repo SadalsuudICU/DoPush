@@ -10,7 +10,7 @@ import com.sadalsuud.push.common.constant.DoPushConstant;
 import com.sadalsuud.push.common.enums.AuditStatus;
 import com.sadalsuud.push.common.enums.MessageStatus;
 import com.sadalsuud.push.common.vo.BasicResultVO;
-import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.domain.template.MessageTemplate;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.MessageTemplateDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.gateway;
+package com.sadalsuud.push.domain.support.cache;
 
 import org.springframework.data.redis.core.script.RedisScript;
 
@@ -6,13 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description redis服务网关接口
+ * @Description 缓存中间件服务网关接口
  * @Author sadalsuud
  * @Blog www.sadalsuud.cn
  * @Date 11/12/2023
- * @Package com.sadalsuud.push.domain.gateway
  */
-public interface CacheGateway {
+public interface CacheService {
     /**
      * mGet将结果封装为Map
      *

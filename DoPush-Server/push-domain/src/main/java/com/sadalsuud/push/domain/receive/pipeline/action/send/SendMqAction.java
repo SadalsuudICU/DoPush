@@ -10,7 +10,7 @@ import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.vo.BasicResultVO;
-import com.sadalsuud.push.domain.gateway.MqServiceGateway;
+import com.sadalsuud.push.domain.support.mq.MqService;
 import com.sadalsuud.push.domain.receive.SendTaskModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +34,7 @@ public class SendMqAction implements BusinessProcess<SendTaskModel> {
 
 
     @Resource
-    private MqServiceGateway mqServiceGateway;
+    private MqService mqService;
 
     @Value("${dopush.business.topic.name}")
     private String sendMessageTopic;
@@ -52,7 +52,7 @@ public class SendMqAction implements BusinessProcess<SendTaskModel> {
         try {
             //String message = JSON.toJSONString(sendTaskModel.getTaskInfo(), new SerializerFeature[]{SerializerFeature.WriteClassName});
             String message = JSON.toJSONString(sendTaskModel.getTaskInfo(), SerializerFeature.WriteClassName);
-            mqServiceGateway.send(sendMessageTopic, message, tagId);
+            mqService.send(sendMessageTopic, message, tagId);
 
             context.setResponse(BasicResultVO.success(taskInfo.stream().map(v -> SimpleTaskInfo.builder().businessId(v.getBusinessId()).messageId(v.getMessageId()).bizId(v.getBizId()).build()).collect(Collectors.toList())));
         } catch (Exception e) {

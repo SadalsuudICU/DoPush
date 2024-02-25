@@ -6,8 +6,8 @@ import com.google.common.base.Throwables;
 import com.sadalsuud.push.common.constant.CommonConstant;
 import com.sadalsuud.push.common.dto.account.sms.SmsAccount;
 import com.sadalsuud.push.common.enums.ChannelType;
-import com.sadalsuud.push.domain.gateway.AccountGateway;
-import com.sadalsuud.push.domain.gateway.domain.ChannelAccount;
+import com.sadalsuud.push.domain.channel.AccountService;
+import com.sadalsuud.push.domain.channel.ChannelAccount;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.ChannelAccountDao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ import java.util.concurrent.ConcurrentMap;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class AccountGatewayImpl implements AccountGateway {
+public class AccountServiceImpl implements AccountService {
 
     private final ChannelAccountDao channelAccountDao;
 

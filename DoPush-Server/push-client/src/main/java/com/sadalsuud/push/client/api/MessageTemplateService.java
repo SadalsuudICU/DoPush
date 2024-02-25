@@ -2,7 +2,7 @@ package com.sadalsuud.push.client.api;
 
 import com.sadalsuud.push.client.dto.MessageTemplateParam;
 import com.sadalsuud.push.common.vo.BasicResultVO;
-import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.domain.template.MessageTemplate;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

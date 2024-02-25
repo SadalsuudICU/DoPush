@@ -8,7 +8,7 @@ import com.sadalsuud.push.adapter.facade.exception.CommonException;
 import com.sadalsuud.push.client.api.ChannelAccountService;
 import com.sadalsuud.push.common.constant.DoPushConstant;
 import com.sadalsuud.push.common.enums.RespStatusEnum;
-import com.sadalsuud.push.domain.gateway.domain.ChannelAccount;
+import com.sadalsuud.push.domain.channel.ChannelAccount;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
