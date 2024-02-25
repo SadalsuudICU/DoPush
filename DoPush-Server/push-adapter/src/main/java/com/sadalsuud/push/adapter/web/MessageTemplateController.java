@@ -10,18 +10,17 @@ import com.sadalsuud.push.adapter.facade.annotation.DoPushAspect;
 import com.sadalsuud.push.adapter.facade.annotation.DoPushResult;
 import com.sadalsuud.push.adapter.facade.exception.CommonException;
 import com.sadalsuud.push.client.api.MessageTemplateService;
+import com.sadalsuud.push.client.api.RecallService;
+import com.sadalsuud.push.client.api.SendService;
 import com.sadalsuud.push.client.dto.MessageTemplateParam;
 import com.sadalsuud.push.client.vo.MessageTemplateVo;
 import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.vo.BasicResultVO;
-import com.sadalsuud.push.client.api.RecallService;
-import com.sadalsuud.push.client.api.SendService;
-import com.sadalsuud.push.domain.support.gateway.domain.MessageTemplate;
 import com.sadalsuud.push.domain.receive.BusinessCode;
 import com.sadalsuud.push.domain.receive.MessageParam;
 import com.sadalsuud.push.domain.receive.SendRequest;
 import com.sadalsuud.push.domain.receive.SendResponse;
-import com.sadalsuud.push.infrastructure.util.LoginUtils;
+import com.sadalsuud.push.domain.support.gateway.domain.MessageTemplate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +60,6 @@ public class MessageTemplateController {
 
     private final RecallService recallService;
 
-    private final LoginUtils loginUtils;
 
     @Value("${dopush.business.upload.crowd.path}")
     private String dataPath;
