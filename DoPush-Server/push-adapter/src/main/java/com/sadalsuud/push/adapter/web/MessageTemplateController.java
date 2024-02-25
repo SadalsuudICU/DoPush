@@ -16,7 +16,7 @@ import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.client.api.RecallService;
 import com.sadalsuud.push.client.api.SendService;
-import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.domain.support.gateway.domain.MessageTemplate;
 import com.sadalsuud.push.domain.receive.BusinessCode;
 import com.sadalsuud.push.domain.receive.MessageParam;
 import com.sadalsuud.push.domain.receive.SendRequest;

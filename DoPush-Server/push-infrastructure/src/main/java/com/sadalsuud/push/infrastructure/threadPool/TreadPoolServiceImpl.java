@@ -2,7 +2,7 @@ package com.sadalsuud.push.infrastructure.threadPool;
 
 import com.dtp.core.DtpRegistry;
 import com.dtp.core.thread.DtpExecutor;
-import com.sadalsuud.push.domain.gateway.TreadPoolService;
+import com.sadalsuud.push.domain.support.gateway.TreadPoolService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -9,7 +9,7 @@ import com.sadalsuud.push.common.enums.ChannelType;
 import com.sadalsuud.push.common.enums.EnumUtil;
 import com.sadalsuud.push.domain.assign.enums.RateLimitStrategy;
 import com.sadalsuud.push.domain.assign.flowcontrol.annotations.LocalRateLimit;
-import com.sadalsuud.push.domain.gateway.ConfigService;
+import com.sadalsuud.push.domain.support.gateway.ConfigService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.AopUtils;

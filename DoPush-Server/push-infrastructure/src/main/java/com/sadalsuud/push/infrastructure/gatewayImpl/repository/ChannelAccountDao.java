@@ -1,6 +1,6 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.repository;
 
-import com.sadalsuud.push.domain.gateway.domain.ChannelAccount;
+import com.sadalsuud.push.domain.support.gateway.domain.ChannelAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.gateway;
+package com.sadalsuud.push.domain.support.gateway;
 
 /**
  * @Description 读取配置信息服务

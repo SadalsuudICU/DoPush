@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.gateway;
+package com.sadalsuud.push.domain.support.gateway;
 
 /**
  * @Description 消息队列信息处理接口

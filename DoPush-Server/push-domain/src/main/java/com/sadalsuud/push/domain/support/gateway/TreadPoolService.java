@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.gateway;
+package com.sadalsuud.push.domain.support.gateway;
 
 import com.dtp.core.thread.DtpExecutor;
 

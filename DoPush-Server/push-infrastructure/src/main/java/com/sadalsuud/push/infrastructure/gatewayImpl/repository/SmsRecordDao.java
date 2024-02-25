@@ -1,6 +1,6 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.repository;
 
-import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
+import com.sadalsuud.push.domain.support.gateway.domain.SmsRecord;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

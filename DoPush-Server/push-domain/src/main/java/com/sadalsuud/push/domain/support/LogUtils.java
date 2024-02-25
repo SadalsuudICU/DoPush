@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.base.Throwables;
 import com.sadalsuud.push.common.domain.AnchorInfo;
 import com.sadalsuud.push.common.domain.LogParam;
-import com.sadalsuud.push.domain.gateway.SendMqService;
+import com.sadalsuud.push.domain.support.gateway.SendMqService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;

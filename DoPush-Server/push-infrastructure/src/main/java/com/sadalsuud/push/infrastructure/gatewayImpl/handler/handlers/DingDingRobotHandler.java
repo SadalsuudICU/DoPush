@@ -15,7 +15,7 @@ import com.sadalsuud.push.common.enums.ChannelType;
 import com.sadalsuud.push.common.enums.SendMessageType;
 import com.sadalsuud.push.domain.assign.handler.BaseHandler;
 import com.sadalsuud.push.domain.assign.handler.Handler;
-import com.sadalsuud.push.domain.gateway.AccountService;
+import com.sadalsuud.push.domain.support.gateway.AccountService;
 import com.sadalsuud.push.domain.assign.model.dingding.DingDingRobotParam;
 import com.sadalsuud.push.domain.assign.model.dingding.DingDingRobotResult;
 import lombok.extern.slf4j.Slf4j;

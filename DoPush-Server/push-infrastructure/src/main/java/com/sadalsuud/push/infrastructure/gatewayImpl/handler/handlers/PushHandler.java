@@ -15,7 +15,7 @@ import com.sadalsuud.push.common.dto.model.PushContentModel;
 import com.sadalsuud.push.common.enums.ChannelType;
 import com.sadalsuud.push.domain.assign.handler.BaseHandler;
 import com.sadalsuud.push.domain.assign.handler.Handler;
-import com.sadalsuud.push.domain.gateway.AccountService;
+import com.sadalsuud.push.domain.support.gateway.AccountService;
 import com.sadalsuud.push.domain.assign.model.push.PushParam;
 import com.sadalsuud.push.domain.assign.model.push.getui.BatchSendPushParam;
 import com.sadalsuud.push.domain.assign.model.push.getui.SendPushParam;

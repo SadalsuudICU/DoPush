@@ -1,4 +1,4 @@
-import com.sadalsuud.push.domain.gateway.SendMqService;
+import com.sadalsuud.push.domain.support.gateway.SendMqService;
 import com.sadalsuud.push.PushHttpApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;

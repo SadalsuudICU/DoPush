@@ -1,6 +1,6 @@
 package com.sadalsuud.push.client.api;
 
-import com.sadalsuud.push.domain.gateway.domain.ChannelAccount;
+import com.sadalsuud.push.domain.support.gateway.domain.ChannelAccount;
 
 import java.util.List;
 

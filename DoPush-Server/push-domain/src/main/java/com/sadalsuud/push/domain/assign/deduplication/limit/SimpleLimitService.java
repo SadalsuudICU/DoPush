@@ -3,7 +3,7 @@ package com.sadalsuud.push.domain.assign.deduplication.limit;
 import cn.hutool.core.collection.CollUtil;
 import com.sadalsuud.push.common.constant.CommonConstant;
 import com.sadalsuud.push.common.domain.TaskInfo;
-import com.sadalsuud.push.domain.gateway.CacheService;
+import com.sadalsuud.push.domain.support.gateway.CacheService;
 import com.sadalsuud.push.domain.assign.deduplication.DeduplicationParam;
 import com.sadalsuud.push.domain.assign.deduplication.service.AbstractDeduplicationService;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,5 @@
 import com.sadalsuud.push.PushHttpApplication;
-import com.sadalsuud.push.domain.gateway.AccountService;
+import com.sadalsuud.push.domain.support.gateway.AccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

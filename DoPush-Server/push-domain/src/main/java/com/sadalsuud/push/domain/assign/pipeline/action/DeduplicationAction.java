@@ -7,7 +7,7 @@ import com.sadalsuud.push.common.enums.DeduplicationType;
 import com.sadalsuud.push.common.enums.EnumUtil;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
-import com.sadalsuud.push.domain.gateway.ConfigService;
+import com.sadalsuud.push.domain.support.gateway.ConfigService;
 import com.sadalsuud.push.domain.assign.deduplication.DeduplicationHolder;
 import com.sadalsuud.push.domain.assign.deduplication.DeduplicationParam;
 import lombok.RequiredArgsConstructor;

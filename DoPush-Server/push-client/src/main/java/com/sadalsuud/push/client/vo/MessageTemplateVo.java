@@ -1,6 +1,6 @@
 package com.sadalsuud.push.client.vo;
 
-import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.domain.support.gateway.domain.MessageTemplate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

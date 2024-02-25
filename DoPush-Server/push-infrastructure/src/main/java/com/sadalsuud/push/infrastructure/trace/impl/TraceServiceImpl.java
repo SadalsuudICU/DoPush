@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.sadalsuud.push.common.constant.DoPushConstant;
 import com.sadalsuud.push.common.domain.SimpleAnchorInfo;
 import com.sadalsuud.push.common.enums.RespStatusEnum;
-import com.sadalsuud.push.domain.gateway.CacheService;
+import com.sadalsuud.push.domain.support.gateway.CacheService;
 import com.sadalsuud.push.infrastructure.trace.TraceResponse;
 import com.sadalsuud.push.infrastructure.trace.TraceService;
 import lombok.RequiredArgsConstructor;

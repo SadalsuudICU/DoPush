@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.eventbus.EventBus;
 import com.sadalsuud.push.common.domain.RecallTaskInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
-import com.sadalsuud.push.domain.gateway.SendMqService;
+import com.sadalsuud.push.domain.support.gateway.SendMqService;
 import com.sadalsuud.push.infrastructure.gatewayImpl.mq.MessageQueuePipeline;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

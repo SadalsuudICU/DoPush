@@ -3,7 +3,7 @@ package com.sadalsuud.push.infrastructure.gatewayImpl.config;
 import cn.hutool.core.collection.CollUtil;
 import com.google.common.base.Throwables;
 import com.sadalsuud.push.common.constant.CommonConstant;
-import com.sadalsuud.push.domain.gateway.CacheService;
+import com.sadalsuud.push.domain.support.gateway.CacheService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisCallback;

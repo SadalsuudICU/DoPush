@@ -1,7 +1,7 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.config;
 
 import cn.hutool.setting.dialect.Props;
-import com.sadalsuud.push.domain.gateway.ConfigService;
+import com.sadalsuud.push.domain.support.gateway.ConfigService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

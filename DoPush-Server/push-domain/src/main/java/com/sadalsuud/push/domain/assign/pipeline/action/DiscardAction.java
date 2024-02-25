@@ -8,7 +8,7 @@ import com.sadalsuud.push.common.domain.TaskInfo;
 import com.sadalsuud.push.common.enums.AnchorState;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
-import com.sadalsuud.push.domain.gateway.ConfigService;
+import com.sadalsuud.push.domain.support.gateway.ConfigService;
 import com.sadalsuud.push.domain.support.LogUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

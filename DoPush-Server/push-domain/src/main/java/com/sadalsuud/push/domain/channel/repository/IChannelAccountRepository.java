@@ -1,6 +1,6 @@
 package com.sadalsuud.push.domain.channel.repository;
 
-import com.sadalsuud.push.domain.gateway.domain.ChannelAccount;
+import com.sadalsuud.push.domain.support.gateway.domain.ChannelAccount;
 
 import java.util.List;
 
