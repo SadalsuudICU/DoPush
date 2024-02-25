@@ -16,7 +16,6 @@
         <module>push-adapter</module>
         <module>push-domain</module>
         <module>push-common</module>
-        <module>push-rpc</module>
         <module>push-starter</module>
         <module>push-client</module>
         <module>push-stream</module>
