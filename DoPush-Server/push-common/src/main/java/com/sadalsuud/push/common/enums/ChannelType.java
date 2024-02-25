@@ -38,21 +38,6 @@ public enum ChannelType implements PowerfulEnum {
      */
     EMAIL(40, "email(邮件)", EmailContentModel.class, "email", null, null),
     /**
-     * officialAccounts(微信服务号) --
-     * accessToken 交由 weixin-java-mp 组件管理，所以不设置expireTime
-     */
-    OFFICIAL_ACCOUNT(50, "officialAccounts(服务号)", OfficialAccountsContentModel.class, "official_accounts", "official_account_", null),
-    /**
-     * miniProgram(微信小程序)
-     * accessToken 交由 weixin-java-miniapp 组件管理，所以不设置expireTime
-     */
-    MINI_PROGRAM(60, "miniProgram(小程序)", MiniProgramContentModel.class, "mini_program", "mini_program_", null),
-
-    /**
-     * enterpriseWeChat(企业微信)
-     */
-    ENTERPRISE_WE_CHAT(70, "enterpriseWeChat(企业微信)", EnterpriseWeChatContentModel.class, "enterprise_we_chat", null, null),
-    /**
      * dingDingRobot(钉钉机器人)
      */
     DING_DING_ROBOT(80, "dingDingRobot(钉钉机器人)", DingDingRobotContentModel.class, "ding_ding_robot", null, null),
@@ -60,10 +45,6 @@ public enum ChannelType implements PowerfulEnum {
      * dingDingWorkNotice(钉钉工作通知)
      */
     DING_DING_WORK_NOTICE(90, "dingDingWorkNotice(钉钉工作通知)", DingDingWorkContentModel.class, "ding_ding_work_notice", "ding_ding_access_token_", 3600 * 2L),
-    /**
-     * enterpriseWeChat(企业微信机器人)
-     */
-    ENTERPRISE_WE_CHAT_ROBOT(100, "enterpriseWeChat(企业微信机器人)", EnterpriseWeChatRobotContentModel.class, "enterprise_we_chat_robot", null, null),
     /**
      * feiShuRoot(飞书机器人)
      */

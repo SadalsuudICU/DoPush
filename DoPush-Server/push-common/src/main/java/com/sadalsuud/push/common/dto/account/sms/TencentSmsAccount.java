@@ -2,6 +2,7 @@ package com.sadalsuud.push.common.dto.account.sms;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -24,6 +25,7 @@ import lombok.NoArgsConstructor;
  * @Blog www.sadalsuud.cn
  * @Date 10/12/2023
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

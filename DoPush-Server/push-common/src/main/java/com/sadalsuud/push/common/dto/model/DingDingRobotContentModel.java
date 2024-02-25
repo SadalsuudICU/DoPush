@@ -1,9 +1,6 @@
 package com.sadalsuud.push.common.dto.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * @Description 钉钉 自定义机器人
@@ -13,6 +10,7 @@ import lombok.NoArgsConstructor;
  * @Blog www.sadalsuud.cn
  * @Date 10/12/2023
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @AllArgsConstructor

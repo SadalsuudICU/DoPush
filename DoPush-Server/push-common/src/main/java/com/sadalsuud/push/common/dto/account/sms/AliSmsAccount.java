@@ -2,6 +2,7 @@ package com.sadalsuud.push.common.dto.account.sms;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
  * @Date 15/12/2023
  * @Package com.sadalsuud.push.common.dto.account.sms
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
