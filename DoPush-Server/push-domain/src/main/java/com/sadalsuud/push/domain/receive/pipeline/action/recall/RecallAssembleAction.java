@@ -7,7 +7,7 @@ import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.vo.BasicResultVO;
-import com.sadalsuud.push.domain.support.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
 import com.sadalsuud.push.domain.receive.RecallTaskModel;
 import com.sadalsuud.push.domain.template.repository.IMessageTemplateRepository;
 import lombok.RequiredArgsConstructor;

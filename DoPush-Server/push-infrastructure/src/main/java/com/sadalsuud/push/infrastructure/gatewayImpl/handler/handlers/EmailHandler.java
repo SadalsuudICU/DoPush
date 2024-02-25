@@ -15,8 +15,8 @@ import com.sadalsuud.push.domain.assign.enums.RateLimitStrategy;
 import com.sadalsuud.push.domain.assign.flowcontrol.FlowControlParam;
 import com.sadalsuud.push.domain.assign.handler.BaseHandler;
 import com.sadalsuud.push.domain.assign.handler.Handler;
-import com.sadalsuud.push.domain.support.gateway.AccountService;
-import com.sadalsuud.push.domain.support.gateway.FileService;
+import com.sadalsuud.push.domain.gateway.AccountGateway;
+import com.sadalsuud.push.domain.gateway.FileGateway;
 import com.sun.mail.util.MailSSLSocketFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,16 +36,16 @@ import java.util.List;
 @Slf4j
 public class EmailHandler extends BaseHandler implements Handler {
 
-    private final AccountService accountService;
+    private final AccountGateway accountGateway;
 
-    private final FileService fileService;
+    private final FileGateway fileGateway;
 
     @Value("${dopush.business.upload.crowd.path}")
     private String dataPath;
 
-    public EmailHandler(AccountService accountService, FileService fileService) {
-        this.accountService = accountService;
-        this.fileService = fileService;
+    public EmailHandler(AccountGateway accountGateway, FileGateway fileGateway) {
+        this.accountGateway = accountGateway;
+        this.fileGateway = fileGateway;
         channelCode = ChannelType.EMAIL.getCode();
 
         // 按照请求限流，默认单机 3 qps （具体数值配置在apollo动态调整)
@@ -61,7 +61,7 @@ public class EmailHandler extends BaseHandler implements Handler {
         EmailContentModel emailContentModel = (EmailContentModel) taskInfo.getContentModel();
         MailAccount account = getAccountConfig(taskInfo.getSendAccount());
         try {
-            List<File> files = CharSequenceUtil.isNotBlank(emailContentModel.getUrl()) ? fileService.getRemoteUrl2File(dataPath, CharSequenceUtil.split(emailContentModel.getUrl(), StrPool.COMMA)) : null;
+            List<File> files = CharSequenceUtil.isNotBlank(emailContentModel.getUrl()) ? fileGateway.getRemoteUrl2File(dataPath, CharSequenceUtil.split(emailContentModel.getUrl(), StrPool.COMMA)) : null;
             if (CollUtil.isEmpty(files)) {
                 MailUtil.send(account, taskInfo.getReceiver(), emailContentModel.getTitle(), emailContentModel.getContent(), true);
             } else {
@@ -81,7 +81,7 @@ public class EmailHandler extends BaseHandler implements Handler {
      * @return
      */
     private MailAccount getAccountConfig(Integer sendAccount) {
-        MailAccount account = accountService.getAccountById(sendAccount, MailAccount.class);
+        MailAccount account = accountGateway.getAccountById(sendAccount, MailAccount.class);
 
         // 这段代码只能从 20s -> 10s , 仍有10s左右的消耗
         //System.getProperties().setProperty("mail.mime.address.usecanonicalhostname", "false");

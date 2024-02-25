@@ -8,7 +8,7 @@ import com.sadalsuud.push.common.domain.TaskInfo;
 import com.sadalsuud.push.common.enums.AnchorState;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
-import com.sadalsuud.push.domain.support.gateway.ConfigService;
+import com.sadalsuud.push.domain.gateway.ConfigGateway;
 import com.sadalsuud.push.domain.support.LogUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 public class DiscardAction implements BusinessProcess<TaskInfo> {
     private static final String DISCARD_MESSAGE_KEY = "discardMsgIds";
 
-    private final ConfigService config;
+    private final ConfigGateway config;
     private final LogUtils logUtils;
 
     @Override

@@ -8,7 +8,7 @@ import com.sadalsuud.push.common.enums.RespStatusEnum;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
 import com.sadalsuud.push.common.vo.BasicResultVO;
-import com.sadalsuud.push.domain.support.gateway.SendMqService;
+import com.sadalsuud.push.domain.gateway.MqServiceGateway;
 import com.sadalsuud.push.domain.receive.RecallTaskModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class RecallMqAction implements BusinessProcess<RecallTaskModel> {
-    private final SendMqService sendMqService;
+    private final MqServiceGateway mqServiceGateway;
 
     @Value("${dopush.business.recall.topic.name}")
     private String dopushRecall;
@@ -41,7 +41,7 @@ public class RecallMqAction implements BusinessProcess<RecallTaskModel> {
         RecallTaskInfo recallTaskInfo = context.getProcessModel().getRecallTaskInfo();
         try {
             String message = JSON.toJSONString(recallTaskInfo, SerializerFeature.WriteClassName);
-            sendMqService.send(dopushRecall, message, tagId);
+            mqServiceGateway.send(dopushRecall, message, tagId);
         } catch (Exception e) {
             context.setNeedBreak(true).setResponse(BasicResultVO.fail(RespStatusEnum.SERVICE_ERROR));
             log.error("send {} fail! e:{},params:{}", mqPipeline, Throwables.getStackTraceAsString(e)

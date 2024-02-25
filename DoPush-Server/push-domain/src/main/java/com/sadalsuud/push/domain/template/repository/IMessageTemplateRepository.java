@@ -1,6 +1,6 @@
 package com.sadalsuud.push.domain.template.repository;
 
-import com.sadalsuud.push.domain.support.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

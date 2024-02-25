@@ -15,7 +15,7 @@ import com.sadalsuud.push.common.dto.model.PushContentModel;
 import com.sadalsuud.push.common.enums.ChannelType;
 import com.sadalsuud.push.domain.assign.handler.BaseHandler;
 import com.sadalsuud.push.domain.assign.handler.Handler;
-import com.sadalsuud.push.domain.support.gateway.AccountService;
+import com.sadalsuud.push.domain.gateway.AccountGateway;
 import com.sadalsuud.push.domain.assign.model.push.PushParam;
 import com.sadalsuud.push.domain.assign.model.push.getui.BatchSendPushParam;
 import com.sadalsuud.push.domain.assign.model.push.getui.SendPushParam;
@@ -41,7 +41,7 @@ public class PushHandler extends BaseHandler implements Handler {
     private static final String HEADER_TOKEN_NAME = "token";
 
     @Resource
-    private AccountService accountService;
+    private AccountGateway accountGateway;
     @Resource
     private AccessTokenUtils accessTokenUtils;
 
@@ -53,7 +53,7 @@ public class PushHandler extends BaseHandler implements Handler {
     public boolean handler(TaskInfo taskInfo) {
 
         try {
-            GeTuiAccount account = accountService.getAccountById(taskInfo.getSendAccount(), GeTuiAccount.class);
+            GeTuiAccount account = accountGateway.getAccountById(taskInfo.getSendAccount(), GeTuiAccount.class);
             String token = accessTokenUtils.getAccessToken(taskInfo.getSendChannel(), taskInfo.getSendAccount(), account, false);
             PushParam pushParam = PushParam.builder().token(token).appId(account.getAppId()).taskInfo(taskInfo).build();
 

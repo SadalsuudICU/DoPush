@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.base.Throwables;
 import com.sadalsuud.push.common.domain.AnchorInfo;
 import com.sadalsuud.push.common.domain.LogParam;
-import com.sadalsuud.push.domain.support.gateway.SendMqService;
+import com.sadalsuud.push.domain.gateway.MqServiceGateway;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -29,7 +29,7 @@ public class LogUtils extends CustomLogListener {
     // 因为LogUtils只用在SendMqService真正触发调用方法时才使用 所以在此使用@Lazy打破循环依赖(并且日志服务没有发送重要)
     @Lazy
     @Resource
-    private SendMqService sendMqService;
+    private MqServiceGateway mqServiceGateway;
 
     @Value("${dopush.business.log.topic.name}")
     private String topicName;
@@ -62,7 +62,7 @@ public class LogUtils extends CustomLogListener {
         //log.info(message);
 
         try {
-            sendMqService.send(topicName, message);
+            mqServiceGateway.send(topicName, message);
         } catch (Exception e) {
             log.error("LogUtils#print send mq fail! e:{},params:{}", Throwables.getStackTraceAsString(e)
                     , JSON.toJSONString(anchorInfo));

@@ -12,8 +12,8 @@ import com.google.common.base.Throwables;
 import com.sadalsuud.push.common.dto.account.sms.AliSmsAccount;
 import com.sadalsuud.push.common.enums.SmsStatus;
 import com.sadalsuud.push.infrastructure.gatewayImpl.handler.script.SmsScript;
-import com.sadalsuud.push.domain.support.gateway.AccountService;
-import com.sadalsuud.push.domain.support.gateway.domain.SmsRecord;
+import com.sadalsuud.push.domain.gateway.AccountGateway;
+import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
 import com.sadalsuud.push.domain.assign.model.sms.SmsParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,14 +37,14 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AliSmsScript implements SmsScript {
 
-    private final AccountService accountService;
+    private final AccountGateway accountGateway;
 
     @Override
     public List<SmsRecord> send(SmsParam smsParam) {
         Integer accountId = smsParam.getSendAccountId();
         AliSmsAccount aliSmsAccount = Objects.nonNull(accountId) ?
-                accountService.getAccountById(accountId, AliSmsAccount.class) :
-                accountService.getSmsAccountByScriptName(smsParam.getScriptName(), AliSmsAccount.class);
+                accountGateway.getAccountById(accountId, AliSmsAccount.class) :
+                accountGateway.getSmsAccountByScriptName(smsParam.getScriptName(), AliSmsAccount.class);
         try {
             Client client = createClient(aliSmsAccount);
             List<SendSmsRequest> sendSmsRequests = assembleSendReq(smsParam, aliSmsAccount);

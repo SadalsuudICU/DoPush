@@ -1,5 +1,5 @@
 import com.sadalsuud.push.PushHttpApplication;
-import com.sadalsuud.push.domain.support.gateway.AccountService;
+import com.sadalsuud.push.domain.gateway.AccountGateway;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.util.Arrays;
 public class GetLocalHostTest {
 
     @Autowired
-    private AccountService accountService;
+    private AccountGateway accountGateway;
 
     @Test
     public void getLocalHostByInetAddress() throws UnknownHostException {

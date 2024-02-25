@@ -2,7 +2,7 @@ package com.sadalsuud.push.domain.assign.deduplication.limit;
 
 import cn.hutool.core.util.IdUtil;
 import com.sadalsuud.push.common.domain.TaskInfo;
-import com.sadalsuud.push.domain.support.gateway.CacheService;
+import com.sadalsuud.push.domain.gateway.CacheGateway;
 import com.sadalsuud.push.domain.assign.deduplication.DeduplicationParam;
 import com.sadalsuud.push.domain.assign.deduplication.service.AbstractDeduplicationService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class SlideWindowLimitService extends AbstractLimitService {
 
     private static final String LIMIT_TAG = "SW_";
 
-    private final CacheService cacheService;
+    private final CacheGateway cacheGateway;
 
 
     private DefaultRedisScript<Long> redisScript;
@@ -58,7 +58,7 @@ public class SlideWindowLimitService extends AbstractLimitService {
             String scoreValue = String.valueOf(IdUtil.getSnowflake().nextId());
             String score = String.valueOf(nowTime);
 
-            final Boolean result = cacheService.execLimitLua(redisScript, Collections.singletonList(key),
+            final Boolean result = cacheGateway.execLimitLua(redisScript, Collections.singletonList(key),
                     String.valueOf(param.getDeduplicationTime() * 1000), score, String.valueOf(param.getCountNum()), scoreValue);
             if (Boolean.TRUE.equals(result)) {
                 filterReceiver.add(receiver);

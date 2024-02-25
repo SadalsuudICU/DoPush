@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.support.gateway;
+package com.sadalsuud.push.domain.gateway;
 
 import java.io.File;
 import java.util.Collection;
@@ -11,7 +11,7 @@ import java.util.List;
  * @Date 11/12/2023
  * @Package com.sadalsuud.push.domain.gateway
  */
-public interface FileService {
+public interface FileGateway {
     File getRemoteUrl2File(String path, String remoteUrl);
 
     List<File> getRemoteUrl2File(String path, Collection<String> remoteUrls) ;

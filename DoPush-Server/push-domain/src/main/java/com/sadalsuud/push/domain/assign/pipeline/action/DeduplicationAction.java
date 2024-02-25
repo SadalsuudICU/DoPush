@@ -7,7 +7,7 @@ import com.sadalsuud.push.common.enums.DeduplicationType;
 import com.sadalsuud.push.common.enums.EnumUtil;
 import com.sadalsuud.push.common.pipeline.BusinessProcess;
 import com.sadalsuud.push.common.pipeline.ProcessContext;
-import com.sadalsuud.push.domain.support.gateway.ConfigService;
+import com.sadalsuud.push.domain.gateway.ConfigGateway;
 import com.sadalsuud.push.domain.assign.deduplication.DeduplicationHolder;
 import com.sadalsuud.push.domain.assign.deduplication.DeduplicationParam;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class DeduplicationAction implements BusinessProcess<TaskInfo> {
 
     public static final String DEDUPLICATION_RULE_KEY = "deduplicationRule";
 
-    private final ConfigService config;
+    private final ConfigGateway config;
 
     private final DeduplicationHolder deduplicationHolder;
 

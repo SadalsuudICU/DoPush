@@ -9,8 +9,8 @@ import com.google.common.base.Throwables;
 import com.sadalsuud.push.common.dto.account.sms.TencentSmsAccount;
 import com.sadalsuud.push.common.enums.SmsStatus;
 import com.sadalsuud.push.infrastructure.gatewayImpl.handler.script.SmsScript;
-import com.sadalsuud.push.domain.support.gateway.AccountService;
-import com.sadalsuud.push.domain.support.gateway.domain.SmsRecord;
+import com.sadalsuud.push.domain.gateway.AccountGateway;
+import com.sadalsuud.push.domain.gateway.domain.SmsRecord;
 import com.sadalsuud.push.domain.assign.model.sms.SmsParam;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.profile.ClientProfile;
@@ -45,15 +45,15 @@ public class TencentSmsScript implements SmsScript {
      */
     private static final Integer PHONE_NUM = 11;
 
-    private final AccountService accountService;
+    private final AccountGateway accountGateway;
 
     @Override
     public List<SmsRecord> send(SmsParam smsParam) {
         try {
             Integer accountId = smsParam.getSendAccountId();
             TencentSmsAccount account = Objects.nonNull(accountId) ?
-                    accountService.getAccountById(accountId, TencentSmsAccount.class) :
-                    accountService.getSmsAccountByScriptName(smsParam.getScriptName(), TencentSmsAccount.class);
+                    accountGateway.getAccountById(accountId, TencentSmsAccount.class) :
+                    accountGateway.getSmsAccountByScriptName(smsParam.getScriptName(), TencentSmsAccount.class);
             SmsClient client = init(account);
             SendSmsRequest sendSmsRequest = assembleSendReq(smsParam, account);
             SendSmsResponse sendSmsResponse = client.SendSms(sendSmsRequest);
@@ -67,7 +67,7 @@ public class TencentSmsScript implements SmsScript {
     @Override
     public List<SmsRecord> pull(Integer id) {
         try {
-            TencentSmsAccount account = accountService.getAccountById(id, TencentSmsAccount.class);
+            TencentSmsAccount account = accountGateway.getAccountById(id, TencentSmsAccount.class);
             SmsClient client = init(account);
             PullSmsSendStatusRequest pullRequest = assemblePullReq(account);
             PullSmsSendStatusResponse pullResponse = client.PullSmsSendStatus(pullRequest);

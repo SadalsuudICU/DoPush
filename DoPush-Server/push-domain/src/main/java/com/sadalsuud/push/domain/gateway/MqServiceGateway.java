@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.support.gateway;
+package com.sadalsuud.push.domain.gateway;
 
 /**
  * @Description 发送数据至消息队列
@@ -7,7 +7,7 @@ package com.sadalsuud.push.domain.support.gateway;
  * @Date 10/12/2023
  * @Package com.sadalsuud.push.domain.gateway
  */
-public interface SendMqService {
+public interface MqServiceGateway {
     /**
      * 发送消息
      *

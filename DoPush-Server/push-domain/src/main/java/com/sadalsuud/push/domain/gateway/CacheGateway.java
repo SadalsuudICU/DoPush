@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.support.gateway;
+package com.sadalsuud.push.domain.gateway;
 
 import org.springframework.data.redis.core.script.RedisScript;
 
@@ -12,48 +12,48 @@ import java.util.Map;
  * @Date 11/12/2023
  * @Package com.sadalsuud.push.domain.gateway
  */
-public interface CacheService {
+public interface CacheGateway {
     /**
      * mGet将结果封装为Map
      *
      * @param keys
      */
-    public Map<String, String> mGet(List<String> keys);
+    Map<String, String> mGet(List<String> keys);
 
     /**
      * hGetAll
      *
      * @param key
      */
-    public Map<Object, Object> hGetAll(String key);
+    Map<Object, Object> hGetAll(String key);
 
     /**
      * lRange
      *
      * @param key
      */
-    public List<String> lRange(String key, long start, long end);
+    List<String> lRange(String key, long start, long end);
 
     /**
      * pipeline 设置 key-value 并设置过期时间
      */
-    public void pipelineSetEx(Map<String, String> keyValues, Long seconds);
+    void pipelineSetEx(Map<String, String> keyValues, Long seconds);
 
 
     /**
      * lpush 方法 并指定 过期时间
      */
-    public void lPush(String key, String value, Long seconds);
+    void lPush(String key, String value, Long seconds);
 
     /**
      * lLen 方法
      */
-    public Long lLen(String key);
+    Long lLen(String key);
 
     /**
      * lPop 方法
      */
-    public String lPop(String key);
+    String lPop(String key);
 
     /**
      * pipeline 设置 key-value 并设置过期时间
@@ -61,7 +61,7 @@ public interface CacheService {
      * @param seconds 过期时间
      * @param delta   自增的步长
      */
-    public void pipelineHashIncrByEx(Map<String, String> keyValues, Long seconds, Long delta);
+    void pipelineHashIncrByEx(Map<String, String> keyValues, Long seconds, Long delta);
 
     /**
      * 执行指定的lua脚本返回执行结果
@@ -76,5 +76,5 @@ public interface CacheService {
      * @param args
      * @return
      */
-    public Boolean execLimitLua(RedisScript<Long> redisScript, List<String> keys, String... args);
+    Boolean execLimitLua(RedisScript<Long> redisScript, List<String> keys, String... args);
 }

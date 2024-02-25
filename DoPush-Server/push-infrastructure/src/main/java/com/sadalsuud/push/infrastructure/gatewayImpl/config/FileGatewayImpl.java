@@ -2,7 +2,7 @@ package com.sadalsuud.push.infrastructure.gatewayImpl.config;
 
 import cn.hutool.core.io.IoUtil;
 import com.google.common.base.Throwables;
-import com.sadalsuud.push.domain.support.gateway.FileService;
+import com.sadalsuud.push.domain.gateway.FileGateway;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Component
-public class FileServiceImpl implements FileService {
+public class FileGatewayImpl implements FileGateway {
 
     public File getRemoteUrl2File(String path, String remoteUrl) {
 

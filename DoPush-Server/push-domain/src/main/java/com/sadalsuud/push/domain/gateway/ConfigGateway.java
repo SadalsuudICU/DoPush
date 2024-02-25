@@ -1,4 +1,4 @@
-package com.sadalsuud.push.domain.support.gateway;
+package com.sadalsuud.push.domain.gateway;
 
 /**
  * @Description 读取配置信息服务
@@ -7,7 +7,7 @@ package com.sadalsuud.push.domain.support.gateway;
  * @Date 11/12/2023
  * @Package com.sadalsuud.push.domain.gateway
  */
-public interface ConfigService {
+public interface ConfigGateway {
 
     /**
      * 读取配置

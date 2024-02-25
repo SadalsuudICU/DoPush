@@ -20,7 +20,7 @@ import com.sadalsuud.push.domain.receive.BusinessCode;
 import com.sadalsuud.push.domain.receive.MessageParam;
 import com.sadalsuud.push.domain.receive.SendRequest;
 import com.sadalsuud.push.domain.receive.SendResponse;
-import com.sadalsuud.push.domain.support.gateway.domain.MessageTemplate;
+import com.sadalsuud.push.domain.gateway.domain.MessageTemplate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

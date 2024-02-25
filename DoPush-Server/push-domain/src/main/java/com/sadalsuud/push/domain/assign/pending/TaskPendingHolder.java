@@ -1,7 +1,7 @@
 package com.sadalsuud.push.domain.assign.pending;
 
 import com.dtp.core.thread.DtpExecutor;
-import com.sadalsuud.push.domain.support.gateway.TreadPoolService;
+import com.sadalsuud.push.domain.gateway.TreadPoolGateway;
 import com.sadalsuud.push.domain.support.GroupIdMappingUtils;
 import com.sadalsuud.push.domain.assign.pipeline.config.HandlerThreadPoolConfig;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class TaskPendingHolder {
      * 获取得到所有的groupId
      */
     private static final List<String> groupIds = GroupIdMappingUtils.getAllGroupIds();
-    private final TreadPoolService treadPoolService;
+    private final TreadPoolGateway treadPoolGateway;
     private static final Map<String, ExecutorService> holder = new HashMap<>(32);
 
     /**
@@ -41,7 +41,7 @@ public class TaskPendingHolder {
          */
         for (String groupId : groupIds) {
             DtpExecutor executor = HandlerThreadPoolConfig.getExecutor(groupId);
-            treadPoolService.register(executor);
+            treadPoolGateway.register(executor);
 
             holder.put(groupId, executor);
         }

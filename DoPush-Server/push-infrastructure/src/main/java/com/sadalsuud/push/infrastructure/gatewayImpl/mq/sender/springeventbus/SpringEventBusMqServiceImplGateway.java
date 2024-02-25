@@ -1,6 +1,6 @@
 package com.sadalsuud.push.infrastructure.gatewayImpl.mq.sender.springeventbus;
 
-import com.sadalsuud.push.domain.support.gateway.SendMqService;
+import com.sadalsuud.push.domain.gateway.MqServiceGateway;
 import com.sadalsuud.push.infrastructure.gatewayImpl.mq.MessageQueuePipeline;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 @ConditionalOnProperty(name = "dopush.mq.pipeline", havingValue = MessageQueuePipeline.SPRING_EVENT_BUS)
 @RequiredArgsConstructor
-public class SpringEventBusSendMqServiceImpl implements SendMqService {
+public class SpringEventBusMqServiceImplGateway implements MqServiceGateway {
 
     private final ApplicationContext applicationContext;
 
