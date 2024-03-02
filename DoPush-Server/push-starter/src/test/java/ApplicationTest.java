@@ -1,4 +1,4 @@
-import com.sadalsuud.push.domain.support.mq.MqService;
+import com.sadalsuud.push.domain.support.mq.SendMqService;
 import com.sadalsuud.push.PushHttpApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +18,10 @@ import javax.annotation.Resource;
 @SpringBootTest(classes = PushHttpApplication.class)
 public class ApplicationTest {
     @Resource
-    private MqService mqService;
+    private SendMqService sendMqService;
 
     @Test
     public void test() {
-        System.out.println(mqService);
+        System.out.println(sendMqService);
     }
 }

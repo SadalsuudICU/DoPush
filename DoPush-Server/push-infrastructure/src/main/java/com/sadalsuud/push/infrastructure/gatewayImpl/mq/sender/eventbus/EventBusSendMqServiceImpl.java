@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.eventbus.EventBus;
 import com.sadalsuud.push.common.domain.RecallTaskInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
-import com.sadalsuud.push.domain.support.mq.MqService;
+import com.sadalsuud.push.domain.support.mq.SendMqService;
 import com.sadalsuud.push.infrastructure.gatewayImpl.mq.MessageQueuePipeline;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 @Service
 @ConditionalOnProperty(name = "dopush.mq.pipeline", havingValue = MessageQueuePipeline.EVENT_BUS)
 @RequiredArgsConstructor
-public class EventBusMqServiceImpl implements MqService {
+public class EventBusSendMqServiceImpl implements SendMqService {
     private static final EventBus eventBus = new EventBus();
 
     @Getter

@@ -7,7 +7,7 @@ package com.sadalsuud.push.domain.support.mq;
  * @Date 10/12/2023
  * @Package com.sadalsuud.push.domain.gateway
  */
-public interface MqService {
+public interface SendMqService {
     /**
      * 发送消息
      *
