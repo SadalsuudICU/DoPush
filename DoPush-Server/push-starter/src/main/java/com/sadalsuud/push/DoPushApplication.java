@@ -19,16 +19,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @Slf4j
-public class PushHttpApplication implements CommandLineRunner {
+public class DoPushApplication implements CommandLineRunner {
 
     @Value("${server.port}")
     private String serverPort;
     public static void main(String[] args) {
-        SpringApplication.run(PushHttpApplication.class);
+        SpringApplication.run(DoPushApplication.class);
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         log.info(AnsiOutput.toString(DoPushConstant.PROJECT_BANNER, "\n", AnsiColor.GREEN, DoPushConstant.PROJECT_NAME, AnsiColor.DEFAULT, AnsiStyle.FAINT));
         log.info("Austin start succeeded, Index >> http://127.0.0.1:{}/", serverPort);
         log.info("Austin start succeeded, Swagger Url >> http://127.0.0.1:{}/swagger-ui/index.html", serverPort);

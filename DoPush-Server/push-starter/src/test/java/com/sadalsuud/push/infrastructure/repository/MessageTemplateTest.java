@@ -1,7 +1,7 @@
 package com.sadalsuud.push.infrastructure.repository;
 
 import cn.hutool.core.date.DateUtil;
-import com.sadalsuud.push.PushHttpApplication;
+import com.sadalsuud.push.DoPushApplication;
 import com.sadalsuud.push.domain.template.MessageTemplate;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.MessageTemplateDao;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import java.util.Optional;
  * @Date 13/12/2023
  * @Package com.sadalsuud.push.infrastructure.repository
  */
-@SpringBootTest(classes = PushHttpApplication.class)
+@SpringBootTest(classes = DoPushApplication.class)
 @RunWith(SpringRunner.class)
 public class MessageTemplateTest {
     @Autowired

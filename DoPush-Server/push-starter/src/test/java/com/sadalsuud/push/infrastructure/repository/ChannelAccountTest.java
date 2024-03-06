@@ -5,7 +5,7 @@ import cn.hutool.core.io.file.FileReader;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.sadalsuud.push.PushHttpApplication;
+import com.sadalsuud.push.DoPushApplication;
 import com.sadalsuud.push.domain.channel.ChannelAccount;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.ChannelAccountDao;
 import org.junit.Test;
@@ -26,7 +26,7 @@ import java.util.Optional;
  * @Date 11/12/2023
  * @Package com.sadalsuud.push.infrastructure.repository
  */
-@SpringBootTest(classes = PushHttpApplication.class)
+@SpringBootTest(classes = DoPushApplication.class)
 @RunWith(SpringRunner.class)
 public class ChannelAccountTest {
 

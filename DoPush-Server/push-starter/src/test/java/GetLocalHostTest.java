@@ -1,4 +1,4 @@
-import com.sadalsuud.push.PushHttpApplication;
+import com.sadalsuud.push.DoPushApplication;
 import com.sadalsuud.push.domain.channel.AccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,7 @@ import java.util.Arrays;
  * @Date 14/12/2023
  * @Package PACKAGE_NAME
  */
-@SpringBootTest(classes = PushHttpApplication.class)
+@SpringBootTest(classes = DoPushApplication.class)
 @RunWith(SpringRunner.class)
 public class GetLocalHostTest {
 
