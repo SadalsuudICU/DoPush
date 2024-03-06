@@ -93,6 +93,17 @@
             <artifactId>okhttp</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+        </dependency>
+        <!--       yaml文档 配置化 spring线程池 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <version>2.5.6</version>
+        </dependency>
+
     </dependencies>
 
 </project>

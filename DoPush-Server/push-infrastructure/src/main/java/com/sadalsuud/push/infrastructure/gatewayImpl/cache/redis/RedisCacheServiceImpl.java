@@ -1,4 +1,4 @@
-package com.sadalsuud.push.infrastructure.gatewayImpl.config;
+package com.sadalsuud.push.infrastructure.gatewayImpl.cache.redis;
 
 import cn.hutool.core.collection.CollUtil;
 import com.google.common.base.Throwables;
@@ -22,7 +22,7 @@ import java.util.*;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class CacheServiceImpl implements CacheService {
+public class RedisCacheServiceImpl implements CacheService {
 
     private final StringRedisTemplate redisTemplate;
 

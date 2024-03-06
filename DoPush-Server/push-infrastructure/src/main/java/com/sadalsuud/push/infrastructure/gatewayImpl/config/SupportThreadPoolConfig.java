@@ -1,4 +1,4 @@
-package com.sadalsuud.push.infrastructure.corn;
+package com.sadalsuud.push.infrastructure.gatewayImpl.config;
 
 import cn.hutool.core.thread.ExecutorBuilder;
 import com.sadalsuud.push.common.constant.ThreadPoolConstant;
