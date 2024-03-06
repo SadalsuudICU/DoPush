@@ -59,7 +59,6 @@ public class LogUtils extends CustomLogListener {
         anchorInfo.setLogTimestamp(System.currentTimeMillis());
         String message = JSON.toJSONString(anchorInfo);
         log.info("LogUtils#print#anchorInfo :" + message);
-        //log.info(message);
 
         try {
             sendMqService.send(topicName, message);
