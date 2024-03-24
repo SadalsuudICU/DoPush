@@ -7,7 +7,7 @@
       <el-form-item label="模板名称" prop="name">
         <el-input v-model="form.name" />
       </el-form-item>
-      <el-form-item label="模板业务放" prop="proposer">
+      <el-form-item label="模板业务方" prop="proposer">
         <el-input v-model="form.proposer" />
       </el-form-item>
       <el-form-item label="接收者id类型" prop="idType">
@@ -81,7 +81,7 @@
           <el-input v-model="form.title" placeholder="可用占位符${title}" />
         </el-form-item>
         <el-form-item label="发送内容" prop="content">
-          <el-input v-model="form.msgContent" placeholder="可用占位符${content}" />
+          <el-input v-model="form.content" placeholder="可用占位符${content}" />
         </el-form-item>
         <el-form-item label="发送链接" prop="url">
           <el-input v-model="form.url" placeholder="可用占位符${url}, 最好使用短链" />
@@ -104,7 +104,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="短信内容" prop="content">
-          <el-input v-model="form.msgContent" placeholder="可用占位符${content}" />
+          <el-input v-model="form.content" placeholder="可用占位符${content}" />
         </el-form-item>
         <el-form-item label="短信链接" prop="url">
           <el-input v-model="form.url" placeholder="可用占位符${url}, 最好使用短链" />
@@ -130,7 +130,7 @@
           <el-input v-model="form.title" placeholder="可用占位符${title}" />
         </el-form-item>
         <el-form-item label="邮件内容" prop="content">
-          <el-input v-model="form.msgContent" placeholder="可用占位符${content}" />
+          <el-input v-model="form.content" placeholder="可用占位符${content}" />
         </el-form-item>
         <el-form-item label="邮件链接" prop="url">
           <el-input v-model="form.url" placeholder="可用占位符${url}, 最好使用短链" />
@@ -209,7 +209,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="飞书内容" prop="content">
-          <el-input v-model="form.msgContent" placeholder="可用占位符${content}" />
+          <el-input v-model="form.content" placeholder="可用占位符${content}" />
         </el-form-item>
       </div>
       <el-button
@@ -506,6 +506,12 @@ export default {
       })
     },
     handelSaveOrUpdate() {
+      this.form.msgContent = {
+        'title': this.form.title,
+        'content': this.form.content,
+        'url': this.form.url,
+        'mediaId': this.form.mediaId
+      }
       save(this.form).then(res => {
         console.log(res)
         this.$message({
@@ -515,6 +521,7 @@ export default {
         if (this.isEdit) {
           this.$bus.$emit('templateUpdate', true)
         }
+        this.$router.push('/template/list-template')
       })
     }
   }

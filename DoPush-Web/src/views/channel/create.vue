@@ -17,9 +17,11 @@
         <el-input v-model="form.accountConfig" />
       </el-form-item>
       <el-tag>渠道样例信息</el-tag>
-      <div v-for="item in fieldSet" :key="item.visibleOn">
-        <div v-if="form.sendChannel === item.visibleOn" style="font-family: '微软雅黑',serif;font-size: 14px" v-html="item.label" />
-      </div>
+      <el-form-item>
+        <div v-for="item in fieldSet" :key="item.visibleOn">
+          <div v-if="form.sendChannel === item.visibleOn" style="font-family: '微软雅黑',serif;font-size: 14px" v-html="item.label" />
+        </div>
+      </el-form-item>
     </el-form>
     <el-divider />
     <el-button type="success" style="float: right" @click="handleSave">保存</el-button>
