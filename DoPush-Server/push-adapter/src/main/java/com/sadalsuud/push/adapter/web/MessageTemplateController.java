@@ -197,9 +197,10 @@ public class MessageTemplateController {
     @PostMapping("upload")
     @ApiOperation("/上传人群文件")
     public Map<Object, Object> upload(@RequestParam("file") MultipartFile file) {
-        String filePath = dataPath + IdUtil.fastSimpleUUID() + file.getOriginalFilename();
+        String filePath = IdUtil.fastSimpleUUID() + file.getOriginalFilename();
+        File localFile;
         try {
-            File localFile = new File(filePath);
+           localFile = new File(dataPath, filePath);
             if (!localFile.exists()) {
                 localFile.mkdirs();
             }
@@ -208,7 +209,7 @@ public class MessageTemplateController {
             log.error("MessageTemplateController#upload fail! e:{},params{}", Throwables.getStackTraceAsString(e), JSON.toJSONString(file));
             throw new CommonException(RespStatusEnum.SERVICE_ERROR);
         }
-        return MapUtil.of(new String[][]{{"value", filePath}});
+        return MapUtil.of(new String[][]{{"value", localFile.getAbsolutePath()}});
     }
 
 }
