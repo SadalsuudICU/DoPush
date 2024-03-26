@@ -22,7 +22,7 @@ public class CheckRefuseState extends AbstractState {
                 .alertState(id,
                         AuditStatus.AUDIT_REJECT.getCode(), AuditStatus.WAIT_COMMIT.getCode(),
                         MessageStatus.INIT.getCode(), MessageStatus.INIT.getCode(),
-                        messageTemplate.getUpdator(), Math.toIntExact(DateUtil.currentSeconds()));
+                        messageTemplate.getUpdater(), Math.toIntExact(DateUtil.currentSeconds()));
         return res ? BasicResultVO.success() : BasicResultVO.fail("消息模板状态流转失败");
     }
 }

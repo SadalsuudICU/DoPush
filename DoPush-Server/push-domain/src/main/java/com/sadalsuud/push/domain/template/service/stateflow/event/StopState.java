@@ -22,7 +22,7 @@ public class StopState extends AbstractState {
                 .alertState(id,
                         AuditStatus.AUDIT_SUCCESS.getCode(), AuditStatus.AUDIT_SUCCESS.getCode(),
                         MessageStatus.STOP.getCode(), MessageStatus.RUN.getCode(),
-                        messageTemplate.getUpdator(), Math.toIntExact(DateUtil.currentSeconds()));
+                        messageTemplate.getUpdater(), Math.toIntExact(DateUtil.currentSeconds()));
         return res ? BasicResultVO.success() : BasicResultVO.fail("消息模板状态流转失败");
     }
 }
