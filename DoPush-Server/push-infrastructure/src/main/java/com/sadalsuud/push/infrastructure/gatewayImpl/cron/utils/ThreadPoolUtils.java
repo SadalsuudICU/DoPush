@@ -19,7 +19,7 @@ public class ThreadPoolUtils {
 
     private static final String SOURCE_NAME = "dopush";
 
-    private ThreadPoolExecutorShutdownDefinition shutdownDefinition;
+    private final ThreadPoolExecutorShutdownDefinition shutdownDefinition;
 
     /**
      * 1. 将当前线程池 加入到 动态线程池内

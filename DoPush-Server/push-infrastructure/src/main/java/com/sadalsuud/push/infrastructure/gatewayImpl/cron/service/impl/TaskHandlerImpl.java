@@ -31,10 +31,10 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class TaskHandlerImpl implements TaskHandler {
 
-    private MessageTemplateDao messageTemplateDao;
+    private final MessageTemplateDao messageTemplateDao;
 
 
-    private ApplicationContext context;
+    private final ApplicationContext context;
 
 
     @Override
