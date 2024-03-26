@@ -1,10 +1,12 @@
-package com.sadalsuud.push.client.dto;
+package com.sadalsuud.push.infrastructure.gatewayImpl.repository.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Objects;
 
 /**
  * @Description 请求日志DTO
@@ -13,15 +15,19 @@ import lombok.NoArgsConstructor;
  * @Date 12/12/2023
  * @Package com.sadalsuud.push.client.dto
  */
-@Data
+@Getter
+@Setter
+@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestLogDTO {
+@Entity
+public class RequestLog {
 
     /**
      * 请求ID（UUID）与 ResponseLogVo id 一致
      */
+    @Id
     private String id;
 
     /**
@@ -40,13 +46,13 @@ public class RequestLogDTO {
      * 参数数组
      */
     @JSONField(ordinal = 3)
-    private Object[] args;
+    private String args;
 
     /**
      * 是否需要认证
      */
     @JSONField(ordinal = 4)
-    private Boolean auth;
+    private Integer auth;
 
     /**
      * 认证令牌
@@ -58,7 +64,7 @@ public class RequestLogDTO {
      * 登录账号信息
      */
     @JSONField(ordinal = 6)
-    private Object loginAccount;
+    private String loginAccount;
 
     /**
      * 产品
@@ -89,4 +95,20 @@ public class RequestLogDTO {
      */
     @JSONField(ordinal = 11)
     private String userAgent;
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        RequestLog that = (RequestLog) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
 }

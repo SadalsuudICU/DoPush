@@ -4,9 +4,11 @@ import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
-import com.sadalsuud.push.client.dto.RequestLogDTO;
+import com.sadalsuud.push.infrastructure.gatewayImpl.repository.RequestLogDao;
+import com.sadalsuud.push.infrastructure.gatewayImpl.repository.entity.RequestLog;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -43,6 +45,8 @@ public class DoPushAspect {
 
     private final HttpServletRequest request;
 
+    private final RequestLogDao requestLogDao;
+
     @Pointcut("@within(com.sadalsuud.push.adapter.facade.annotation.DoPushAspect) || @annotation(com.sadalsuud.push.adapter.facade.annotation.DoPushAspect)")
     public void executeService(){}
 
@@ -55,7 +59,9 @@ public class DoPushAspect {
     @Before("executeService()")
     public void doBeforeAdvice(JoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        this.printRequestLog(methodSignature, joinPoint.getArgs());
+        RequestLog requestLog = this.printRequestLog(methodSignature, joinPoint.getArgs());
+        //TODO 日志批量落库 使用binlog解耦日志的拦截与落库
+        requestLogDao.save(requestLog);
     }
 
     /**
@@ -74,13 +80,13 @@ public class DoPushAspect {
      * @param methodSignature
      * @param argObs
      */
-    public void printRequestLog(MethodSignature methodSignature, Object[] argObs) {
-        RequestLogDTO logVo = new RequestLogDTO();
+    public RequestLog printRequestLog(MethodSignature methodSignature, Object[] argObs) {
+        RequestLog requestLog = new RequestLog();
         //设置请求唯一ID
-        logVo.setId(IdUtil.fastUUID());
-        request.setAttribute(REQUEST_ID_KEY, logVo.getId());
-        logVo.setUri(request.getRequestURI());
-        logVo.setMethod(request.getMethod());
+        requestLog.setId(IdUtil.fastUUID());
+        request.setAttribute(REQUEST_ID_KEY, requestLog.getId());
+        requestLog.setUri(request.getRequestURI());
+        requestLog.setMethod(request.getMethod());
         List<Object> args = Lists.newArrayList();
         //过滤掉一些不能转为json字符串的参数
         Arrays.stream(argObs).forEach(e -> {
@@ -90,13 +96,27 @@ public class DoPushAspect {
             }
             args.add(e);
         });
-        logVo.setArgs(args.toArray());
-        logVo.setProduct("dopush");
-        logVo.setPath(methodSignature.getDeclaringTypeName() + "." + methodSignature.getMethod().getName());
-        logVo.setReferer(request.getHeader("referer"));
-        logVo.setRemoteAddr(request.getRemoteAddr());
-        logVo.setUserAgent(request.getHeader("user-agent"));
-        log.info(JSON.toJSONString(logVo));
+        requestLog.setArgs(Arrays.toString(args.toArray()));
+        requestLog.setProduct("dopush");
+        requestLog.setPath(methodSignature.getDeclaringTypeName() + "." + methodSignature.getMethod().getName());
+        requestLog.setReferer(request.getHeader("referer"));
+        requestLog.setRemoteAddr(request.getRemoteAddr());
+        requestLog.setUserAgent(request.getHeader("user-agent"));
+        String auth = request.getHeader("auth");
+        String account = request.getHeader("loginAccount");
+        try {
+            int auth1;
+            if (!StringUtils.isEmpty(auth) && !StringUtils.isEmpty(account) && (auth1 = Integer.parseInt(auth)) > 0) {
+                requestLog.setAuth(auth1);
+                requestLog.setLoginAccount(account);
+            }
+        }catch (Exception e) {
+            log.info("trans log's filed auth failed for {}", JSON.toJSONString(e.getCause()));
+        }
+
+        log.info(JSON.toJSONString(requestLog));
+
+        return requestLog;
     }
 
     /**
