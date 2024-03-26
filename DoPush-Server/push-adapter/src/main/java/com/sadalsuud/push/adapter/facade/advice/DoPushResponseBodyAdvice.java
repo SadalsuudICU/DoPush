@@ -2,6 +2,7 @@ package com.sadalsuud.push.adapter.facade.advice;
 
 import com.sadalsuud.push.adapter.facade.annotation.DoPushResult;
 import com.sadalsuud.push.common.vo.BasicResultVO;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -25,15 +26,15 @@ public class DoPushResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     private static final Class<?> RETURN_CLAZZ = BasicResultVO.class;
 
     @Override
-    public boolean supports(MethodParameter parameter, Class<? extends HttpMessageConverter<?>> clz) {
+    public boolean supports(MethodParameter parameter, @NotNull Class<? extends HttpMessageConverter<?>> clz) {
         return parameter.getContainingClass().isAnnotationPresent(DoPushResult.class)
                 || parameter.hasMethodAnnotation(DoPushResult.class);
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter parameter, MediaType mediaType,
-                                  Class<? extends HttpMessageConverter<?>> clz,
-                                  ServerHttpRequest request, ServerHttpResponse response) {
+    public Object beforeBodyWrite(Object body, @NotNull MethodParameter parameter, @NotNull MediaType mediaType,
+                                  @NotNull Class<? extends HttpMessageConverter<?>> clz,
+                                  @NotNull ServerHttpRequest request, @NotNull ServerHttpResponse response) {
         if (Objects.nonNull(body) && body.getClass() == RETURN_CLAZZ) {
             return body;
         }

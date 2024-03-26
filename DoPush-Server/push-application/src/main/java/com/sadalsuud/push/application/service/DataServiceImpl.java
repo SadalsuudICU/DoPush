@@ -78,7 +78,7 @@ public class DataServiceImpl implements DataService {
     public UserTimeLineVo getTraceUserInfo(String receiver) {
         List<String> userInfoList = cacheService.lRange(receiver, 0, -1);
         if (CollUtil.isEmpty(userInfoList)) {
-            return null;
+            return UserTimeLineVo.builder().build();
         }
 
         // 0. 按时间排序
