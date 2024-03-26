@@ -19,6 +19,7 @@ import com.sadalsuud.push.domain.assign.handler.HandlerHolder;
 import com.sadalsuud.push.domain.template.MessageTemplate;
 import com.sadalsuud.push.domain.template.repository.IMessageTemplateRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Description
@@ -50,6 +52,10 @@ public class ConsumeServiceImpl implements ConsumeService {
 
     //TODO 需要重构解耦 这里直接使用模板仓储服务不合适
     private final IMessageTemplateRepository messageTemplateRepository;
+
+    //单模板最大发送时间
+    @Value("dopush.template.max-sending-time")
+    private int MAX_SENDING_TIME;
 
     @Override
     public void consume2Send(List<TaskInfo> taskInfoLists) {
@@ -91,12 +97,20 @@ public class ConsumeServiceImpl implements ConsumeService {
 
         taskPendingHolder.route(HandlerThreadPoolConfig.Monitor).execute(() -> {
             try {
-                count.await();
+                count.await(MAX_SENDING_TIME, TimeUnit.HOURS);
                 if (messageTemplate.isPresent()) {
                     clone[0] = ObjectUtil.clone(messageTemplate.get()).setMsgStatus(MessageStatus.SEND_SUCCESS.getCode()).setUpdated(Math.toIntExact(DateUtil.currentSeconds()));
                     messageTemplateRepository.save(clone[0]);
                 }
             } catch (InterruptedException e) {
+                if (messageTemplate.isPresent() && count.getCount() == taskInfoLists.size()) {
+                    clone[0] = ObjectUtil.clone(messageTemplate.get()).setMsgStatus(MessageStatus.SEND_FAIL.getCode()).setUpdated(Math.toIntExact(DateUtil.currentSeconds()));
+                    messageTemplateRepository.save(clone[0]);
+                }
+
+                // TODO 任务失败通知逻辑 发消息到MQ
+
+
                 throw new RuntimeException(e);
             }
         });
