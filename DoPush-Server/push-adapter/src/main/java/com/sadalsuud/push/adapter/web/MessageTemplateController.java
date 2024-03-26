@@ -210,9 +210,9 @@ public class MessageTemplateController {
     }
 
 
-    @PostMapping("auditList")
+    @GetMapping("auditList")
     @ApiOperation("/待审核列表")
-    public MessageTemplateVo auditList(@RequestBody MessageTemplateParam messageTemplateParam) {
+    public MessageTemplateVo auditList(@Validated MessageTemplateParam messageTemplateParam) {
         Page<MessageTemplate> messageTemplates = messageTemplateService.waitingAuditTemplateList(messageTemplateParam);
         return MessageTemplateVo.builder()
                 .count(messageTemplates.getTotalElements())
