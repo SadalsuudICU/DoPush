@@ -55,7 +55,7 @@ public class ConsumeServiceImpl implements ConsumeService {
 
     //单模板最大发送时间
     @Value("dopush.template.max-sending-time")
-    private int MAX_SENDING_TIME;
+    private String MAX_SENDING_TIME;
 
     @Override
     public void consume2Send(List<TaskInfo> taskInfoLists) {
@@ -97,7 +97,7 @@ public class ConsumeServiceImpl implements ConsumeService {
 
         taskPendingHolder.route(HandlerThreadPoolConfig.Monitor).execute(() -> {
             try {
-                count.await(MAX_SENDING_TIME, TimeUnit.HOURS);
+                count.await(Long.parseLong(MAX_SENDING_TIME), TimeUnit.HOURS);
                 if (messageTemplate.isPresent()) {
                     clone[0] = ObjectUtil.clone(messageTemplate.get()).setMsgStatus(MessageStatus.SEND_SUCCESS.getCode()).setUpdated(Math.toIntExact(DateUtil.currentSeconds()));
                     messageTemplateRepository.save(clone[0]);
