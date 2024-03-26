@@ -34,5 +34,7 @@ public interface IMessageTemplateRepository {
     Long countByIsDeletedEquals(Integer deleted);
 
     Optional<MessageTemplate> findById(Long messageTemplateId);
+
+    Optional<MessageTemplate> save(MessageTemplate messageTemplate);
 }
 

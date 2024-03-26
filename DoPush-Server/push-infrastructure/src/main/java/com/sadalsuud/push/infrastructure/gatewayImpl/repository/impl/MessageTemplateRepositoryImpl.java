@@ -49,4 +49,9 @@ public class MessageTemplateRepositoryImpl implements IMessageTemplateRepository
     public Optional<MessageTemplate> findById(Long messageTemplateId) {
         return messageTemplateDao.findById(messageTemplateId);
     }
+
+    @Override
+    public Optional<MessageTemplate> save(MessageTemplate messageTemplate) {
+        return Optional.of(messageTemplateDao.save(messageTemplate));
+    }
 }
