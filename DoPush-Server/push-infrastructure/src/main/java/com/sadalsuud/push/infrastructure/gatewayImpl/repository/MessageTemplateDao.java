@@ -4,6 +4,9 @@ import com.sadalsuud.push.domain.template.MessageTemplate;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -14,6 +17,7 @@ import java.util.List;
  * @Date 11/12/2023
  * @Package com.sadalsuud.push.infrastructure.repository
  */
+@Repository
 public interface MessageTemplateDao extends JpaRepository<MessageTemplate, Long>, JpaSpecificationExecutor<MessageTemplate> {
 
 
@@ -34,5 +38,10 @@ public interface MessageTemplateDao extends JpaRepository<MessageTemplate, Long>
      * @return
      */
     Long countByIsDeletedEquals(Integer deleted);
+
+
+    @Modifying
+    @Query("update MessageTemplate m set m.auditStatus = :afterStateA, m.msgStatus = :afterStateM, m.updator =: updater, m.updated = :updated where m.id = :id and m.auditStatus = :beforeStateA and m.msgStatus = :beforeStateM")
+    int alertState(Long id, Integer beforeStateA, Integer afterStateA, Integer beforeStateM, Integer afterStateM, String updater, int updated);
 
 }

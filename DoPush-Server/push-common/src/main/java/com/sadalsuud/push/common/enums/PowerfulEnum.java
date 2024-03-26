@@ -6,7 +6,7 @@ package com.sadalsuud.push.common.enums;
  * @Blog www.sadalsuud.cn
  * @Date 10/12/2023
  */
-interface PowerfulEnum {
+public interface PowerfulEnum {
 
     /**
      * 获取枚举的code

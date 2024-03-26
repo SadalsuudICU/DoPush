@@ -71,9 +71,6 @@ public class MessageTemplateController {
     @PostMapping("/save")
     @ApiOperation("/保存数据")
     public MessageTemplate saveOrUpdate(@RequestBody MessageTemplate messageTemplate) {
-        //if (loginUtils.needLogin() && CharSequenceUtil.isBlank(messageTemplate.getCreator())) {
-        //    throw new CommonException(RespStatusEnum.NO_LOGIN.getCode(), RespStatusEnum.NO_LOGIN.getMsg());
-        //}
         return messageTemplateService.saveOrUpdate(messageTemplate);
     }
 

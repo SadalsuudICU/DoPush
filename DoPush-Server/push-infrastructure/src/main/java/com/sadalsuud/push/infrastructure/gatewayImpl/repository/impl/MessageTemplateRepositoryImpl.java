@@ -54,4 +54,9 @@ public class MessageTemplateRepositoryImpl implements IMessageTemplateRepository
     public Optional<MessageTemplate> save(MessageTemplate messageTemplate) {
         return Optional.of(messageTemplateDao.save(messageTemplate));
     }
+
+    @Override
+    public boolean alertState(Long id, Integer beforeStateA, Integer afterStateA, Integer beforeStateM, Integer afterStateM, String updater, int updated) {
+        return messageTemplateDao.alertState(id, beforeStateA, afterStateA, beforeStateM, afterStateM, updater, updated) == 1;
+    }
 }

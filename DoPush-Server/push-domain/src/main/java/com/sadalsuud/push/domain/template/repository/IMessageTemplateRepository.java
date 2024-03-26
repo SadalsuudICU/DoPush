@@ -36,5 +36,7 @@ public interface IMessageTemplateRepository {
     Optional<MessageTemplate> findById(Long messageTemplateId);
 
     Optional<MessageTemplate> save(MessageTemplate messageTemplate);
+
+    boolean alertState(Long id, Integer beforeStateA, Integer afterStateA, Integer beforeStateM, Integer afterStateM, String updater, int updated);
 }
 

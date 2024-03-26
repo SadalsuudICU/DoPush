@@ -47,5 +47,14 @@ public enum MessageStatus implements PowerfulEnum {
     private final Integer code;
     private final String description;
 
+    public static PowerfulEnum findEnumByCode(Integer code) {
+        for (MessageStatus messageStatus : MessageStatus.values()) {
+            if(messageStatus.code.equals(code)) {
+                return messageStatus;
+            }
+        }
+        throw new IllegalArgumentException("messageStatus is invalid");
+    }
+
 
 }
