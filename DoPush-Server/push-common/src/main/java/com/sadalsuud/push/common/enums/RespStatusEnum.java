@@ -24,7 +24,7 @@ public enum RespStatusEnum {
     /**
      * OK：操作成功
      */
-    SUCCESS("0", "操作成功"),
+    SUCCESS("200", "操作成功"),
     FAIL("-1", "操作失败"),
 
 
