@@ -36,7 +36,7 @@ public class RecallAssembleAction implements BusinessProcess<RecallTaskModel> {
         Long messageTemplateId = recallTaskModel.getMessageTemplateId();
         try {
             Optional<MessageTemplate> messageTemplate = messageTemplateRepository.findById(messageTemplateId);
-            if (!messageTemplate.isPresent() || messageTemplate.get().getIsDeleted().equals(CommonConstant.TRUE)) {
+            if (!messageTemplate.isPresent() || CommonConstant.TRUE.equals(messageTemplate.get().getIsDeleted())) {
                 context.setNeedBreak(true).setResponse(BasicResultVO.fail(RespStatusEnum.TEMPLATE_NOT_FOUND));
                 return;
             }
