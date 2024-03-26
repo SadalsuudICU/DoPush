@@ -18,6 +18,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -35,10 +36,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CrowdBatchTaskPending extends AbstractLazyPending<CrowdInfoVo> {
 
-    private final SendService sendService;
+    @Resource
+    private SendService sendService;
 
     public CrowdBatchTaskPending(SendService sendService) {
-        this.sendService = sendService;
         PendingParam<CrowdInfoVo> pendingParam = new PendingParam<>();
         pendingParam.setQueue(new LinkedBlockingQueue(PendingConstant.QUEUE_SIZE))
                 .setTimeThreshold(PendingConstant.TIME_THRESHOLD)

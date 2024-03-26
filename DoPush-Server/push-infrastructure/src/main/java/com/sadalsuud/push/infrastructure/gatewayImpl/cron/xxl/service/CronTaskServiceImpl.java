@@ -118,6 +118,7 @@ public class CronTaskServiceImpl implements CronTaskService {
             response = HttpRequest.post(path).form(params).cookie(getCookie()).execute();
             returnT = JSON.parseObject(response.body(), ReturnT.class);
             if (response.isOk() && ReturnT.SUCCESS_CODE == returnT.getCode()) {
+
                 return BasicResultVO.success();
             }
         } catch (Exception e) {

@@ -22,16 +22,16 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CronTaskHandler {
 
-    private TaskHandler taskHandler;
+    private final TaskHandler taskHandler;
 
 
-    private ThreadPoolUtils threadPoolUtils;
+    private final ThreadPoolUtils threadPoolUtils;
     private final DtpExecutor dtpExecutor = CronAsyncThreadPoolConfig.getXxlCronExecutor();
 
     /**
-     * 处理后台的 austin 定时任务消息
+     * 处理后台的 Dopush 定时任务消息
      */
-    @XxlJob("austinJob")
+    @XxlJob("doPushJob")
     public void execute() {
         log.info("CronTaskHandler#execute messageTemplateId:{} cron exec!", XxlJobHelper.getJobParam());
         threadPoolUtils.register(dtpExecutor);
