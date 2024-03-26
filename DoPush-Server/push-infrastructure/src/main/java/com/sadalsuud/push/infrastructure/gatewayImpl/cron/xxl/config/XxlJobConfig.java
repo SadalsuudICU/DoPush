@@ -2,6 +2,8 @@ package com.sadalsuud.push.infrastructure.gatewayImpl.cron.xxl.config;
 
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +20,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnProperty(name = "dopush.xxl.job.enabled", havingValue = "true")
 public class XxlJobConfig {
+
+    private final Logger logger = LoggerFactory.getLogger(XxlJobConfig.class);
 
     @Value("${xxl.job.admin.addresses}")
     private String adminAddresses;
@@ -38,6 +42,7 @@ public class XxlJobConfig {
 
     @Bean
     public XxlJobSpringExecutor xxlJobExecutor() {
+        logger.info(">>>>>>>>>>> xxl-job config init.");
         // 创建 XxlJobSpringExecutor 执行器
         XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
         xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
