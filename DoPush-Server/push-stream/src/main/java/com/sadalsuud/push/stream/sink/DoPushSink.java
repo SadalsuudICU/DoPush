@@ -77,7 +77,8 @@ public class DoPushSink implements SinkFunction<AnchorInfo> {
                 for (String id : info.getIds()) {
                     log.error("=============={}===============", id);
                     redisFutures.add(redisAsyncCommands.lpush(id.getBytes(), JSON.toJSONString(userAnchorInfo).getBytes()));
-                    redisFutures.add(redisAsyncCommands.expire(id.getBytes(), (DateUtil.endOfDay(new Date()).getTime() - DateUtil.current()) / 1000));
+                    //redisFutures.add(redisAsyncCommands.expire(id.getBytes(), (DateUtil.endOfDay(new Date()).getTime() - DateUtil.current()) / 1000));
+                    redisFutures.add(redisAsyncCommands.expire(id.getBytes(), Duration.ofDays(3).toMillis() / 1000));
                 }
 
                 /*
