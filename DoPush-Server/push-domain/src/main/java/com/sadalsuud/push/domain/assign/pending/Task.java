@@ -35,10 +35,14 @@ public class Task implements Runnable {
 
     @Override
     public void run() {
-        ProcessContext<ProcessModel> context = ProcessContext.builder()
-                .processModel(taskInfo).code(TaskPipelineConfig.PIPELINE_HANDLER_CODE)
-                .needBreak(false).response(BasicResultVO.success())
-                .build();
+        ProcessContext<ProcessModel> context =
+                ProcessContext
+                        .builder()
+                        .processModel(taskInfo)
+                        .code(TaskPipelineConfig.PIPELINE_HANDLER_CODE)
+                        .needBreak(false)
+                        .response(BasicResultVO.success())
+                        .build();
         processController.process(context);
     }
 }
