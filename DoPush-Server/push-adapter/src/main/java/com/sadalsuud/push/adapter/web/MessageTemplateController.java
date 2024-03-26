@@ -209,4 +209,15 @@ public class MessageTemplateController {
         return MapUtil.of(new String[][]{{"value", localFile.getAbsolutePath()}});
     }
 
+
+    @PostMapping("auditList")
+    @ApiOperation("/待审核列表")
+    public MessageTemplateVo auditList(@RequestBody MessageTemplateParam messageTemplateParam) {
+        Page<MessageTemplate> messageTemplates = messageTemplateService.waitingAuditTemplateList(messageTemplateParam);
+        return MessageTemplateVo.builder()
+                .count(messageTemplates.getTotalElements())
+                .rows(messageTemplates.toList())
+                .build();
+    }
+
 }
