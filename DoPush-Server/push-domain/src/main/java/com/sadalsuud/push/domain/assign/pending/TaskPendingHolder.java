@@ -27,6 +27,7 @@ public class TaskPendingHolder {
      * 获取得到所有的groupId
      */
     private static final List<String> groupIds = GroupIdMappingUtils.getAllGroupIds();
+
     private final TreadPoolService treadPoolService;
     private static final Map<String, ExecutorService> holder = new HashMap<>(32);
 
@@ -45,6 +46,11 @@ public class TaskPendingHolder {
 
             holder.put(groupId, executor);
         }
+
+        //为异步监控任务完成情况创建线程池
+        DtpExecutor executor = HandlerThreadPoolConfig.getExecutor(HandlerThreadPoolConfig.Monitor);
+        treadPoolService.register(executor);
+        holder.put(HandlerThreadPoolConfig.Monitor, executor);
     }
 
     /**

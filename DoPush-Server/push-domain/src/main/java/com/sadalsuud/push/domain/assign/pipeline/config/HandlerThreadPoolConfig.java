@@ -19,6 +19,8 @@ public class HandlerThreadPoolConfig {
 
     private static final String PRE_FIX = "dopush.";
 
+    public static final String Monitor = "monitor";
+
     private HandlerThreadPoolConfig() {
 
     }
