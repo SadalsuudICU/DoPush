@@ -1,16 +1,15 @@
 package com.sadalsuud.push.domain.template;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.data.util.ProxyUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @Description 消息模板
@@ -19,7 +18,10 @@ import java.io.Serializable;
  * @Date 11/12/2023
  * @Package com.sadalsuud.push.infrastructure.po
  */
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -111,7 +113,7 @@ public class MessageTemplate implements Serializable {
     /**
      * 修改者
      */
-    private String updator;
+    private String updater;
 
     /**
      * 审核者
@@ -145,5 +147,17 @@ public class MessageTemplate implements Serializable {
      */
     private Integer updated;
 
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || ProxyUtils.getUserClass(this) != ProxyUtils.getUserClass(o))
+            return false;
+        MessageTemplate that = (MessageTemplate) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
+    }
 
+    @Override
+    public final int hashCode() {
+        return ProxyUtils.getUserClass(this).hashCode();
+    }
 }

@@ -36,7 +36,7 @@ public class MessageTemplateTest {
                         .sendChannel(40).templateType(20)
                         .msgType(10).shieldType(10)
                         .sendAccount(1).msgContent("dopush test")
-                        .creator("sadalsuud").updator("sadalsuud")
+                        .creator("sadalsuud").updater("sadalsuud")
                         .auditor("sadalsuud").team("api").proposer("biz")
                         .isDeleted(0).created(intExact)
                         .updated(intExact).build();
