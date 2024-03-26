@@ -150,6 +150,28 @@ public class MessageTemplateServiceImpl implements MessageTemplateService {
 
     }
 
+    @Override
+    public Page<MessageTemplate> waitingAuditTemplateList(MessageTemplateParam param) {
+        PageRequest pageRequest = PageRequest.of(param.getPage() - 1, param.getPerPage());
+        String creator = CharSequenceUtil.isBlank(param.getCreator()) ? DoPushConstant.DEFAULT_CREATOR : param.getCreator();
+        return messageTemplateDao.findAll((Specification<MessageTemplate>) (root, query, cb) -> {
+            List<Predicate> predicateList = new ArrayList<>();
+            // 加搜索条件
+            if (CharSequenceUtil.isNotBlank(param.getKeywords())) {
+                predicateList.add(cb.like(root.get("name").as(String.class), "%" + param.getKeywords() + "%"));
+            }
+            predicateList.add(cb.equal(root.get("isDeleted").as(Integer.class), CommonConstant.FALSE));
+            predicateList.add(cb.equal(root.get("creator").as(String.class), creator));
+            predicateList.add(cb.equal(root.get("auditStatus").as(String.class), AuditStatus.WAIT_AUDIT.getCode()));
+            Predicate[] p = new Predicate[predicateList.size()];
+            // 查询
+            query.where(cb.and(predicateList.toArray(p)));
+            // 排序
+            query.orderBy(cb.desc(root.get("updated")));
+            return query.getRestriction();
+        }, pageRequest);
+    }
+
 
     /**
      * 初始化状态信息
@@ -160,7 +182,7 @@ public class MessageTemplateServiceImpl implements MessageTemplateService {
         messageTemplate.setFlowId(CharSequenceUtil.EMPTY)
                 .setMsgStatus(MessageStatus.INIT.getCode()).setAuditStatus(AuditStatus.WAIT_AUDIT.getCode())
                 .setCreator(CharSequenceUtil.isBlank(messageTemplate.getCreator()) ? DoPushConstant.DEFAULT_CREATOR : messageTemplate.getCreator())
-                .setUpdator(CharSequenceUtil.isBlank(messageTemplate.getUpdator()) ? DoPushConstant.DEFAULT_UPDATOR : messageTemplate.getUpdator())
+                .setUpdater(CharSequenceUtil.isBlank(messageTemplate.getUpdater()) ? DoPushConstant.DEFAULT_UPDATOR : messageTemplate.getUpdater())
                 .setTeam(CharSequenceUtil.isBlank(messageTemplate.getTeam()) ? DoPushConstant.DEFAULT_TEAM : messageTemplate.getTeam())
                 .setAuditor(CharSequenceUtil.isBlank(messageTemplate.getAuditor()) ? DoPushConstant.DEFAULT_AUDITOR : messageTemplate.getAuditor())
                 .setCreated(Math.toIntExact(DateUtil.currentSeconds()))
@@ -175,7 +197,7 @@ public class MessageTemplateServiceImpl implements MessageTemplateService {
      * @param messageTemplate
      */
     private void resetStatus(MessageTemplate messageTemplate) {
-        messageTemplate.setUpdator(messageTemplate.getUpdator())
+        messageTemplate.setUpdater(messageTemplate.getUpdater())
                 .setMsgStatus(MessageStatus.INIT.getCode()).setAuditStatus(AuditStatus.WAIT_AUDIT.getCode());
 
         // 从数据库查询并注入 定时任务 ID

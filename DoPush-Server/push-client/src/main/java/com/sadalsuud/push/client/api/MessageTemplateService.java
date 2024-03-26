@@ -81,4 +81,6 @@ public interface MessageTemplateService {
      */
     BasicResultVO stopCronTask(Long id);
 
+
+    Page<MessageTemplate> waitingAuditTemplateList(MessageTemplateParam param);
 }

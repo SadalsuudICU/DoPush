@@ -40,8 +40,12 @@ public interface MessageTemplateDao extends JpaRepository<MessageTemplate, Long>
     Long countByIsDeletedEquals(Integer deleted);
 
 
+    List<MessageTemplate> findAllByAuditStatusEqualsOrderByUpdatedDesc(Integer auditStatus, Pageable pageable);
+
+
+
     @Modifying
-    @Query("update MessageTemplate m set m.auditStatus = :afterStateA, m.msgStatus = :afterStateM, m.updator =: updater, m.updated = :updated where m.id = :id and m.auditStatus = :beforeStateA and m.msgStatus = :beforeStateM")
+    @Query("update MessageTemplate m set m.auditStatus = :afterStateA, m.msgStatus = :afterStateM, m.updater = :updater, m.updated = :updated where m.id = :id and m.auditStatus = :beforeStateA and m.msgStatus = :beforeStateM")
     int alertState(Long id, Integer beforeStateA, Integer afterStateA, Integer beforeStateM, Integer afterStateM, String updater, int updated);
 
 }
