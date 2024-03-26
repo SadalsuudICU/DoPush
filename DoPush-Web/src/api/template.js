@@ -60,3 +60,13 @@ export const stop = (id) => {
     method: 'post'
   })
 }
+
+export const auditList = (data) => {
+  return request({
+    url: '/messageTemplate/auditList',
+    method: 'get',
+    params: {
+      ...data
+    }
+  })
+}

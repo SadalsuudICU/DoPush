@@ -93,6 +93,12 @@ export const constantRoutes = [
         name: 'ListTemplate',
         component: () => import('@/views/template/list.vue'),
         meta: { title: '消息模板列表', icon: 'nested' }
+      },
+      {
+        path: 'list-audit',
+        name: 'ListAudit',
+        component: () => import('@/views/template/auditList.vue'),
+        meta: { title: '消息模板审核', icon: 'template' }
       }
     ]
   },
