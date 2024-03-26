@@ -13,9 +13,9 @@ import com.sadalsuud.push.infrastructure.gatewayImpl.handler.script.SmsScript;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.ChannelAccountDao;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.SmsRecordDao;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -30,13 +30,13 @@ import java.util.Map;
 @Component
 public class SmsPullReceiptStarterImpl implements ReceiptMessageStater {
 
-    @Autowired
+    @Resource
     private ChannelAccountDao channelAccountDao;
 
-    @Autowired
+    @Resource
     private Map<String, SmsScript> scriptMap;
 
-    @Autowired
+    @Resource
     private SmsRecordDao smsRecordDao;
 
     @Override
