@@ -41,14 +41,18 @@
       <el-form-item v-if="form.templateType === 10" label="人群文件" prop="cronCrowPath">
         <el-upload
           v-if="form.templateType === 10"
+          ref="upload"
           class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          multiple
-          :limit="3"
-          :file-list="form.cronCrowdPath"
+          action="#"
+          :limit="1"
+          :auto-upload="false"
+          :on-exceed="handleExceed"
+          :on-change="handleChange"
+          :on-remove="handleRemove"
         >
-          <el-button size="small" type="primary">点击上传</el-button>
           <div slot="tip" class="el-upload__tip">1、文件格式：csv文件 2、内容格式：列名userId,占位符变量1,占位符变量2</div>
+          <el-button size="small" type="primary">选择文件</el-button>
+          <el-button size="small" type="success" @click.stop="uploadCrowFile">上传到服务器</el-button>
         </el-upload>
       </el-form-item>
       <el-form-item v-if="form.templateType === 10" label="人群上传路径" prop="cronCrowdPath">
@@ -221,7 +225,7 @@
 
 <script>
 import { query } from '@/api/channel'
-import { save } from '@/api/template'
+import { save, upload } from '@/api/template'
 
 export default {
   props: {
@@ -258,6 +262,7 @@ export default {
         dingTalkRobotSendType: '',
         dingTalkWorkSendType: ''
       },
+      file: '',
       rules: {
         name: [
           { required: true, message: '请输入模板名称', trigger: 'blur' }
@@ -522,6 +527,47 @@ export default {
           this.$bus.$emit('templateUpdate', true)
         }
         this.$router.push('/template/list-template')
+      })
+    },
+    handleExceed(file, fileList) {
+      console.log('out of size, change to', file)
+      this.$refs.upload.clearFiles()
+      const _file = file
+      // _file.id = generateId()
+      this.file = _file
+      this.$refs.upload.handleStart(_file)
+    },
+    handleChange(file, fileList) {
+      console.log('upload', file)
+      this.file = file
+    },
+    handleRemove(file, fileList) {
+      this.$refs.upload.clearFiles()
+      console.log('remove file', file)
+      this.file = ''
+    },
+    uploadCrowFile() {
+      upload(this.file).then(res => {
+        console.log(res)
+        if (res.status === '200') {
+          const path = res.data.value
+          console.log('crow path', path)
+          if (path === null) {
+            this.$message.error('上传失败, 未能保存')
+            return
+          }
+          this.form.cronCrowdPath = path
+          const h = this.$createElement
+          this.$message({
+            message: h('p', null, [
+              h('span', null, '人群文件上传成功 '),
+              h('i', { style: 'color: teal' }, path)
+            ])
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+        this.$message.error('上传失败, 接口故障')
       })
     }
   }

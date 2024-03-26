@@ -48,39 +48,55 @@
         :filters="item.filters"
         :filter-method="item.filters ? filterTag : undefined"
       />
-      <el-table-column label="操作" style="min-width: 30px">
+      <el-table-column label="操作">
         <template v-slot="scope">
-          <el-button
-            v-if="scope.row['isDeleted'] === 0"
-            size="mini"
-            @click="handleTest(scope.$index, scope.row)"
-          >Test</el-button>
-          <br>
-          <el-button
-            v-if="scope.row['isDeleted'] === 0"
-            size="mini"
-            @click="handleExecute(scope.$index, scope.row)"
-          >Execute</el-button>
-          <br>
-          <el-button
-            v-if="scope.row['isDeleted'] === 0"
-            size="mini"
-            @click="handleEdit(scope.$index, scope.row)"
-          >Edit</el-button>
-          <br>
-          <el-button
-            v-if="scope.row['isDeleted'] === 0"
-            size="mini"
-            type="danger"
-            @click="handleDeactivate(scope.$index, scope.row)"
-          >Deactivate</el-button>
-          <br>
-          <el-button
-            v-if="scope.row['isDeleted'] !== 0"
-            size="mini"
-            type="success"
-            @click="handleRecovery(scope.$index, scope.row)"
-          >Recovery</el-button>
+          <div class="btns">
+            <el-button
+              v-if="scope.row['isDeleted'] === 0"
+              class="btn"
+              size="mini"
+              @click="handleTest(scope.$index, scope.row)"
+            >测试</el-button>
+            <br>
+            <el-button
+              v-if="scope.row['isDeleted'] === 0"
+              class="btn"
+              size="mini"
+              @click="handleEdit(scope.$index, scope.row)"
+            >编辑</el-button>
+            <br>
+            <el-button
+              v-if="scope.row['isDeleted'] === 0"
+              class="btn"
+              size="mini"
+              type="success"
+              @click="handleStart(scope.$index, scope.row)"
+            >启动</el-button>
+            <br>
+            <el-button
+              v-if="scope.row['isDeleted'] === 0"
+              class="btn"
+              size="mini"
+              type="danger"
+              @click="handleStop(scope.$index, scope.row)"
+            >暂停</el-button>
+            <br>
+            <el-button
+              v-if="scope.row['isDeleted'] === 0"
+              class="btn"
+              size="mini"
+              type="danger"
+              @click="handleDeactivate(scope.$index, scope.row)"
+            >激活</el-button>
+            <br>
+            <el-button
+              v-if="scope.row['isDeleted'] !== 0"
+              class="btn"
+              size="mini"
+              type="success"
+              @click="handleRecovery(scope.$index, scope.row)"
+            >恢复</el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -112,7 +128,7 @@
 </template>
 
 <script>
-import { batchDelete, templateList, test } from '@/api/template'
+import { batchDelete, start, stop, templateList, test } from '@/api/template'
 import { transTimestampToDate } from '@/utils/date'
 import createOrUpdate from '@/views/template/createOrUpdate.vue'
 
@@ -338,6 +354,12 @@ export default {
           return item
         }
       })[0]
+      if (this.updateData === null) {
+        this.$message.error('数据错误')
+        return
+      }
+      const msgContent = this.updateData.msgContent
+      Object.assign(this.updateData, JSON.parse(msgContent))
       console.log(this.updateData)
       this.updateTableVisible = true
     },
@@ -353,9 +375,22 @@ export default {
       data.isDeleted = 0
       this.doSave(data)
     },
-    handleExecute(index, row) {
-      const data = row
-      data.sendChannel = data.channelCode
+    handleStart(index, row) {
+      const id = row.id
+      start(id).then(res => {
+        if (res.status === '200') {
+          console.log(res.data)
+          this.$message.success('启动成功')
+        }
+      })
+    },
+    handleStop(index, row) {
+      const id = row.id
+      stop(id).then(res => {
+        if (res.status === '200') {
+          console.log(res.data)
+        }
+      })
     },
     handelSend() {
       const receiver = this.test.receiver
@@ -381,5 +416,13 @@ export default {
 </script>
 
 <style scoped>
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.btn {
+  width: 67%;
+}
 </style>
 
