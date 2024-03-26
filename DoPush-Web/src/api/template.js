@@ -36,3 +36,27 @@ export const save = (data) => {
     }
   })
 }
+
+export const upload = (file) => {
+  const formData = new FormData()
+  formData.append('file', file.raw)
+  return request.post('/messageTemplate/upload', formData, {
+    headers: {
+      'ContentType': 'multipart/form-data'
+    }
+  })
+}
+
+export const start = (id) => {
+  return request({
+    url: '/messageTemplate/start/' + id,
+    method: 'post'
+  })
+}
+
+export const stop = (id) => {
+  return request({
+    url: '/messageTemplate/stop/' + id,
+    method: 'post'
+  })
+}
