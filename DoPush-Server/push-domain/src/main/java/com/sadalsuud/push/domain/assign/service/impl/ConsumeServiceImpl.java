@@ -54,7 +54,7 @@ public class ConsumeServiceImpl implements ConsumeService {
     private final IMessageTemplateRepository messageTemplateRepository;
 
     //单模板最大发送时间
-    @Value("dopush.template.max-sending-time")
+    @Value("${dopush.template.max-sending-time}")
     private String MAX_SENDING_TIME;
 
     @Override
