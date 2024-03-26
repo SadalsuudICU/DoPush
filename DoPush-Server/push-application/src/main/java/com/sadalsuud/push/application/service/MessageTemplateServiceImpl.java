@@ -40,7 +40,7 @@ public class MessageTemplateServiceImpl implements MessageTemplateService {
 
     private final MessageTemplateDao messageTemplateDao;
 
-    private CronTaskService cronTaskService;
+    private final CronTaskService cronTaskService;
 
     @Override
     public Page<MessageTemplate> queryList(MessageTemplateParam param) {
