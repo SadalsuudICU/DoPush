@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  * @Description 打点信息枚举
  * <p>
- * com.java3y.austin.web.utils.AnchorStateUtils#getDescriptionByStat
+ * com.sadalsuud.push.web.utils.AnchorStateUtils#getDescriptionByStat
  * @Author sadalsuud
  * @Blog www.sadalsuud.cn
  * @Date 10/12/2023

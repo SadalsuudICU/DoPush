@@ -12,6 +12,7 @@ import com.sadalsuud.push.domain.assign.flowcontrol.annotations.LocalRateLimit;
 import com.sadalsuud.push.domain.support.config.ConfigService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -42,7 +43,7 @@ public class FlowControlFactory implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
 
@@ -73,7 +74,7 @@ public class FlowControlFactory implements ApplicationContextAware {
      * <p>
      * apollo配置样例     key：flowControl value：{"flow_control_40":1}
      * <p>
-     * 渠道枚举可看：com.java3y.austin.common.enums.ChannelType
+     * 渠道枚举可看：com.sadalsuud.push.common.enums.ChannelType
      *
      * @param channelCode
      */

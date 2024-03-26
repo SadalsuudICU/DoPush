@@ -30,7 +30,7 @@ public class DoPushApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.info(AnsiOutput.toString(DoPushConstant.PROJECT_BANNER, "\n", AnsiColor.GREEN, DoPushConstant.PROJECT_NAME, AnsiColor.DEFAULT, AnsiStyle.FAINT));
-        log.info("Austin start succeeded, Index >> http://127.0.0.1:{}/", serverPort);
-        log.info("Austin start succeeded, Swagger Url >> http://127.0.0.1:{}/swagger-ui/index.html", serverPort);
+        log.info("Dopush start succeeded, Index >> http://127.0.0.1:{}/", serverPort);
+        log.info("Dopush start succeeded, Swagger Url >> http://127.0.0.1:{}/swagger-ui/index.html", serverPort);
     }
 }

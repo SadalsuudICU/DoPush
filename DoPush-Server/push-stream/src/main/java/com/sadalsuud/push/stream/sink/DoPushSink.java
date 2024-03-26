@@ -49,7 +49,7 @@ public class DoPushSink implements SinkFunction<AnchorInfo> {
 
                 /*
                   0.构建messageId维度的链路信息 数据结构list:{key,list}
-                  key:Austin:MessageId:{messageId},listValue:[{timestamp,state,businessId},{timestamp,state,businessId}]
+                  key:Dopush:MessageId:{messageId},listValue:[{timestamp,state,businessId},{timestamp,state,businessId}]
                  */
                 String redisMessageKey =
                         CharSequenceUtil.join(
@@ -94,7 +94,7 @@ public class DoPushSink implements SinkFunction<AnchorInfo> {
             });
 
         } catch (Exception e) {
-            log.error("AustinSink#invoke error: {}", Throwables.getStackTraceAsString(e));
+            log.error("DopushSink#invoke error: {}", Throwables.getStackTraceAsString(e));
         }
     }
 }
