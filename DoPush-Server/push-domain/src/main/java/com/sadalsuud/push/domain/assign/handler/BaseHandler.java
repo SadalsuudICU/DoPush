@@ -1,8 +1,11 @@
 package com.sadalsuud.push.domain.assign.handler;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.sadalsuud.push.common.domain.AnchorInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
 import com.sadalsuud.push.common.enums.AnchorState;
+import com.sadalsuud.push.domain.assign.model.task.FailedTask;
+import com.sadalsuud.push.domain.assign.model.task.repository.IFailedTaskRepository;
 import com.sadalsuud.push.domain.support.LogUtils;
 import com.sadalsuud.push.domain.assign.flowcontrol.FlowControlFactory;
 import com.sadalsuud.push.domain.assign.flowcontrol.FlowControlParam;
@@ -37,6 +40,8 @@ public abstract class BaseHandler implements Handler {
     private LogUtils logUtils;
     @Resource
     private FlowControlFactory flowControlFactory;
+    @Resource
+    private IFailedTaskRepository failedTaskRepository;
 
     /**
      * 初始化渠道与Handler的映射关系
@@ -57,6 +62,10 @@ public abstract class BaseHandler implements Handler {
             logUtils.print(AnchorInfo.builder().state(AnchorState.SEND_SUCCESS.getCode()).bizId(taskInfo.getBizId()).messageId(taskInfo.getMessageId()).businessId(taskInfo.getBusinessId()).ids(taskInfo.getReceiver()).build());
             return;
         }
+        // 失败则保存失败的任务信息 以便后续清洗显示和重发
+        FailedTask failedTask = new FailedTask();
+        BeanUtil.copyProperties(taskInfo, failedTask, true);
+        failedTaskRepository.save(failedTask);
         logUtils.print(AnchorInfo.builder().state(AnchorState.SEND_FAIL.getCode()).bizId(taskInfo.getBizId()).messageId(taskInfo.getMessageId()).businessId(taskInfo.getBusinessId()).ids(taskInfo.getReceiver()).build());
     }
 
