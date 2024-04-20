@@ -110,7 +110,7 @@
       @current-change="handleCurrentChange"
     />
     <el-dialog title="消息模板信息修改" :visible.sync="updateTableVisible">
-      <CreateOrUpdate :data="updateData" />
+      <CreateOrUpdate :data="updateData" :operationNotAllowed="false" />
     </el-dialog>
     <el-dialog title="消息模板测试" :visible.sync="testTableVisible">
       <el-form ref="form" :model="test" label-width="120px">

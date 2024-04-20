@@ -79,6 +79,10 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
+
+    <el-dialog title="消息模板信息修改" :visible.sync="checkTableVisible">
+      <CreateOrUpdate :data="checkData" :operationNotAllowed="true" />
+    </el-dialog>
   </div>
 </template>
 
@@ -86,9 +90,11 @@
 // eslint-disable-next-line no-unused-vars
 import { auditList } from '@/api/template'
 import { transTimestampToDate } from '@/utils/date'
+import CreateOrUpdate from '@/views/template/createOrUpdate.vue'
 // import createOrUpdate from '@/views/template/createOrUpdate.vue'
 
 export default {
+  components: { CreateOrUpdate },
   inject: ['reload'],
   // components: {
   //   CreateOrUpdate: createOrUpdate
@@ -105,9 +111,8 @@ export default {
       currentPerPage: 5,
       count: 0,
       selectedRows: [],
-      updateTableVisible: false,
-      testTableVisible: false,
-      updateData: '',
+      checkTableVisible: false,
+      checkData: '',
       currentOperateRowId: '',
       test: {
         receiver: '',
@@ -287,8 +292,9 @@ export default {
       this.search()
     },
     handleCheck(index, row) {
-      console.log(row.id)
-      this.$message.success('check')
+      console.log(row)
+      this.checkData = row
+      this.checkTableVisible = true
     },
     handlePass(index, row) {
       console.log(row.id)
