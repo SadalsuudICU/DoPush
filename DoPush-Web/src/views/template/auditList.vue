@@ -314,7 +314,9 @@ export default {
         if (res.status === '200') {
           this.$message.success(res.msg)
           this.search()
+          return
         }
+        this.$message.error(res.msg)
       })
     },
     handleRefuse(index, row) {
@@ -324,7 +326,9 @@ export default {
         if (res.status === '200') {
           this.$message.success(res.msg)
           this.search()
+          return
         }
+        this.$message.error(res.msg)
       })
     }
   }
