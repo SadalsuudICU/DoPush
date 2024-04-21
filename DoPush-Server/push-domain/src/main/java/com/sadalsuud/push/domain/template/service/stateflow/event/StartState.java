@@ -6,6 +6,7 @@ import com.sadalsuud.push.common.enums.MessageStatus;
 import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.template.MessageTemplate;
 import com.sadalsuud.push.domain.template.service.stateflow.AbstractState;
+import org.springframework.stereotype.Component;
 
 /**
  * @Description
@@ -14,6 +15,7 @@ import com.sadalsuud.push.domain.template.service.stateflow.AbstractState;
  * @Date 2024/3/26
  * @Project DoPush-Server
  */
+@Component
 public class StartState extends AbstractState {
     @Override
     public BasicResultVO sendFailed(Long id, MessageTemplate messageTemplate) {

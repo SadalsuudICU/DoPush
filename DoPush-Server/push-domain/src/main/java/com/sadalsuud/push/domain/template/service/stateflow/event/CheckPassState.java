@@ -6,6 +6,7 @@ import com.sadalsuud.push.common.enums.MessageStatus;
 import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.template.MessageTemplate;
 import com.sadalsuud.push.domain.template.service.stateflow.AbstractState;
+import org.springframework.stereotype.Component;
 
 /**
  * @Description 审核通过
@@ -14,6 +15,7 @@ import com.sadalsuud.push.domain.template.service.stateflow.AbstractState;
  * @Date 2024/3/26
  * @Project DoPush-Server
  */
+@Component
 public class CheckPassState extends AbstractState {
     @Override
     public BasicResultVO start(Long id, MessageTemplate messageTemplate) {
