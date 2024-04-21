@@ -220,4 +220,21 @@ public class MessageTemplateController {
                 .build();
     }
 
+
+    /**
+     * 模板审核
+     */
+    @PostMapping("/audit/pass")
+    @ApiOperation("/模板审核接口")
+    public BasicResultVO auditPass(@RequestBody MessageTemplate template) {
+        log.error("template==>{}", template);
+        return messageTemplateService.auditPass(template);
+    }
+
+    @PostMapping("/audit/refuse")
+    @ApiOperation("/模板审核接口")
+    public BasicResultVO auditRefuse(@RequestBody MessageTemplate template) {
+        log.error("template==>{}", template);
+        return messageTemplateService.auditRefuse(template);
+    }
 }
