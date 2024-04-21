@@ -65,18 +65,10 @@ public class StateConfig {
         Integer msgStatus = messageTemplate.getMsgStatus();
         Integer auditStatus = messageTemplate.getAuditStatus();
 
-        if (AuditStatus.AUDIT_REJECT.getCode().equals(auditStatus)) {
-            return AuditStatus.AUDIT_REJECT;
+        if (AuditStatus.AUDIT_SUCCESS.getCode().equals(msgStatus)) {
+            return MessageStatus.findEnumByCode(msgStatus);
         }
 
-        if (msgStatus == 10 && auditStatus == 0) {
-            return AuditStatus.findEnumByCode(msgStatus);
-        }
-
-        if (msgStatus == 10 && auditStatus < 30) {
-            return AuditStatus.findEnumByCode(auditStatus);
-        }
-
-        return MessageStatus.findEnumByCode(msgStatus);
+        return AuditStatus.findEnumByCode(auditStatus);
     }
 }
