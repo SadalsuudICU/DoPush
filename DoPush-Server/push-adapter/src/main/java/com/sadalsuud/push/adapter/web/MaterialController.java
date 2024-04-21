@@ -2,16 +2,18 @@ package com.sadalsuud.push.adapter.web;
 
 import com.sadalsuud.push.adapter.facade.annotation.DoPushAspect;
 import com.sadalsuud.push.client.api.MaterialService;
+import com.sadalsuud.push.client.dto.MaterialParam;
+import com.sadalsuud.push.client.vo.MaterialVo;
 import com.sadalsuud.push.common.enums.ChannelType;
 import com.sadalsuud.push.common.vo.BasicResultVO;
+import com.sadalsuud.push.domain.support.Material;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -25,11 +27,11 @@ import org.springframework.web.multipart.MultipartFile;
 @DoPushAspect
 @RestController
 @RequestMapping("/material")
-@Api("素材管理接口")
+@Api(tags = {"素材管理接口"})
 @RequiredArgsConstructor
 public class MaterialController {
 
-    private MaterialService materialService;
+    private final MaterialService materialService;
 
 
     /**
@@ -43,12 +45,28 @@ public class MaterialController {
      */
     @PostMapping("/upload")
     @ApiOperation("/素材上传接口")
-    public BasicResultVO uploadMaterial(@RequestParam("file") MultipartFile file, String sendAccount, Integer sendChannel, String fileType) {
+    public BasicResultVO uploadMaterial(@RequestParam("file") MultipartFile file, String sendAccount, Integer sendChannel, String fileType, String creator, String name) {
         if (ChannelType.DING_DING_WORK_NOTICE.getCode().equals(sendChannel)) {
-            return materialService.dingDingMaterialUpload(file, sendAccount, fileType);
+            return materialService.dingDingMaterialUpload(file, sendAccount, fileType, creator, name);
         }
 
-        return BasicResultVO.fail();
+        return materialService.dingDingMaterialUpload(file, sendAccount, fileType, creator, name);
+
+
+        //return BasicResultVO.fail();
     }
 
+
+    /**
+     * 素材列表接口
+     */
+    @GetMapping("/list")
+    @ApiOperation("/素材列表")
+    public MaterialVo materialList(@Validated MaterialParam param) {
+        Page<Material> materials = materialService.queryList(param);
+        return MaterialVo.builder()
+                .count(materials.getTotalElements())
+                .rows(materials.toList())
+                .build();
+    }
 }

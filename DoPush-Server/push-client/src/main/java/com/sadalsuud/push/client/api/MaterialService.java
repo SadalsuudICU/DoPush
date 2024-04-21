@@ -1,6 +1,11 @@
 package com.sadalsuud.push.client.api;
 
+import com.sadalsuud.push.client.dto.MaterialParam;
+import com.sadalsuud.push.client.dto.MessageTemplateParam;
 import com.sadalsuud.push.common.vo.BasicResultVO;
+import com.sadalsuud.push.domain.support.Material;
+import com.sadalsuud.push.domain.template.MessageTemplate;
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -23,5 +28,10 @@ public interface MaterialService {
      * @param fileType
      * @return
      */
-    BasicResultVO dingDingMaterialUpload(MultipartFile file, String sendAccount, String fileType);
+    //BasicResultVO dingDingMaterialUpload(MultipartFile file, String sendAccount, String fileType);
+    BasicResultVO dingDingMaterialUpload(MultipartFile file, String sendAccount, String fileType, String creator, String name);
+
+    Page<Material> queryList(MaterialParam param);
+
+    Material upload(MultipartFile file, String name, Integer type, String creator) throws Exception;
 }
