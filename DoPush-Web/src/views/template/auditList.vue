@@ -80,7 +80,7 @@
       @current-change="handleCurrentChange"
     />
 
-    <el-dialog title="消息模板信息修改" :visible.sync="checkTableVisible">
+    <el-dialog title="待审核模板查看" :visible.sync="checkTableVisible">
       <CreateOrUpdate :data="checkData" :operable="true" />
     </el-dialog>
   </div>
@@ -293,7 +293,18 @@ export default {
     },
     handleCheck(index, row) {
       console.log(row)
-      this.checkData = row
+      this.checkData = this.originData.filter(item => {
+        if (item.id === row.id) {
+          return item
+        }
+      })[0]
+      if (this.updateData === null) {
+        this.$message.error('数据错误')
+        return
+      }
+      const msgContent = this.checkData.msgContent
+      Object.assign(this.checkData, JSON.parse(msgContent))
+      console.log(this.checkData)
       this.checkTableVisible = true
     },
     handlePass(index, row) {
