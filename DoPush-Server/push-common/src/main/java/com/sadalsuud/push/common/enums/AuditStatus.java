@@ -20,7 +20,7 @@ public enum AuditStatus implements PowerfulEnum {
     /**
      * 00.未提交
      */
-    WAIT_COMMIT(10, "待提交审核"),
+    WAIT_COMMIT(0, "待提交审核"),
     /**
      * 10.待审核
      */
