@@ -25,6 +25,6 @@ public class CheckRefuseState extends AbstractState {
                         AuditStatus.AUDIT_REJECT.getCode(), AuditStatus.WAIT_COMMIT.getCode(),
                         MessageStatus.INIT.getCode(), MessageStatus.INIT.getCode(),
                         messageTemplate.getUpdater(), Math.toIntExact(DateUtil.currentSeconds()));
-        return res ? BasicResultVO.success() : BasicResultVO.fail("消息模板状态流转失败");
+        return res ? BasicResultVO.success() : BasicResultVO.fail(MSG);
     }
 }

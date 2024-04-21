@@ -25,7 +25,7 @@ public class SendingState extends AbstractState {
                         AuditStatus.AUDIT_SUCCESS.getCode(), AuditStatus.AUDIT_SUCCESS.getCode(),
                         MessageStatus.SENDING.getCode(), MessageStatus.SEND_FAIL.getCode(),
                         messageTemplate.getUpdater(), Math.toIntExact(DateUtil.currentSeconds()));
-        return res ? BasicResultVO.success() : BasicResultVO.fail("消息模板状态流转失败");
+        return res ? BasicResultVO.success() : BasicResultVO.fail(MSG);
     }
 
 
@@ -36,6 +36,6 @@ public class SendingState extends AbstractState {
                         AuditStatus.AUDIT_SUCCESS.getCode(), AuditStatus.AUDIT_SUCCESS.getCode(),
                         MessageStatus.SENDING.getCode(), MessageStatus.SEND_SUCCESS.getCode(),
                         messageTemplate.getUpdater(), Math.toIntExact(DateUtil.currentSeconds()));
-        return res ? BasicResultVO.success() : BasicResultVO.fail("消息模板状态流转失败");
+        return res ? BasicResultVO.success() : BasicResultVO.fail(MSG);
     }
 }

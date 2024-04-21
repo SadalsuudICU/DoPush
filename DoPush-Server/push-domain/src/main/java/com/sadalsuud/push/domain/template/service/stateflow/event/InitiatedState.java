@@ -24,6 +24,6 @@ public class InitiatedState extends AbstractState {
                         AuditStatus.WAIT_COMMIT.getCode(), AuditStatus.WAIT_AUDIT.getCode(),
                         MessageStatus.INIT.getCode(), MessageStatus.INIT.getCode(),
                         messageTemplate.getUpdater(), Math.toIntExact(DateUtil.currentSeconds()));
-        return res ? BasicResultVO.success() : BasicResultVO.fail("消息模板状态流转失败");
+        return res ? BasicResultVO.success() : BasicResultVO.fail(MSG);
     }
 }

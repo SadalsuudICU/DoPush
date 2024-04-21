@@ -24,7 +24,7 @@ public class PendingState extends AbstractState {
                         AuditStatus.AUDIT_SUCCESS.getCode(), AuditStatus.AUDIT_SUCCESS.getCode(),
                         MessageStatus.PENDING.getCode(), MessageStatus.SEND_FAIL.getCode(),
                         messageTemplate.getUpdater(), Math.toIntExact(DateUtil.currentSeconds()));
-        return res ? BasicResultVO.success() : BasicResultVO.fail("消息模板状态流转失败");
+        return res ? BasicResultVO.success() : BasicResultVO.fail(MSG);
     }
 
     @Override
@@ -34,6 +34,6 @@ public class PendingState extends AbstractState {
                         AuditStatus.AUDIT_SUCCESS.getCode(), AuditStatus.AUDIT_SUCCESS.getCode(),
                         MessageStatus.PENDING.getCode(), MessageStatus.SENDING.getCode(),
                         messageTemplate.getUpdater(), Math.toIntExact(DateUtil.currentSeconds()));
-        return res ? BasicResultVO.success() : BasicResultVO.fail("消息模板状态流转失败");
+        return res ? BasicResultVO.success() : BasicResultVO.fail(MSG);
     }
 }

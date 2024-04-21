@@ -24,7 +24,7 @@ public class ArraignmentState extends AbstractState {
                         AuditStatus.WAIT_AUDIT.getCode(), AuditStatus.AUDIT_REJECT.getCode(),
                         MessageStatus.INIT.getCode(), MessageStatus.INIT.getCode(),
                         messageTemplate.getUpdater(), Math.toIntExact(DateUtil.currentSeconds()));
-        return res ? BasicResultVO.success() : BasicResultVO.fail("消息模板状态流转失败");
+        return res ? BasicResultVO.success() : BasicResultVO.fail(MSG);
     }
 
     @Override
@@ -34,6 +34,6 @@ public class ArraignmentState extends AbstractState {
                         AuditStatus.WAIT_AUDIT.getCode(), AuditStatus.AUDIT_SUCCESS.getCode(),
                         MessageStatus.INIT.getCode(), MessageStatus.INIT.getCode(),
                         messageTemplate.getUpdater(), Math.toIntExact(DateUtil.currentSeconds()));
-        return res ? BasicResultVO.success() : BasicResultVO.fail("消息模板状态流转失败");
+        return res ? BasicResultVO.success() : BasicResultVO.fail(MSG);
     }
 }

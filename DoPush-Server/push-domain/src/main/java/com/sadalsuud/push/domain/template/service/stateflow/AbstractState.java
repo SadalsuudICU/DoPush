@@ -18,6 +18,8 @@ public abstract class AbstractState {
     @Resource
     protected IMessageTemplateRepository messageTemplateRepository;
 
+    protected static final String MSG = "状态更新失败, 请查看模板状态";
+
 
     /**
      * 活动提审
