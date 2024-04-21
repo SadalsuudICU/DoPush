@@ -64,7 +64,7 @@
               class="btn"
               size="mini"
               type="danger"
-              @click="handleReject(scope.$index, scope.row)"
+              @click="handleRefuse(scope.$index, scope.row)"
             >退回</el-button>
           </div>
         </template>
@@ -88,7 +88,7 @@
 
 <script>
 // eslint-disable-next-line no-unused-vars
-import { auditList } from '@/api/template'
+import { auditList, auditPass, auditRefuse } from '@/api/template'
 import { transTimestampToDate } from '@/utils/date'
 import CreateOrUpdate from '@/views/template/createOrUpdate.vue'
 // import createOrUpdate from '@/views/template/createOrUpdate.vue'
@@ -308,12 +308,24 @@ export default {
       this.checkTableVisible = true
     },
     handlePass(index, row) {
-      console.log(row.id)
-      this.$message.success('check')
+      console.log(index)
+      const template = this.originData[index]
+      auditPass(template, true).then(res => {
+        if (res.status === '200') {
+          this.$message.success(res.msg)
+          this.search()
+        }
+      })
     },
-    handleReject(index, row) {
-      console.log(row.id)
-      this.$message.success('check')
+    handleRefuse(index, row) {
+      console.log(index)
+      const template = this.originData[index]
+      auditRefuse(template, true).then(res => {
+        if (res.status === '200') {
+          this.$message.success(res.msg)
+          this.search()
+        }
+      })
     }
   }
 }

@@ -70,3 +70,23 @@ export const auditList = (data) => {
     }
   })
 }
+
+export const auditPass = (template) => {
+  return request({
+    url: '/messageTemplate/audit/pass',
+    method: 'post',
+    data: {
+      ...template
+    }
+  })
+}
+
+export const auditRefuse = (template) => {
+  return request({
+    url: '/messageTemplate/audit/refuse',
+    method: 'post',
+    data: {
+      ...template
+    }
+  })
+}
