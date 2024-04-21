@@ -135,6 +135,26 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/material',
+    component: Layout,
+    name: '素材管理',
+    meta: { title: '素材管理', icon: 'material' },
+    children: [
+      {
+        path: 'index',
+        name: 'Material',
+        component: () => import('@/views/material/index.vue'),
+        meta: { title: '素材市场', icon: 'link' }
+      },
+      {
+        path: 'addOrUpdate',
+        name: 'MaterialAddOrUpdate',
+        component: () => import('@/views/material/addOrUpdate.vue'),
+        meta: { title: '新增素材', icon: 'form' }
+      }
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
