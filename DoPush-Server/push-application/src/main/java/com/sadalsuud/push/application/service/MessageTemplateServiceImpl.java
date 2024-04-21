@@ -15,12 +15,14 @@ import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.support.cron.CronTaskService;
 import com.sadalsuud.push.domain.support.cron.entity.XxlJobInfo;
 import com.sadalsuud.push.domain.template.MessageTemplate;
+import com.sadalsuud.push.domain.template.service.stateflow.IStateHandler;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.MessageTemplateDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
@@ -36,11 +38,14 @@ import java.util.Objects;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MessageTemplateServiceImpl implements MessageTemplateService {
 
     private final MessageTemplateDao messageTemplateDao;
 
     private final CronTaskService cronTaskService;
+
+    private final IStateHandler stateHandler;
 
     @Override
     public Page<MessageTemplate> queryList(MessageTemplateParam param) {
@@ -170,6 +175,16 @@ public class MessageTemplateServiceImpl implements MessageTemplateService {
             query.orderBy(cb.desc(root.get("updated")));
             return query.getRestriction();
         }, pageRequest);
+    }
+
+    @Override
+    public BasicResultVO auditPass(MessageTemplate template) {
+        return stateHandler.checkPass(template.getId(), template);
+    }
+
+    @Override
+    public BasicResultVO auditRefuse(MessageTemplate template) {
+        return stateHandler.checkRefuse(template.getId(), template);
     }
 
 

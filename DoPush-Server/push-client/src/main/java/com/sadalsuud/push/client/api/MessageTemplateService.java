@@ -83,4 +83,8 @@ public interface MessageTemplateService {
 
 
     Page<MessageTemplate> waitingAuditTemplateList(MessageTemplateParam param);
+
+    BasicResultVO auditPass(MessageTemplate template);
+
+    BasicResultVO auditRefuse(MessageTemplate template);
 }
