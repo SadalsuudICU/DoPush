@@ -168,6 +168,7 @@ public class MessageTemplateServiceImpl implements MessageTemplateService {
             predicateList.add(cb.equal(root.get("isDeleted").as(Integer.class), CommonConstant.FALSE));
             predicateList.add(cb.equal(root.get("creator").as(String.class), creator));
             predicateList.add(cb.equal(root.get("auditStatus").as(String.class), AuditStatus.WAIT_AUDIT.getCode()));
+            predicateList.add(cb.equal(root.get("msgStatus").as(String.class), MessageStatus.INIT.getCode()));
             Predicate[] p = new Predicate[predicateList.size()];
             // 查询
             query.where(cb.and(predicateList.toArray(p)));
