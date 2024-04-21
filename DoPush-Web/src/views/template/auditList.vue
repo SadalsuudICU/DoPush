@@ -81,7 +81,7 @@
     />
 
     <el-dialog title="消息模板信息修改" :visible.sync="checkTableVisible">
-      <CreateOrUpdate :data="checkData" :operationNotAllowed="true" />
+      <CreateOrUpdate :data="checkData" :operable="true" />
     </el-dialog>
   </div>
 </template>

@@ -2,32 +2,32 @@
   <div class="app-container">
     <el-page-header content="新增模板" @back="goBack" />
     <el-divider />
-    <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+    <el-form ref="form" :rules="rules" :model="form" label-width="120px" :disabled="operable">
       <el-tag>基本配置</el-tag>
       <el-form-item label="模板名称" prop="name">
-        <el-input v-model="form.name" :disabled="operationNotAllowed" />
+        <el-input v-model="form.name" />
       </el-form-item>
       <el-form-item label="模板业务方" prop="proposer">
-        <el-input v-model="form.proposer" :disabled="operationNotAllowed" />
+        <el-input v-model="form.proposer" />
       </el-form-item>
       <el-form-item label="接收者id类型" prop="idType">
         <el-radio-group v-model="form.idType">
-          <el-radio v-for="item in idTypeOptions" :key="item.value" :label="item.value" :disabled="operationNotAllowed">{{ item.label }}</el-radio>
+          <el-radio v-for="item in idTypeOptions" :key="item.value" :label="item.value">{{ item.label }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="消息类型" prop="msgType">
         <el-radio-group v-model="form.msgType">
-          <el-radio v-for="item in msgTypeOptions" :key="item.value" :label="item.value" :disabled="operationNotAllowed">{{ item.label }}</el-radio>
+          <el-radio v-for="item in msgTypeOptions" :key="item.value" :label="item.value">{{ item.label }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="屏蔽类型" prop="shieldType">
         <el-radio-group v-model="form.shieldType">
-          <el-radio v-for="item in shieldTypeOptions" :key="item.value" :label="item.value" :disabled="operationNotAllowed">{{ item.label }}</el-radio>
+          <el-radio v-for="item in shieldTypeOptions" :key="item.value" :label="item.value">{{ item.label }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="消息模板类型" prop="templateType">
         <el-radio-group v-model="form.templateType">
-          <el-radio v-for="item in templateTypeOptions" :key="item.value" :label="item.value" :disabled="operationNotAllowed">{{ item.label }}
+          <el-radio v-for="item in templateTypeOptions" :key="item.value" :label="item.value">{{ item.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>
@@ -231,7 +231,7 @@ export default {
   props: {
     // eslint-disable-next-line vue/require-default-prop
     data: Object,
-    operationNotAllowed: Boolean
+    operable: Boolean
   },
   data() {
     return {
