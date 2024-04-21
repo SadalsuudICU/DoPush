@@ -4,6 +4,7 @@ import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.template.MessageTemplate;
 import com.sadalsuud.push.domain.template.service.StateConfig;
 import com.sadalsuud.push.domain.template.service.stateflow.IStateHandler;
+import org.springframework.stereotype.Service;
 
 /**
  * @Description
@@ -12,6 +13,7 @@ import com.sadalsuud.push.domain.template.service.stateflow.IStateHandler;
  * @Date 2024/3/26
  * @Project DoPush-Server
  */
+@Service
 public class StateHandlerImpl extends StateConfig implements IStateHandler {
     @Override
     public BasicResultVO arraignment(Long id, MessageTemplate messageTemplate) {
