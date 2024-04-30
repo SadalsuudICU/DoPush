@@ -121,7 +121,7 @@ public class DataServiceImpl implements DataService {
      */
     @Override
     public SmsTimeLineVo getTraceSmsInfo(DataParam dataParam) {
-        Integer sendDate = Integer.valueOf(DateUtil.format(new Date(dataParam.getDateTime() * 1000L), DatePattern.PURE_DATE_PATTERN));
+        Integer sendDate = Integer.valueOf(DateUtil.format(new Date(dataParam.getDateTime()), DatePattern.PURE_DATE_PATTERN));
         List<SmsRecord> smsRecordList = smsRepository.findByPhoneAndSendDate(Long.valueOf(dataParam.getReceiver()), sendDate);
         if (CollUtil.isEmpty(smsRecordList)) {
             return SmsTimeLineVo.builder().items(Collections.singletonList(SmsTimeLineVo.ItemsVO.builder().build())).build();
