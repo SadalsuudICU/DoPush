@@ -8,5 +8,12 @@ export const uploadMaterial = (formData) => {
   })
 }
 
-export const queryMaterialList = () => {
+export const queryMaterialList = (data) => {
+  return request({
+    url: '/material/list',
+    method: 'get',
+    params: {
+      ...data
+    }
+  })
 }
