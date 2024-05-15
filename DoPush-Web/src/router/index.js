@@ -150,8 +150,43 @@ export const constantRoutes = [
       {
         path: 'addOrUpdate',
         name: 'MaterialAddOrUpdate',
-        component: () => import('@/views/material/addOrUpdate.vue'),
+        component: () => import('@/views/material/add.vue'),
         meta: { title: '新增素材', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/user',
+    component: Layout,
+    name: '用户管理',
+    meta: { title: '用户管理', icon: 'user' },
+    children: [
+      {
+        path: 'add',
+        name: 'Add',
+        component: () => import('@/views/user/add.vue'),
+        meta: { title: '添加用户', icon: 'create' }
+      },
+      {
+        path: 'permission',
+        name: 'Permission',
+        component: () => import('@/views/user/permission.vue'),
+        meta: { title: '权限管理', icon: 'eye' }
+      }
+    ]
+  },
+
+  {
+    path: '/export',
+    component: Layout,
+    name: '导出',
+    meta: { title: '导出', icon: 'list' },
+    children: [
+      {
+        path: 'exportFailedTask',
+        name: 'ExportFailedTask',
+        component: () => import('@/views/failedTask/index.vue'),
+        meta: { title: '失败任务导出', icon: 'example' }
       }
     ]
   },
