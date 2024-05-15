@@ -8,6 +8,9 @@ import com.sadalsuud.push.domain.template.MessageTemplate;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * @Description 素材上传接口
  * @Author sadalsuud
@@ -34,4 +37,8 @@ public interface MaterialService {
     Page<Material> queryList(MaterialParam param);
 
     Material upload(MultipartFile file, String name, Integer type, String creator) throws Exception;
+
+    void deleteByIds(List<Long> idList);
+
+    Optional<Material> referenceByTemplate(String id);
 }

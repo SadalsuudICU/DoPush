@@ -1,7 +1,6 @@
 package com.sadalsuud.push.application.service;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.lang.UUID;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSON;
@@ -17,10 +16,7 @@ import com.sadalsuud.push.common.constant.CommonConstant;
 import com.sadalsuud.push.common.constant.DoPushConstant;
 import com.sadalsuud.push.common.constant.SendChanelUrlConstant;
 import com.sadalsuud.push.common.dto.account.DingDingWorkNoticeAccount;
-import com.sadalsuud.push.common.enums.ChannelType;
-import com.sadalsuud.push.common.enums.EnumUtil;
-import com.sadalsuud.push.common.enums.FileType;
-import com.sadalsuud.push.common.enums.RespStatusEnum;
+import com.sadalsuud.push.common.enums.*;
 import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.channel.AccountService;
 import com.sadalsuud.push.infrastructure.gatewayImpl.handler.AccessTokenUtils;
@@ -43,6 +39,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @Description
@@ -149,5 +146,21 @@ public class MaterialServiceImpl implements MaterialService {
         save.setCreateTime(Math.toIntExact(DateUtil.currentSeconds()));
 
         return materialDao.save(save);
+    }
+
+    @Override
+    public void deleteByIds(List<Long> idList) {
+        List<Material> deletingMaterials = materialDao.findAllById(idList);
+        deletingMaterials.forEach(material -> material.setIsDeleted(CommonConstant.TRUE));
+        materialDao.saveAll(deletingMaterials);
+    }
+
+    @Override
+    public Optional<Material> referenceByTemplate(String id) {
+        Material refer = materialDao.getById(Long.valueOf(id));
+        Integer type = refer.getType();
+        return
+                MaterialType.OTHERS.getCode().equals(type) ?
+                Optional.of(refer) : Optional.empty() ;
     }
 }

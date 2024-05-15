@@ -1,5 +1,7 @@
 package com.sadalsuud.push.adapter.web;
 
+import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.text.StrPool;
 import com.sadalsuud.push.adapter.facade.annotation.DoPushAspect;
 import com.sadalsuud.push.client.api.MaterialService;
 import com.sadalsuud.push.client.dto.MaterialParam;
@@ -15,6 +17,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @Description 素材管理接口
@@ -68,5 +75,35 @@ public class MaterialController {
                 .count(materials.getTotalElements())
                 .rows(materials.toList())
                 .build();
+    }
+
+    /**
+     * 根据Id删除
+     * id多个用逗号分隔开
+     */
+    @DeleteMapping("delete/{id}")
+    @ApiOperation("/根据Ids删除")
+    public void deleteByIds(@PathVariable("id") String id) {
+        if (CharSequenceUtil.isNotBlank(id)) {
+            List<Long> idList = Arrays.stream(id.split(StrPool.COMMA)).map(Long::valueOf).collect(Collectors.toList());
+            materialService.deleteByIds(idList);
+        }
+    }
+
+    /**
+     * 模板根据Id引用素材
+     * id多个用逗号分隔开
+     */
+    @PostMapping("reference/{id}")
+    @ApiOperation("/模板根据Id引用素材")
+    public BasicResultVO reference(@PathVariable("id") String id) {
+        if (CharSequenceUtil.isBlank(id)) {
+            return BasicResultVO.fail("please input id to get material");
+        }
+        Optional<Material> material = materialService.referenceByTemplate(id);
+        if (material.isPresent()) {
+            return BasicResultVO.success(material.get());
+        }
+        return BasicResultVO.fail("no such material!") ;
     }
 }
