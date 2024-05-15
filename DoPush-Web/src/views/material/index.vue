@@ -167,6 +167,17 @@ export default {
         :filters="item.filters"
         :filter-method="item.filters ? filterTag : undefined"
       />
+      <el-table-column label="操作">
+        <template v-slot="scope">
+          <div class="btns">
+            <el-button
+              class="btn"
+              size="danger"
+              @click="alert(scope.id)"
+            >删除</el-button>
+          </div>
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination
       :current-page="currentPage"

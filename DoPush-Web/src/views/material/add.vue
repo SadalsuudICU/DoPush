@@ -13,6 +13,24 @@ export default {
       },
       msg: '',
       accountOptions: [],
+      materailTypeOptions: [
+        {
+          'label': '图片',
+          'value': '10'
+        },
+        {
+          'label': '语音',
+          'value': '20'
+        },
+        {
+          'label': '视频',
+          'value': '30'
+        },
+        {
+          'label': '其他文件',
+          'value': '40'
+        }
+      ],
       dingTalkRobotSendTypeOptions: [
         {
           'label': '文本',
@@ -139,7 +157,7 @@ export default {
       </el-form-item>
       <el-form-item label="素材类型" prop="type">
         <el-radio-group v-model="form.type">
-          <el-radio v-for="item in dingTalkRobotSendTypeOptions" :key="item.value" :label="item.value">{{ item.label }}</el-radio>
+          <el-radio v-for="item in materailTypeOptions" :key="item.value" :label="item.value">{{ item.label }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="发送渠道(非必须)" prop="sendAccount">
