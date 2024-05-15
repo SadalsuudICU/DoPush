@@ -42,7 +42,7 @@ public class MaterialController {
 
 
     /**
-     * 素材上传接口
+     * 钉钉素材上传直接发送接口
      *
      * @param file        文件内容
      * @param sendAccount 发送账号
@@ -50,17 +50,33 @@ public class MaterialController {
      * @param fileType    文件类型
      * @return
      */
-    @PostMapping("/upload")
-    @ApiOperation("/素材上传接口")
-    public BasicResultVO uploadMaterial(@RequestParam("file") MultipartFile file, String sendAccount, Integer sendChannel, String fileType, String creator, String name) {
+    @PostMapping("/dingDingUpload")
+    @ApiOperation("/钉钉素材上传发送接口")
+    public BasicResultVO uploadDingDingMaterial(@RequestParam("file") MultipartFile file, String sendAccount, Integer sendChannel, String fileType, String creator, String name) {
         if (ChannelType.DING_DING_WORK_NOTICE.getCode().equals(sendChannel)) {
             return materialService.dingDingMaterialUpload(file, sendAccount, fileType, creator, name);
         }
 
         return materialService.dingDingMaterialUpload(file, sendAccount, fileType, creator, name);
+    }
 
+    /**
+     * 素材上传接口
+     * @param file
+     * @param name
+     * @param fileType
+     * @param creator
+     * @return
+     */
+    @PostMapping("/upload")
+    @ApiOperation("/钉钉素材上传发送接口")
+    public BasicResultVO uploadMaterial(@RequestParam("file") MultipartFile file, String name, String fileType, String creator) {
+        Optional<Material> upload = materialService.upload(file, name, Integer.valueOf(fileType), creator);
+        if (upload.isPresent()) {
+            return BasicResultVO.success(upload.get());
+        }
 
-        //return BasicResultVO.fail();
+        return BasicResultVO.fail("upload material failed");
     }
 
 

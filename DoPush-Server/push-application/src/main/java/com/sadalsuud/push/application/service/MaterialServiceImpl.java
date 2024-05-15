@@ -19,9 +19,9 @@ import com.sadalsuud.push.common.dto.account.DingDingWorkNoticeAccount;
 import com.sadalsuud.push.common.enums.*;
 import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.channel.AccountService;
+import com.sadalsuud.push.domain.support.Material;
 import com.sadalsuud.push.infrastructure.gatewayImpl.handler.AccessTokenUtils;
 import com.sadalsuud.push.infrastructure.gatewayImpl.repository.MaterialDao;
-import com.sadalsuud.push.domain.support.Material;
 import com.taobao.api.FileItem;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,8 +65,14 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public BasicResultVO dingDingMaterialUpload(MultipartFile file, String sendAccount, String fileType, String creator, String name) {
         OapiMediaUploadResponse rsp;
+        Optional<Material> upload = upload(file, name, Integer.valueOf(fileType), creator);
+
+        if (!upload.isPresent()) {
+            return BasicResultVO.fail("save material failed");
+        }
+
         try {
-            String path = upload(file, name, Integer.valueOf(fileType), creator).getPath();
+            String path =upload.get().getPath();
 
             DingDingWorkNoticeAccount account = accountUtils.getAccountById(Integer.valueOf(sendAccount), DingDingWorkNoticeAccount.class);
             String accessToken = accessTokenUtils.getAccessToken(ChannelType.DING_DING_WORK_NOTICE.getCode(), Integer.valueOf(sendAccount), account, false);
@@ -116,7 +122,7 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public Material upload(MultipartFile file, String name, Integer type, String creator) throws Exception {
+    public Optional<Material> upload(MultipartFile file, String name, Integer type, String creator) {
         String originalFilename = file.getOriginalFilename();
         String filePath = IdUtil.fastSimpleUUID() + originalFilename;
         System.out.println(filePath);
@@ -129,7 +135,7 @@ public class MaterialServiceImpl implements MaterialService {
             file.transferTo(localFile);
         } catch (Exception e) {
             log.error("MessageTemplateController#upload fail! e:{},params{}", Throwables.getStackTraceAsString(e), JSON.toJSONString(file));
-            throw e;
+            return Optional.empty();
         }
 
         String c = CharSequenceUtil.isBlank(creator) ? DoPushConstant.DEFAULT_CREATOR : creator;
@@ -142,10 +148,10 @@ public class MaterialServiceImpl implements MaterialService {
         save.setCreator(c);
         save.setPath(localFile.getAbsolutePath());
         save.setIsDeleted(0);
-
         save.setCreateTime(Math.toIntExact(DateUtil.currentSeconds()));
 
-        return materialDao.save(save);
+        Material saved = materialDao.save(save);
+        return Optional.of(saved);
     }
 
     @Override
