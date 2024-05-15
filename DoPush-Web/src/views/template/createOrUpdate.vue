@@ -39,8 +39,12 @@
         </p>
       </el-form-item>
       <el-form-item v-if="form.templateType === 10" label="人群文件" prop="cronCrowPath">
+        <el-radio-group v-if="form.templateType === 10" v-model="uploadOrReference">
+          <el-radio v-for="item in crowFile" :key="item.value" :label="item.value">{{ item.label }}
+          </el-radio>
+        </el-radio-group>
         <el-upload
-          v-if="form.templateType === 10"
+          v-if="form.templateType === 10 && uploadOrReference === 'upload'"
           ref="upload"
           class="upload-demo"
           action="#"
@@ -54,6 +58,12 @@
           <el-button size="small" type="primary">选择文件</el-button>
           <el-button size="small" type="success" @click.stop="uploadCrowFile">上传到服务器</el-button>
         </el-upload>
+        <div
+          v-if="form.templateType === 10 && uploadOrReference === 'reference'"
+        >
+          <el-input v-model="materialId" placeholder="请输入素材id" />
+          <el-button type="success" @click="getReference">确定引用</el-button>
+        </div>
       </el-form-item>
       <el-form-item v-if="form.templateType === 10" label="人群上传路径" prop="cronCrowdPath">
         <el-input v-model="form.cronCrowdPath" placeholder="上传成功后自动编辑(无需填写)" disabled />
@@ -226,6 +236,7 @@
 <script>
 import { query } from '@/api/channel'
 import { save, upload } from '@/api/template'
+import { reference } from '@/api/material'
 
 export default {
   props: {
@@ -236,6 +247,8 @@ export default {
   data() {
     return {
       isEdit: false,
+      uploadOrReference: 'upload',
+      materialId: '',
       form: {
         id: '',
         name: '',
@@ -297,6 +310,15 @@ export default {
         //   { required: true, message: 'url', trigger: 'blur' }
         // ]
       },
+      crowFile: [
+        {
+          label: '上传',
+          value: 'upload'
+        },
+        {
+          label: '引用素材',
+          value: 'reference'
+        }],
       idTypeOptions: [
         {
           label: '用户ID',
@@ -569,6 +591,25 @@ export default {
       }).catch(err => {
         console.log(err)
         this.$message.error('上传失败, 接口故障')
+      })
+    },
+    getReference() {
+      const _materialId = this.materialId
+      if (!_materialId || _materialId === '') {
+        this.$message.error('请输入素材id再进行引用')
+      }
+      reference(_materialId).then(res => {
+        console.log(res.data)
+        if (res.status === '200') {
+          const material = res.data
+          this.$message.success('成功引用到素材: ' + material.name)
+          this.form.cronCrowdPath = material.path
+        } else {
+          this.$message.error(res.data)
+        }
+      }).catch(err => {
+        console.log(err)
+        this.$message.error('请求服务器失败, 请联系管理员')
       })
     }
   }
