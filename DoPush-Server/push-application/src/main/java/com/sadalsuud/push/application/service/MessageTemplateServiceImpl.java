@@ -196,24 +196,28 @@ public class MessageTemplateServiceImpl implements MessageTemplateService {
         Map<Integer, Long> msgStatusCollect =
                 templates.stream().collect(Collectors.groupingBy(MessageTemplate::getMsgStatus, Collectors.counting()));
 
-        HashMap<String, Long> data = new HashMap<>();
+        HashMap<String, Long> auditData = new HashMap<>();
         for (AuditStatus type : AuditStatus.values()) {
             Integer code = type.getCode();
             String des = type.getDescription();
             Long l = auditCollect.get(code);
             l = l == null ? 0 : l;
-            data.put(des, l);
+            auditData.put(des, l);
         }
 
+        HashMap<String, Long> msgStatusData = new HashMap<>();
         for (MessageStatus type : MessageStatus.values()) {
             Integer code = type.getCode();
             String des = type.getDescription();
             Long l = auditCollect.get(code);
             l = l == null ? 0 : l;
-            data.put(des, l);
+            msgStatusData.put(des, l);
         }
 
 
+        HashMap<String, Map<String, Long>> data = new HashMap<>();
+        data.put("audit", auditData);
+        data.put("msgStatus", msgStatusData);
         return BasicResultVO.success(data);
     }
 
