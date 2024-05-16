@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-page-header content="新增模板" @back="goBack" />
     <el-divider />
-    <el-form ref="form" :rules="rules" :model="form" label-width="120px" :disabled="operable">
+    <el-form ref="form" :rules="rules" :model="form" label-width="120px">
       <el-tag>基本配置</el-tag>
       <el-form-item label="模板名称" prop="name">
         <el-input v-model="form.name" />
@@ -241,7 +241,7 @@ import { reference } from '@/api/material'
 export default {
   props: {
     // eslint-disable-next-line vue/require-default-prop
-    data: Object,
+    update: Object,
     operable: Boolean
   },
   data() {
@@ -496,9 +496,10 @@ export default {
       ]
     }
   },
-  mounted() {
-    if (this.data) {
-      this.form = this.data
+  created() {
+    if (this.update) {
+      this.form = this.update
+      console.log(this.form)
       this.isEdit = true
     }
   },

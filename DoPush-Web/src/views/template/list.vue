@@ -110,7 +110,7 @@
       @current-change="handleCurrentChange"
     />
     <el-dialog title="消息模板信息修改" :visible.sync="updateTableVisible">
-      <CreateOrUpdate :data="updateData" :operable="false" />
+      <CreateOrUpdate :update="updateData" :operable="true" />
     </el-dialog>
     <el-dialog title="消息模板测试" :visible.sync="testTableVisible">
       <el-form ref="form" :model="test" label-width="120px">
@@ -133,7 +133,6 @@ import { transTimestampToDate } from '@/utils/date'
 import createOrUpdate from '@/views/template/createOrUpdate.vue'
 
 export default {
-  inject: ['reload'],
   components: {
     CreateOrUpdate: createOrUpdate
   },
@@ -272,7 +271,7 @@ export default {
   mounted() {
     this.search()
     this.$bus.$on('templateUpdate', () => {
-      this.reload()
+      this.search()
     })
   },
   methods: {
@@ -360,7 +359,6 @@ export default {
       }
       const msgContent = this.updateData.msgContent
       Object.assign(this.updateData, JSON.parse(msgContent))
-      console.log(this.updateData)
       this.updateTableVisible = true
     },
     handleDeactivate(index, row) {
