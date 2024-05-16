@@ -87,4 +87,6 @@ public interface MessageTemplateService {
     BasicResultVO auditPass(MessageTemplate template);
 
     BasicResultVO auditRefuse(MessageTemplate template);
+
+    BasicResultVO visualization();
 }

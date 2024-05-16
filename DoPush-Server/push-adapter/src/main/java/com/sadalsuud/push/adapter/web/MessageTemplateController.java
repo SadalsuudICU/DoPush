@@ -237,4 +237,10 @@ public class MessageTemplateController {
         log.error("template==>{}", template);
         return messageTemplateService.auditRefuse(template);
     }
+
+    @GetMapping("/data")
+    @ApiOperation("/模板信息")
+    public BasicResultVO data() {
+        return messageTemplateService.visualization();
+    }
 }

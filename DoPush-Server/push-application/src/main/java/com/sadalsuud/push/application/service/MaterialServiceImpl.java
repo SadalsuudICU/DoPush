@@ -37,9 +37,8 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Description
@@ -168,5 +167,24 @@ public class MaterialServiceImpl implements MaterialService {
         return
                 MaterialType.OTHERS.getCode().equals(type) ?
                 Optional.of(refer) : Optional.empty() ;
+    }
+
+
+    @Override
+    public BasicResultVO visualization() {
+        List<Material> materials = materialDao.findAll();
+        Map<Integer, Long> collect =
+                materials.stream().collect(Collectors.groupingBy(Material::getType, Collectors.counting()));
+        HashMap<String, Long> data = new HashMap<>();
+
+        for (MaterialType type : MaterialType.values()) {
+            Integer code = type.getCode();
+            String des = type.getDescription();
+            Long l = collect.get(code);
+            l = l == null ? 0 : l;
+            data.put(des, l);
+        }
+
+        return BasicResultVO.success(data);
     }
 }

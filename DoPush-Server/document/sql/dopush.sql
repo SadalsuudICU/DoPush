@@ -2,12 +2,12 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 drop database if exists `dopush`;
-
 create database `dopush`;
 use `dopush`;
 
-drop table IF EXISTS message_template;
 
+
+drop table IF EXISTS message_template;
 CREATE TABLE `message_template`
 (
     `id`               bigint(20)                               NOT NULL AUTO_INCREMENT,
@@ -26,7 +26,7 @@ CREATE TABLE `message_template`
     `msg_content`      varchar(4096) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '消息内容 占位符用{$var}表示',
     `send_account`     int(10)                                  NOT NULL DEFAULT '0' COMMENT '发送账号 一个渠道下可存在多个账号',
     `creator`          varchar(45) COLLATE utf8mb4_unicode_ci   NOT NULL DEFAULT '' COMMENT '创建者',
-    `updator`          varchar(45) COLLATE utf8mb4_unicode_ci   NOT NULL DEFAULT '' COMMENT '更新者',
+    `updater`          varchar(45) COLLATE utf8mb4_unicode_ci   NOT NULL DEFAULT '' COMMENT '更新者',
     `auditor`          varchar(45) COLLATE utf8mb4_unicode_ci   NOT NULL DEFAULT '' COMMENT '审核人',
     `team`             varchar(45) COLLATE utf8mb4_unicode_ci   NOT NULL DEFAULT '' COMMENT '业务方团队',
     `proposer`         varchar(45) COLLATE utf8mb4_unicode_ci   NOT NULL DEFAULT '' COMMENT '业务方',
@@ -42,6 +42,7 @@ CREATE TABLE `message_template`
 
 
 
+drop table IF EXISTS `sms_record`;
 CREATE TABLE `sms_record`
 (
     `id`                  bigint(20)                              NOT NULL AUTO_INCREMENT,
@@ -64,9 +65,9 @@ CREATE TABLE `sms_record`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT ='短信记录信息';
 
+
+
 drop table IF EXISTS channel_account;
-
-
 CREATE TABLE `channel_account`
 (
     `id`             bigint(20)                               NOT NULL AUTO_INCREMENT,
@@ -86,10 +87,9 @@ CREATE TABLE `channel_account`
 
 
 drop table if exists `request_log`;
-
 CREATE TABLE `request_log`
 (
-    `id`            varchar(128)                              NOT NULL,
+    `id`            varchar(128)                             NOT NULL,
     `uri`           varchar(64)                              NOT NULL COMMENT '接口url',
     `method`        varchar(32)                              NOT NULL COMMENT '请求方法',
     `args`          varchar(1024) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '请求参数',
@@ -105,5 +105,117 @@ CREATE TABLE `request_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT ='请求日志';
+
+
+
+drop table if exists `user`;
+CREATE TABLE `user`
+(
+    `id`       bigint(20)  NOT NULL AUTO_INCREMENT,
+    `username` varchar(64) NOT NULL COMMENT '用户名',
+    `password` varchar(64) NOT NULL default 'dopush123456' COMMENT '密码',
+    `role`  int         NOT NULL COMMENT '角色: 0->管理 1->审查 2->运营',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 4
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci COMMENT ='用户表';
+insert into `user` values (1, 'admin', 'admin', 0);
+insert into `user` values (2, 'examiner', 'examiner', 1);
+insert into `user` values (3, 'salesperson', 'salesperson', 2);
+
+
+# drop table if exists `role`;
+# CREATE TABLE `role`
+# (
+#     `id`        bigint(20)  NOT NULL AUTO_INCREMENT,
+#     description varchar(64) NOT NULL COMMENT '角色名称',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   AUTO_INCREMENT = 1
+#   DEFAULT CHARSET = utf8mb4
+#   COLLATE = utf8mb4_unicode_ci COMMENT ='角色表';
+
+
+# drop table if exists `dept`;
+# CREATE TABLE `dept`
+# (
+#     `id`          bigint(20)  NOT NULL AUTO_INCREMENT,
+#     `description` varchar(64) NOT NULL COMMENT '部门描述',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   AUTO_INCREMENT = 1
+#   DEFAULT CHARSET = utf8mb4
+#   COLLATE = utf8mb4_unicode_ci COMMENT ='部门表';
+
+
+drop table if exists `user_dimension_data`;
+CREATE TABLE `user_dimension_data`
+(
+    `id`          int(11)                                 NOT NULL DEFAULT '0' COMMENT '产出时间',
+    `receiver`    varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户',
+    `anchor_info` json COMMENT '点位信息',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci COMMENT ='用户维度数据';
+
+
+drop table if exists `template_dimension_data`;
+CREATE TABLE `template_dimension_data`
+(
+    `id`          int(11)                                 NOT NULL DEFAULT '0' COMMENT '产出时间',
+    `business_id` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务id',
+    `anchor_info` json COMMENT '点位信息',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci COMMENT ='每日消息模板维度数据';
+
+
+drop table if exists `message_dimension_data`;
+CREATE TABLE `message_dimension_data`
+(
+    `id`          int(11)                                 NOT NULL DEFAULT '0' COMMENT '产出时间',
+    `message_key` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '构建messageId维度的链路信息key',
+    `anchor_info` json COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci COMMENT ='messageId维度的链路信息';
+
+drop table if exists `material`;
+CREATE TABLE `material`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
+    `type`        int        NOT NULL default 0 COMMENT '素材类型',
+    `creator`     varchar(128)        NOT NULL COMMENT '上传者',
+    `name`        varchar(128) COMMENT '素材文件名',
+    `path`        varchar(256) COMMENT '素材文件存储地址',
+    `create_time` int COMMENT '素材创建时间',
+    `is_deleted`  tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除：0.不删除 1.删除',
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    AUTO_INCREMENT = 1
+    COLLATE = utf8mb4_unicode_ci COMMENT ='素材';
+
+
+drop table if exists `failed_task`;
+CREATE TABLE `failed_task`
+(
+    `messageId`         varchar(200) NOT NULL COMMENT '消息唯一id',
+    `bizId`             varchar(200) NOT NULL COMMENT '业务消息发送id',
+    `messageTemplateId` varchar(200) NOT NULL COMMENT '消息模板id',
+    `businessId`        bigint default 0 COMMENT '业务Id(数据追踪使用)',
+    `receiver`          text         NOT NULL COMMENT '接受人群',
+    `time`              int COMMENT '录入时间',
+    primary key (`messageId`)
+)
+    ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci
+    COMMENT '失败任务信息';
 
 

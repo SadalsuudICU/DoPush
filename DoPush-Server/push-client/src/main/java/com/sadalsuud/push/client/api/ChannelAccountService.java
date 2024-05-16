@@ -1,5 +1,6 @@
 package com.sadalsuud.push.client.api;
 
+import com.sadalsuud.push.common.vo.BasicResultVO;
 import com.sadalsuud.push.domain.channel.ChannelAccount;
 
 import java.util.List;
@@ -47,4 +48,5 @@ public interface ChannelAccountService {
      */
     void deleteByIds(List<Long> ids);
 
+    BasicResultVO visualization();
 }

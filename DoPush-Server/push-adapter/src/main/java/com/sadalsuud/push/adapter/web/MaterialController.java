@@ -122,4 +122,10 @@ public class MaterialController {
         }
         return BasicResultVO.fail("no such material!") ;
     }
+
+    @GetMapping("/data")
+    @ApiOperation("/素材信息")
+    public BasicResultVO data() {
+        return materialService.visualization();
+    }
 }

@@ -25,9 +25,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Description 消息模板管理接口
@@ -188,6 +187,35 @@ public class MessageTemplateServiceImpl implements MessageTemplateService {
         return stateHandler.checkRefuse(template.getId(), template);
     }
 
+    @Override
+    public BasicResultVO visualization() {
+        List<MessageTemplate> templates = messageTemplateDao.findAll();
+        Map<Integer, Long> auditCollect =
+                templates.stream()
+                        .collect(Collectors.groupingBy(MessageTemplate::getAuditStatus, Collectors.counting()));
+        Map<Integer, Long> msgStatusCollect =
+                templates.stream().collect(Collectors.groupingBy(MessageTemplate::getMsgStatus, Collectors.counting()));
+
+        HashMap<String, Long> data = new HashMap<>();
+        for (AuditStatus type : AuditStatus.values()) {
+            Integer code = type.getCode();
+            String des = type.getDescription();
+            Long l = auditCollect.get(code);
+            l = l == null ? 0 : l;
+            data.put(des, l);
+        }
+
+        for (MessageStatus type : MessageStatus.values()) {
+            Integer code = type.getCode();
+            String des = type.getDescription();
+            Long l = auditCollect.get(code);
+            l = l == null ? 0 : l;
+            data.put(des, l);
+        }
+
+
+        return BasicResultVO.success(data);
+    }
 
     /**
      * 初始化状态信息

@@ -39,4 +39,6 @@ public interface MaterialService {
     void deleteByIds(List<Long> idList);
 
     Optional<Material> referenceByTemplate(String id);
+
+    BasicResultVO visualization();
 }
