@@ -35,3 +35,10 @@ export const batchDelete = (ids) => {
   })
 }
 
+export const accountData = () => {
+  return request({
+    url: '/account/data',
+    method: 'get'
+  })
+}
+

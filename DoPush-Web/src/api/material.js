@@ -31,3 +31,10 @@ export const reference = (id) => {
     method: 'post'
   })
 }
+
+export const materialData = () => {
+  return request({
+    url: '/material/data',
+    method: 'get'
+  })
+}

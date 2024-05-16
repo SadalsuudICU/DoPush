@@ -90,3 +90,10 @@ export const auditRefuse = (template) => {
     }
   })
 }
+
+export const templateData = () => {
+  return request({
+    url: '/messageTemplate/data',
+    method: 'get'
+  })
+}
