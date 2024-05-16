@@ -65,6 +65,7 @@ public abstract class BaseHandler implements Handler {
         // 失败则保存失败的任务信息 以便后续清洗显示和重发
         FailedTask failedTask = new FailedTask();
         BeanUtil.copyProperties(taskInfo, failedTask, true);
+        // TODO 任务失败逻辑 MQ重试 最大次数后放弃重试落库
         failedTaskRepository.save(failedTask);
         logUtils.print(AnchorInfo.builder().state(AnchorState.SEND_FAIL.getCode()).bizId(taskInfo.getBizId()).messageId(taskInfo.getMessageId()).businessId(taskInfo.getBusinessId()).ids(taskInfo.getReceiver()).build());
     }

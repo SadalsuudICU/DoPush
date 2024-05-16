@@ -108,9 +108,6 @@ public class ConsumeServiceImpl implements ConsumeService {
                     messageTemplateRepository.save(clone[0]);
                 }
 
-                // TODO 任务失败通知逻辑 发消息到MQ
-
-
                 throw new RuntimeException(e);
             }
         });
