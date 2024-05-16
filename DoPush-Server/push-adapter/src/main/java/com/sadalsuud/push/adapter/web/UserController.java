@@ -61,7 +61,7 @@ public class UserController {
             // 查询
             query.where(cb.and(predicateList.toArray(p)));
             // 排序
-            query.orderBy(cb.desc(root.get("updated")));
+            query.orderBy(cb.desc(root.get("id")));
             return query.getRestriction();
         }, pageRequest);
         List<User> list = users.toList();
@@ -94,10 +94,27 @@ public class UserController {
         }
 
         User user1 = user.get();
-        user1.setPassword(password);
-        user1.setRole(role);
+        user1.setPassword(CharSequenceUtil.isNotBlank(password) ? password : user1.getPassword());
+        user1.setRole(role == null ? user1.getRole() : role);
 
         userDao.save(user1);
+        return BasicResultVO.success();
+    }
+
+    @GetMapping("add")
+    @ApiOperation("/新增用户")
+    public BasicResultVO add(String username, Integer role) {
+        User user = userDao.findUserByUsername(username);
+        if (user != null) {
+            return BasicResultVO.fail("用户名已被占用");
+        }
+
+        user = new User();
+        user.setUsername(username);
+        user.setPassword("123456");
+        user.setRole(role);
+
+        userDao.save(user);
         return BasicResultVO.success();
     }
 }

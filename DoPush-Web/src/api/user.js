@@ -22,3 +22,40 @@ export function logout() {
     method: 'post'
   })
 }
+
+export const add = (username, role) => {
+  return request({
+    url: '/user/add',
+    method: 'get',
+    params: {
+      username, role
+    }
+  })
+}
+
+export const list = (data) => {
+  return request({
+    url: '/user/list',
+    method: 'get',
+    params: {
+      ...data
+    }
+  })
+}
+
+export const batchDelete = (ids) => {
+  return request({
+    url: '/user/delete/' + ids,
+    method: 'delete'
+  })
+}
+
+export const change = (id, password, role) => {
+  return request({
+    url: '/user/change',
+    method: 'get',
+    params: {
+      id, password, role
+    }
+  })
+}
