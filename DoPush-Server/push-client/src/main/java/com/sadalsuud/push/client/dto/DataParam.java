@@ -1,4 +1,4 @@
-package com.sadalsuud.push.client.vo;
+package com.sadalsuud.push.client.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
