@@ -38,7 +38,7 @@ public interface DataService {
      * @param businessId 业务ID（如果传入消息模板ID，则生成当天的业务ID）
      * @return
      */
-    Map<Object, Object> getTraceMessageTemplateInfo(String businessId);
+    Map<String, Integer> getTraceMessageTemplateInfo(String businessId);
 
 
     /**

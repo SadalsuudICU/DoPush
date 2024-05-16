@@ -97,7 +97,7 @@ public class DataServiceImpl implements DataService {
      * @return
      */
     @Override
-    public Map<Object, Object> getTraceMessageTemplateInfo(String businessId) {
+    public Map<String, Integer> getTraceMessageTemplateInfo(String businessId) {
         // 获取businessId并获取模板信息
         businessId = getRealBusinessId(businessId);
         Optional<MessageTemplate> optional = messageTemplateRepository.findById(TaskInfoUtils.getMessageTemplateIdFromBusinessId(Long.valueOf(businessId)));
@@ -110,7 +110,16 @@ public class DataServiceImpl implements DataService {
           key：state
           value:stateCount
          */
-        return cacheService.hGetAll(getRealBusinessId(businessId));
+        Map<Object, Object> objectMap = cacheService.hGetAll(getRealBusinessId(businessId));
+        HashMap<String, Integer> data = new HashMap<>();
+        for (Object key : objectMap.keySet()) {
+            String state = (String) key;
+            Integer count = Integer.valueOf((String) objectMap.get(key));
+            String des = AnchorState.findEnumByCode(Integer.valueOf(state)).getDescription();
+            data.put(des, count);
+        }
+
+        return data;
     }
 
     /**

@@ -7,6 +7,7 @@ import com.sadalsuud.push.client.api.DataService;
 import com.sadalsuud.push.client.dto.DataParam;
 import com.sadalsuud.push.client.vo.timeline.SmsTimeLineVo;
 import com.sadalsuud.push.client.vo.timeline.UserTimeLineVo;
+import com.sadalsuud.push.common.vo.BasicResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -57,12 +57,14 @@ public class DataController {
 
     @PostMapping("/messageTemplate")
     @ApiOperation("/获取消息模板全链路数据")
-    public Map<Object, Object> getMessageTemplateData(@RequestBody DataParam dataParam) {
-        Map<Object, Object> res = new HashMap<>();
+    public BasicResultVO getMessageTemplateData(@RequestBody DataParam dataParam) {
+        Map<String, Integer> res;
+        System.out.println(dataParam);
         if (CharSequenceUtil.isNotBlank(dataParam.getBusinessId())) {
             res = dataService.getTraceMessageTemplateInfo(dataParam.getBusinessId());
+            return BasicResultVO.success(res);
         }
-        return res;
+        return BasicResultVO.fail("BusinessId involved");
     }
 
     @PostMapping("/sms")

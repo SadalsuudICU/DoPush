@@ -63,4 +63,13 @@ public enum AnchorState implements PowerfulEnum {
 
     private final Integer code;
     private final String description;
+
+    public static PowerfulEnum findEnumByCode(Integer code) {
+        for (AnchorState anchorState : AnchorState.values()) {
+            if(anchorState.code.equals(code)) {
+                return anchorState;
+            }
+        }
+        throw new IllegalArgumentException("messageStatus is invalid");
+    }
 }
