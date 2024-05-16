@@ -15,14 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +40,8 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserDao userDao;
+
+    private final StringRedisTemplate redisTemplate;
 
     /**
      * 列表数据
@@ -115,6 +116,19 @@ public class UserController {
         user.setRole(role);
 
         userDao.save(user);
+        return BasicResultVO.success();
+    }
+
+    @GetMapping("login")
+    @ApiOperation("/用户登录")
+    public BasicResultVO login(String username, String password) {
+        User user = userDao.findUserByUsername(username);
+        if (user == null || !user.getPassword().equals(password)) {
+            return BasicResultVO.fail("用户名或者密码错误");
+        }
+
+        String token = username + UUID.randomUUID();
+        redisTemplate.opsForValue().set(username, token, 7, TimeUnit.DAYS);
         return BasicResultVO.success();
     }
 }
