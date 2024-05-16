@@ -69,15 +69,6 @@ export default {
       })
       // console.log(this.keyword)
     },
-    filterTag(value, row) {
-      return row.sendChannel === value ||
-        row.templateType === value ||
-        row.msgType === value ||
-        row.auditStatus === value
-    },
-    clearFilter() {
-      this.$refs.table.clearFilter()
-    },
     handleSelectionChange(val) {
       this.selectedRows = val
     },
@@ -136,7 +127,6 @@ export default {
         :label="item.label"
         :type="item.typeLine"
         :filters="item.filters"
-        :filter-method="item.filters ? filterTag : undefined"
       />
     </el-table>
     <el-pagination
