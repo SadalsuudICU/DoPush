@@ -186,7 +186,7 @@ export const constantRoutes = [
         path: 'exportFailedTask',
         name: 'ExportFailedTask',
         component: () => import('@/views/failedTask/index.vue'),
-        meta: { title: '失败任务导出', icon: 'example' }
+        meta: { title: '失败任务信息', icon: 'example' }
       }
     ]
   },
