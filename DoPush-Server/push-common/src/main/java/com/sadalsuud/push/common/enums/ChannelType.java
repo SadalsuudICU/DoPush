@@ -24,35 +24,35 @@ public enum ChannelType implements PowerfulEnum {
     /**
      * IM(站内信)  -- 未实现该渠道
      */
-    IM(10, "IM(站内信)", ImContentModel.class, "im", null, null),
+    IM(10, "IM", ImContentModel.class, "im", null, null),
     /**
      * push(通知栏) --安卓 已接入 个推
      */
-    PUSH(20, "push(通知栏)", PushContentModel.class, "push", "ge_tui_access_token_", 3600 * 24L),
+    PUSH(20, "push", PushContentModel.class, "push", "ge_tui_access_token_", 3600 * 24L),
     /**
      * sms(短信)  -- 腾讯云、云片
      */
-    SMS(30, "sms(短信)", SmsContentModel.class, "sms", null, null),
+    SMS(30, "sms", SmsContentModel.class, "sms", null, null),
     /**
      * email(邮件) -- QQ、163邮箱
      */
-    EMAIL(40, "email(邮件)", EmailContentModel.class, "email", null, null),
+    EMAIL(40, "email", EmailContentModel.class, "email", null, null),
     /**
      * dingDingRobot(钉钉机器人)
      */
-    DING_DING_ROBOT(80, "dingDingRobot(钉钉机器人)", DingDingRobotContentModel.class, "ding_ding_robot", null, null),
+    DING_DING_ROBOT(80, "dingDingRobot", DingDingRobotContentModel.class, "ding_ding_robot", null, null),
     /**
      * dingDingWorkNotice(钉钉工作通知)
      */
-    DING_DING_WORK_NOTICE(90, "dingDingWorkNotice(钉钉工作通知)", DingDingWorkContentModel.class, "ding_ding_work_notice", "ding_ding_access_token_", 3600 * 2L),
+    DING_DING_WORK_NOTICE(90, "dingDingWorkNotice", DingDingWorkContentModel.class, "ding_ding_work_notice", "ding_ding_access_token_", 3600 * 2L),
     /**
      * feiShuRoot(飞书机器人)
      */
-    FEI_SHU_ROBOT(110, "feiShuRoot(飞书机器人)", FeiShuRobotContentModel.class, "fei_shu_robot", null, null),
+    FEI_SHU_ROBOT(110, "feiShuRoot", FeiShuRobotContentModel.class, "fei_shu_robot", null, null),
     /**
      * alipayMiniProgram(支付宝小程序)
      */
-    ALIPAY_MINI_PROGRAM(120, "alipayMiniProgram(支付宝小程序)", AlipayMiniProgramContentModel.class, "alipay_mini_program", null, null),
+    ALIPAY_MINI_PROGRAM(120, "alipayMiniProgram", AlipayMiniProgramContentModel.class, "alipay_mini_program", null, null),
     ;
 
     /**
