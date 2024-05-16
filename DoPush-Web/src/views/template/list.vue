@@ -379,6 +379,8 @@ export default {
         if (res.status === '200') {
           console.log(res.data)
           this.$message.success('启动成功')
+        } else {
+          this.$message.error(res.msg)
         }
       })
     },
@@ -387,6 +389,8 @@ export default {
       stop(id).then(res => {
         if (res.status === '200') {
           console.log(res.data)
+        } else {
+          this.$message.error(res.msg)
         }
       })
     },

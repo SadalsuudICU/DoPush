@@ -113,10 +113,16 @@ public class MessageTemplateServiceImpl implements MessageTemplateService {
 
     @Override
     public BasicResultVO startCronTask(Long id) {
-        // 1.获取消息模板的信息
+        // 0.获取消息模板的信息
         MessageTemplate messageTemplate = messageTemplateDao.findById(id).orElse(null);
         if (Objects.isNull(messageTemplate)) {
             return BasicResultVO.fail();
+        }
+
+        // 1.尝试流转状态
+        BasicResultVO flow = stateHandler.sending(messageTemplate.getId(), messageTemplate);
+        if (!"200".equals(flow.getStatus())) {
+            return flow;
         }
 
         // 2.动态创建或更新定时任务
