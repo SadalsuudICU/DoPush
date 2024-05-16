@@ -1,6 +1,6 @@
 <script>
 import { transTimestampToDate } from '@/utils/date'
-import { queryMaterialList } from '@/api/material'
+import { batchDelete, queryMaterialList } from '@/api/material'
 
 export default {
   data() {
@@ -119,6 +119,21 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val
       this.search()
+    },
+    batchDelete() {
+      const rows = this.selectedRows
+      const ids = []
+      rows.map(item => {
+        ids.push(item.id)
+      })
+      const deleteIds = ids.join(',')
+      batchDelete(deleteIds).then(res => {
+        console.log(res)
+        if (res.status === '200') {
+          this.$message.success('delete materials successfully')
+          this.search()
+        }
+      })
     }
   }
 }
@@ -144,6 +159,13 @@ export default {
     >
       搜索
     </el-button>
+    <el-button
+      type="danger"
+      style="float: right"
+      @click="batchDelete"
+    >
+      批量删除
+    </el-button>
     <p />
     <el-button
       type="primary"
@@ -167,17 +189,17 @@ export default {
         :filters="item.filters"
         :filter-method="item.filters ? filterTag : undefined"
       />
-      <el-table-column label="操作">
-        <template v-slot="scope">
-          <div class="btns">
-            <el-button
-              class="btn"
-              size="danger"
-              @click="alert(scope.id)"
-            >删除</el-button>
-          </div>
-        </template>
-      </el-table-column>
+      <!--      <el-table-column label="操作">-->
+      <!--        <template v-slot="scope">-->
+      <!--          <div class="btns">-->
+      <!--            <el-button-->
+      <!--              class="btn"-->
+      <!--              size="danger"-->
+      <!--              @click="alert(scope.id)"-->
+      <!--            >删除</el-button>-->
+      <!--          </div>-->
+      <!--        </template>-->
+      <!--      </el-table-column>-->
     </el-table>
     <el-pagination
       :current-page="currentPage"

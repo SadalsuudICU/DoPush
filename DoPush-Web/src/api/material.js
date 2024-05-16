@@ -18,7 +18,7 @@ export const queryMaterialList = (data) => {
   })
 }
 
-export const deleteByIds = (ids) => {
+export const batchDelete = (ids) => {
   return request({
     url: '/material/delete/' + ids,
     method: 'delete'

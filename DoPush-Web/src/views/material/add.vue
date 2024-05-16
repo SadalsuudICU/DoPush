@@ -89,7 +89,8 @@ export default {
       const sendAccount = this.form.account
       const sendChannel = 80
       const creator = creator || 'Sadalsuud'
-      if (!(name && name !== '' && fileType && sendAccount && sendChannel)) {
+      // if (!(name && name !== '' && fileType && sendAccount && sendChannel)) {
+      if (!(name && name !== '' && fileType && this.file)) {
         console.log(name, fileType, sendChannel, sendAccount, creator, this.file.raw)
         this.$message.error('请完整填写表单')
         return
@@ -110,7 +111,7 @@ export default {
           this.$message({
             message: h('p', null, [
               h('span', null, '文件上传成功 '),
-              h('i', { style: 'color: teal' }, 'path')
+              h('i', { style: 'color: teal' }, res.data.path)
             ])
           })
         }
@@ -187,7 +188,7 @@ export default {
         >
           <div slot="tip" class="el-upload__tip">
             <span v-show="msg && msg !== ''" style="font-size: 1rem;color: red">{{ tip }}</span>
-            <span style="font-size: 1rem;color: #1f2d3d">请根据所选文件类型选择需要上传文件</span>
+            <span v-if="!file" style="font-size: 0.8rem;color: #ee1d93">请根据所选文件类型上传文件</span>
           </div>
           <el-button size="small" type="primary">选择文件</el-button>
           <el-button size="small" type="success" @click.stop="uploadFile">上传到服务器</el-button>
