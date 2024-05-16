@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-page-header content="新增模板" @back="goBack" />
     <el-divider />
-    <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+    <el-form ref="form" :rules="rules" :model="form" label-width="120px" :disabled="!operable">
       <el-tag>基本配置</el-tag>
       <el-form-item label="模板名称" prop="name">
         <el-input v-model="form.name" />

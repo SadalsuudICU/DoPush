@@ -81,7 +81,7 @@
     />
 
     <el-dialog title="待审核模板查看" :visible.sync="checkTableVisible">
-      <CreateOrUpdate :data="checkData" :operable="true" />
+      <CreateOrUpdate :update="checkData" :operable="false" />
     </el-dialog>
   </div>
 </template>
