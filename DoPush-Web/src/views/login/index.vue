@@ -54,6 +54,8 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
+import { login } from '@/api/user'
+import { setToken } from '@/utils/auth'
 
 export default {
   name: 'Login',
@@ -66,8 +68,8 @@ export default {
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+      if (value.length < 2) {
+        callback(new Error('The password can not be less than 2 digits'))
       } else {
         callback()
       }
@@ -75,7 +77,7 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '111111'
+        password: 'admin'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -109,11 +111,22 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
-          }).catch(() => {
-            this.loading = false
+          // this.$store.dispatch('user/login', this.loginForm).then(() => {
+          //   this.$router.push({ path: this.redirect || '/' })
+          //   this.loading = false
+          // }).catch(() => {
+          //   this.loading = false
+          // })
+          login(this.loginForm.username, this.loginForm.password).then(res => {
+            if (res.status === '200') {
+              setToken(this.loginForm.username, res.token)
+              this.$message.success('login -->')
+              this.$router.push({ path: this.redirect || '/' })
+              this.loading = false
+            } else {
+              this.$message.error(res.msg)
+              this.loading = false
+            }
           })
         } else {
           console.log('error submit!!')

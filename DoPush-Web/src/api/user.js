@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function login(data) {
+export function login1(data) {
   return request({
     url: '/vue-admin-template/user/login',
     method: 'post',
@@ -56,6 +56,16 @@ export const change = (id, password, role) => {
     method: 'get',
     params: {
       id, password, role
+    }
+  })
+}
+
+export const login = (username, password) => {
+  return request({
+    url: '/user/login',
+    method: 'get',
+    params: {
+      username, password
     }
   })
 }
