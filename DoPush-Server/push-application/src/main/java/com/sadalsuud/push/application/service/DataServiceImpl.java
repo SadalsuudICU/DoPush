@@ -8,7 +8,7 @@ import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.text.StrPool;
 import com.alibaba.fastjson.JSON;
 import com.sadalsuud.push.client.api.DataService;
-import com.sadalsuud.push.client.vo.DataParam;
+import com.sadalsuud.push.client.dto.DataParam;
 import com.sadalsuud.push.client.vo.timeline.SmsTimeLineVo;
 import com.sadalsuud.push.client.vo.timeline.UserTimeLineVo;
 import com.sadalsuud.push.common.constant.DoPushConstant;
