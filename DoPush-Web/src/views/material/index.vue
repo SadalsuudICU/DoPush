@@ -141,7 +141,7 @@ export default {
 
 <template>
   <div>
-    <el-page-header content="消息模板列表" @back="goBack" />
+    <el-page-header content="素材市场" @back="goBack" />
     <el-divider />
     <el-input
       v-model="keywords"
