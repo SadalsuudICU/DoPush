@@ -114,15 +114,18 @@ CREATE TABLE `user`
     `id`       bigint(20)  NOT NULL AUTO_INCREMENT,
     `username` varchar(64) NOT NULL COMMENT '用户名',
     `password` varchar(64) NOT NULL default 'dopush123456' COMMENT '密码',
-    `role`  int         NOT NULL COMMENT '角色: 0->管理 1->审查 2->运营',
+    `role`     int         NOT NULL COMMENT '角色: 0->管理 1->审查 2->运营',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT ='用户表';
-insert into `user` values (1, 'admin', 'admin', 0);
-insert into `user` values (2, 'examiner', 'examiner', 1);
-insert into `user` values (3, 'salesperson', 'salesperson', 2);
+insert into `user`
+values (1, 'admin', 'admin', 0);
+insert into `user`
+values (2, 'examiner', 'examiner', 1);
+insert into `user`
+values (3, 'salesperson', 'salesperson', 2);
 
 
 # drop table if exists `role`;
@@ -187,13 +190,13 @@ CREATE TABLE `message_dimension_data`
 drop table if exists `material`;
 CREATE TABLE `material`
 (
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
-    `type`        int        NOT NULL default 0 COMMENT '素材类型',
-    `creator`     varchar(128)        NOT NULL COMMENT '上传者',
+    `id`          bigint(20)   NOT NULL AUTO_INCREMENT,
+    `type`        int          NOT NULL default 0 COMMENT '素材类型',
+    `creator`     varchar(128) NOT NULL COMMENT '上传者',
     `name`        varchar(128) COMMENT '素材文件名',
     `path`        varchar(256) COMMENT '素材文件存储地址',
     `create_time` int COMMENT '素材创建时间',
-    `is_deleted`  tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除：0.不删除 1.删除',
+    `is_deleted`  tinyint(4)   NOT NULL DEFAULT '0' COMMENT '是否删除：0.不删除 1.删除',
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
@@ -205,13 +208,13 @@ CREATE TABLE `material`
 drop table if exists `failed_task`;
 CREATE TABLE `failed_task`
 (
-    `messageId`         varchar(200) NOT NULL COMMENT '消息唯一id',
-    `bizId`             varchar(200) NOT NULL COMMENT '业务消息发送id',
-    `messageTemplateId` varchar(200) NOT NULL COMMENT '消息模板id',
-    `businessId`        bigint default 0 COMMENT '业务Id(数据追踪使用)',
+    `id`         varchar(200) NOT NULL COMMENT '消息唯一id',
+    `biz_id`             varchar(200) NOT NULL COMMENT '业务消息发送id',
+    `message_template_id` bigint(20)   NOT NULL COMMENT '消息模板id',
+    `business_id`        bigint(20) default 0 COMMENT '业务Id(数据追踪使用)',
     `receiver`          text         NOT NULL COMMENT '接受人群',
     `time`              int COMMENT '录入时间',
-    primary key (`messageId`)
+    primary key (`id`)
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4

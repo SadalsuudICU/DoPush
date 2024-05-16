@@ -4,11 +4,11 @@ import cn.hutool.core.bean.BeanUtil;
 import com.sadalsuud.push.common.domain.AnchorInfo;
 import com.sadalsuud.push.common.domain.TaskInfo;
 import com.sadalsuud.push.common.enums.AnchorState;
+import com.sadalsuud.push.domain.assign.flowcontrol.FlowControlFactory;
+import com.sadalsuud.push.domain.assign.flowcontrol.FlowControlParam;
 import com.sadalsuud.push.domain.assign.model.task.FailedTask;
 import com.sadalsuud.push.domain.assign.model.task.repository.IFailedTaskRepository;
 import com.sadalsuud.push.domain.support.LogUtils;
-import com.sadalsuud.push.domain.assign.flowcontrol.FlowControlFactory;
-import com.sadalsuud.push.domain.assign.flowcontrol.FlowControlParam;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -65,6 +65,7 @@ public abstract class BaseHandler implements Handler {
         // 失败则保存失败的任务信息 以便后续清洗显示和重发
         FailedTask failedTask = new FailedTask();
         BeanUtil.copyProperties(taskInfo, failedTask, true);
+        failedTask.setId(taskInfo.getMessageId());
         // TODO 任务失败逻辑 MQ重试 最大次数后放弃重试落库
         failedTaskRepository.save(failedTask);
         logUtils.print(AnchorInfo.builder().state(AnchorState.SEND_FAIL.getCode()).bizId(taskInfo.getBizId()).messageId(taskInfo.getMessageId()).businessId(taskInfo.getBusinessId()).ids(taskInfo.getReceiver()).build());

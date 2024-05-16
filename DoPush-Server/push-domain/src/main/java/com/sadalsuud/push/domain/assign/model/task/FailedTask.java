@@ -1,7 +1,6 @@
 package com.sadalsuud.push.domain.assign.model.task;
 
 import lombok.*;
-import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,10 +16,9 @@ import javax.persistence.Id;
 @Setter
 @ToString
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Accessors(chain = true)
 public class FailedTask {
 
     /**
@@ -33,7 +31,7 @@ public class FailedTask {
      * 生成逻辑参考 TaskInfoUtils
      */
     @Id
-    private String messageId;
+    private String id;
 
     /**
      * 消息模板Id
