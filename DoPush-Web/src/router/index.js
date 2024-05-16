@@ -171,7 +171,7 @@ export const constantRoutes = [
         path: 'permission',
         name: 'Permission',
         component: () => import('@/views/user/permission.vue'),
-        meta: { title: '权限管理', icon: 'eye' }
+        meta: { title: '用户管理', icon: 'eye' }
       }
     ]
   },
